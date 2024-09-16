@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./styles/globals.css";
 
 const geistSans = localFont({
-  src: "./fonts/Gordita-Light.otf",
+  src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
