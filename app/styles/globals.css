@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './font.css';
 
 :root {
   --background: #ffffff;
@@ -25,8 +24,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-h1 {
-  font-family: 'Gordita';
 }
