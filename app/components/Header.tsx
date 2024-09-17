@@ -1,23 +1,32 @@
 import Link from 'next/link';
 import React from 'react';
+import Image from "next/image";
 
 const Header = () => {
   return (
-    <header className="bg-gray-800 text-white font-gordita p-4">
-      <nav className="container flex justify-between">
-        <ul className="flex space-x-4">
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/about">About</Link></li>
-          <li><Link href="/contact">Contact</Link></li>
-        </ul>
+    <header className="flex justify-between items-center h-12">
+      <div className="flex">
+        <Link href="/">
+          <Image 
+            src="/images/logo/synbio.png"
+            alt="Synbio ID Logo"
+            width={80}
+            height={591}
+            className="h-full w-auto p-2"
+          />
+        </Link>
+      </div>
 
-        <div className="flex flex-end space-x-4">
-            <div className="bg-black rounded-full">
-                Login as Mentee
-            </div>
-        </div>
+      <nav className="flex h-full">
+        <div className="dropdown"><Link href="/">Competition</Link></div>
+        <div className="dropdown"><Link href="/mentoring">Mentoring</Link></div>
+        {/* <div className="dropdown"><Link href="/">Journal Club</Link></div> */}
+        {/* <div className="dropdown"><Link href="/">Blog</Link></div> */}
+        <div className="dropdown"><Link href="/about">About</Link></div>
+        <div className="dropdown"><Link href="/contact">Contact</Link></div>
       </nav>
     </header>
+    
   );
 };
 
