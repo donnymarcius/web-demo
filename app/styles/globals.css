@@ -11,6 +11,7 @@
   --light-green: #a3dacd;
   --dark-blue: #344d6b;
   --gray-blue: #667e9e;
+  --text-selection: #cae9e2;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -32,14 +33,12 @@ body {
   }
 }
 
-div::selection,
-h1::selection,
-button::selection,
-p::selection,
-span::selection,
-a::selection,
-h2::selection {
-  background-color: #d7e6e3;
+* {
+  transition: all 0.3s ease;
+}
+
+*::selection {
+  background-color: var(--text-selection);
 }
 
 h1 {
@@ -73,7 +72,6 @@ header {
   display: flex;
   align-items: center;
   padding: 0 1em;
-  transition: all 0.3s ease;
 }
 
 .dropdown:hover {

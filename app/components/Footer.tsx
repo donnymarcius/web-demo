@@ -19,24 +19,17 @@ const Footer = () => {
         <div className="text-white flex gap-24">
           <div className="flex flex-col gap-1">
             <h6>Synbio ID Program</h6>
-            <p className="font-light">
+            <p className="flex flex-col gap-1 ml-2 font-light">
               <Link href="/competition">Competition</Link>
-            </p>
-            <p className="font-light">
               <Link href="/mentoring">Mentoring</Link>
-            </p>
-            <p className="font-light">
               <Link href="/journalclub">Journal Club</Link>
-            </p>
-            <p className="font-light">
               <Link href="/blog">Blog</Link>
             </p>
-            
           </div>
           
           <div className="flex flex-col gap-2">
             <h6>Social Media</h6>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center ml-2">
               <div className="w-6 h-6 flex items-center justify-center">
                 <Image
                   src="/images/logo/ig-white.png"
@@ -49,7 +42,7 @@ const Footer = () => {
               <p className="font-light">Instagram</p>
             </div>
             
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center ml-2">
               <div className="w-6 h-6 flex items-center justify-center">
                 <Image
                   src="/images/logo/linkedin-white.png"
