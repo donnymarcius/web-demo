@@ -20,7 +20,7 @@ export default function Home() {
             />
           </div>
           <p>
-            Synbio.ID's Mentoring Program seeks and matches experts 
+            Synbio.ID&apos;s Mentoring Program seeks and matches experts 
             from various life science backgrounds to share their 
             knowledge and insights with 1-3 mentees to help them 
             pursue their careers and passions.
