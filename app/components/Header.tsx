@@ -10,7 +10,7 @@ const Header = () => {
           <Image 
             src="/images/logo/synbio.png"
             alt="Synbio ID Logo"
-            width={80}
+            width={100}
             height={591}
             className="h-full w-auto p-2"
           />

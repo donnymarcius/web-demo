@@ -4,12 +4,13 @@
 @import "./font.css";
 
 :root {
-  --background: #ffffff;
-  --background-secondary: #d2f5ee;
-  --button-primary: #20544a;
-  --button-secondary: #d2f5ee;
-  --text-primary: #1a1a1a;
-  --text-secondary: #20544a;
+  --white: #ffffff;
+  --black: #1a1a1a;
+  --synbio-green: #20544a;
+  --natural-green: #4f8b69;
+  --light-green: #a3dacd;
+  --dark-blue: #344d6b;
+  --gray-blue: #667e9e;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -49,7 +50,13 @@ h2 {
   font-size: 2rem;
   font-weight: 700;
 }
- 
+
+h6 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--light-green);
+}
+
 button {
   padding: 0.5rem 1rem;
   border: black 1px solid;
@@ -58,8 +65,7 @@ button {
 }
 
 header {
-  background-color: var(--text-primary);
-  color: var(--button-secondary);
+  color: var(--synbio-green);
 }
 
 .dropdown {
@@ -71,8 +77,7 @@ header {
 }
 
 .dropdown:hover {
-  background-color: var(--button-secondary);
-  color: var(--button-primary);
+  background-color: var(--light-green);
   cursor: pointer;
 }
 
