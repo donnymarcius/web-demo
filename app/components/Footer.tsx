@@ -5,16 +5,18 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer>
-      <div className="px-4 py-8" style={{ backgroundColor: 'var(--synbio-green)' }}>
-        <Link href="/">
-          <Image 
-            src="/images/logo/synbio.png"
-            alt="Synbio ID Logo"
-            width={1000}
-            height={591}
-            className="h-16 w-auto pb-4"
-          />
-        </Link>
+      <div className="px-20 py-8" style={{ backgroundColor: 'var(--synbio-green)' }}>
+        <div className="w-32 pb-4">
+          <Link href="/">
+            <Image 
+              src="/images/logo/synbio.png"
+              alt="Synbio ID Logo"
+              width={800}
+              height={591}
+              className="h-full w-full"
+            />
+          </Link>
+        </div>
 
         <div className="text-white flex gap-24">
           <div className="flex flex-col gap-1">
