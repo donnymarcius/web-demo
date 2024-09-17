@@ -8,7 +8,7 @@
   --black: #1a1a1a;
   --synbio-green: #20544a;
   --natural-green: #4f8b69;
-  --light-green: #a3dacd;
+  --light-green: #cae9e2;
   --dark-blue: #344d6b;
   --gray-blue: #667e9e;
   --text-selection: #cae9e2;
@@ -39,6 +39,7 @@ body {
 
 *::selection {
   background-color: var(--text-selection);
+  color: var(--synbio-green);
 }
 
 h1 {
@@ -48,6 +49,7 @@ h1 {
 h2 {
   font-size: 2rem;
   font-weight: 700;
+  margin-bottom: 0.1rem;
 }
 
 h6 {
@@ -65,6 +67,14 @@ button {
 
 header {
   color: var(--synbio-green);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  backdrop-filter: blur(10px); /* This creates the blur effect */
+  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white background */
+  border-bottom: 1px solid var(--light-green); /* Border color equivalent to Tailwind's border-gray-200 */
 }
 
 .dropdown {
@@ -77,6 +87,7 @@ header {
 .dropdown:hover {
   background-color: var(--light-green);
   cursor: pointer;
+  border-bottom: 2px solid var(--synbio-green);
 }
 
 .banner {
