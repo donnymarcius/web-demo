@@ -59,11 +59,24 @@ h6 {
 }
 
 button {
-  padding: 0.5rem 1rem;
-  border: black 1px solid;
+  margin-top: 10px;
+  padding: 0.2rem 0.8rem;
+  background-color: var(--synbio-green);
+  color: var(--light-green);
   border-radius: 10px;
-  margin: 10px;
+  font-weight: 500;
 }
+
+  button.white {
+    background-color: var(--light-green);
+    color: var(--synbio-green);
+  }
+
+  button:hover {
+    background-color: var(--natural-green);
+    color: var(--light-green);
+    scale: 110%;
+  }
 
 header {
   color: var(--synbio-green);
@@ -82,6 +95,7 @@ header {
   display: flex;
   align-items: center;
   padding: 0 1em;
+  border-bottom: 2px solid transparent;
 }
 
 .dropdown:hover {

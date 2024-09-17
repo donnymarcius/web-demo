@@ -1,7 +1,11 @@
+import Link from 'next/link';
+import React from 'react';
+import Image from "next/image";
+
 export default function Home() {
   return (
     <div>
-      <section className="px-4 h-[calc(90dvh)] flex flex-col text-center justify-center items-center">
+      <section className="px-6 h-[calc(95dvh)] flex flex-col text-center justify-center items-center">
         <h1
           className="text-9xl font-bold my-6"
           style={{ 
@@ -20,17 +24,28 @@ export default function Home() {
       </section>
 
       <div
-        className="relative h-[200px]"
+        className="relative min-h-[200px] flex flex-col justify-center text-white px-6"
         style={{
           backgroundImage: "linear-gradient(to right, var(--synbio-green), var(--natural-green), transparent), url('/images/images.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute top-1/2 transform -translate-y-1/2 text-white pl-4 pr-64">
-          <h2>Welcome to My Website</h2>
-          <p>This is a container with a gradient background that transitions to an image.</p>
+        <div className="w-[60vw] py-6">
+          <h2>Synbio ID Community</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <button className="white">Learn More</button>
         </div>
+      </div>
+
+      <div className="flex px-6 p-8">
+        <div>
+          <h2>Competition</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <button>Learn More</button>
+        </div>
+
+
       </div>
     </div>
   );

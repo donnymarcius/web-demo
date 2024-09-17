@@ -58,8 +58,8 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="py-2 text-white text-center" style={{ backgroundColor: 'var(--black)' }}>
-        <p>&copy; {new Date().getFullYear()} Synbio ID. All rights reserved.</p>
+      <div className="py-2 text-white text-center font-light" style={{ backgroundColor: 'var(--black)' }}>
+        <p>&copy; {new Date().getFullYear()} Synbio ID.&nbsp; All rights reserved.</p>
       </div>
     </footer>
   );
