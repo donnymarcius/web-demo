@@ -27,8 +27,8 @@ export default function Home() {
             </p>
           </Link> */}
 
-          <Link href="/login">
-            <button className="login">Login</button>
+          <Link href="/mentoring/login">
+            <button className="login" type="button">Login</button>
           </Link>
         </div>
       </div>
@@ -39,9 +39,9 @@ export default function Home() {
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           
           <div className="flex justify-center">
-            <a href="/" target="_blank" rel="noopener noreferrer">
-              <button className="white font-medium text-xl mt-6">Click Here to Register as Mentor</button>
-            </a>
+            {/* <a href="/" target="_blank" rel="noopener noreferrer"> */}
+              <button className="white font-medium text-xl mt-6" type="button">Click Here to Register as Mentor</button>
+            {/* </a> */}
           </div>
           
         </div>

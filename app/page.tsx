@@ -34,7 +34,7 @@ export default function Home() {
         <div className="w-[60vw] py-6">
           <h2>Synbio ID Community</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-          <button className="white">Learn More</button>
+          <button className="white" type="button">Learn More</button>
         </div>
       </div>
 
@@ -43,7 +43,7 @@ export default function Home() {
           <h2>Competition</h2>
           <p className="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
           {/* <Link href="/mentoring"> */}
-            <button>Learn More</button>
+            <button type="button">Learn More</button>
           {/* </Link> */}
         </div>
 
@@ -71,10 +71,10 @@ export default function Home() {
           
           <div className="flex gap-2">
             <Link href="/mentoring">
-              <button>Learn More</button>
+              <button type="button">Learn More</button>
             </Link>
             <Link href="/mentoring/documentation">
-              <button>Documentation</button>
+              <button type="button">Documentation</button>
             </Link>
           </div>
           
@@ -86,7 +86,7 @@ export default function Home() {
           <h2>Journal Club</h2>
           <p className="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
           {/* <Link href="/mentoring"> */}
-            <button>Learn More</button>
+            <button type="button">Learn More</button>
           {/* </Link> */}
         </div>
 
@@ -114,7 +114,7 @@ export default function Home() {
           
           <div className="flex gap-2">
             {/* <Link href="/mentoring"> */}
-              <button>Learn More</button>
+              <button type="button">Learn More</button>
             {/* </Link> */}
           </div>
           

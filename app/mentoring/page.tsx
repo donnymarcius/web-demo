@@ -24,8 +24,8 @@ export default function Home() {
             </p>
           </Link>
 
-          <Link href="/login">
-            <button className="login">Login</button>
+          <Link href="/mentoring/login">
+            <button className="login" type="button">Login</button>
           </Link>
         </div>
       </div>
@@ -50,10 +50,10 @@ export default function Home() {
 
             <div className="flex gap-2 mt-2">
               <Link href="/mentoring/explore">
-                <button>Explore Mentor</button>
+                <button type="button">Explore Mentor</button>
               </Link>
               <Link href="/mentoring/documentation">
-                <button>Documentation</button>
+                <button type="button">Documentation</button>
               </Link>
             </div>
           </div>

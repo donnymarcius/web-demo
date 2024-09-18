@@ -28,8 +28,8 @@ export default function Home() {
             </p>
           </Link>
 
-          <Link href="/login">
-            <button className="login">Login</button>
+          <Link href="/mentoring/login">
+            <button className="login" type="button">Login</button>
           </Link>
         </div>
       </div>
