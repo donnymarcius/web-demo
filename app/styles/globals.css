@@ -54,7 +54,7 @@ body {
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 3.6rem;
 }
 
 h2 {
@@ -180,6 +180,7 @@ header {
   align-items: center;
   justify-content: center;
   margin-top: 48px;
+  padding: 0 24px;
 }
 
 .box {

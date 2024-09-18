@@ -7,7 +7,7 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <section className="banner">
         <h1 className="font-bold">Previous Batches</h1>
-        <p className="text-lg italic">Gathering mentors and mentees across Indonesia to explore life science</p>
+        <p className="text-lg italic text-center">Gathering mentors and mentees across Indonesia to explore life science</p>
       </section>
 
       <div className="px-10 py-4 flex justify-between items-center">
