@@ -18,7 +18,7 @@ export default function Home() {
             className="w-auto h-40"
           />
           <div className="max-w-[675px]">
-            <h2>What is Synbio ID's Mentoring Program?</h2>
+            <h2>What is Synbio ID&apos;s Mentoring Program?</h2>
             <p>
               Synbio.ID&apos;s Mentoring Program seeks and matches experts 
               from various life science backgrounds to share their 
