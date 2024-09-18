@@ -30,7 +30,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="page my-10 flex flex-col gap-10">
+      <div className="page flex flex-col gap-10">
         <div className="flex gap-2 items-center justify-center">
           <Image 
             src="/images/mentoring/mascot.png"

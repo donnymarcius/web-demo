@@ -47,6 +47,18 @@ const Header = () => {
                 Explore Mentor
               </div>
             </Link></li>
+            <li><Link href="/mentoring/guidebook">
+              <div className="flex gap-2 items-center">
+                <Image 
+                  src="/images/icon/book-green.png"
+                  alt="Documentation"
+                  width={10}
+                  height={10}
+                  className="h-full w-auto"
+                />
+                Guidebook
+              </div>
+            </Link></li>
             <li><Link href="/mentoring/documentation">
               <div className="flex gap-2 items-center">
                 <Image 

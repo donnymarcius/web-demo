@@ -34,7 +34,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="page my-8 flex flex-col gap-4">
+      <div className="page flex flex-col gap-4">
         <div className="-mx-40 px-40 py-6" style={{ background: 'var(--lighter-green)' }}>
           <div className="flex justify-between gap-10">
             <div className="flex-1">
