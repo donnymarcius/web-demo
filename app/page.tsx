@@ -38,10 +38,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex px-10 py-8 gap-10 items-center justify-end">
+      <div className="page flex my-8 gap-10 items-center justify-end">
         <div className="w-[calc(60dvw)] text-right">
           <h2>Competition</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <p className="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
           {/* <Link href="/mentoring"> */}
             <button>Learn More</button>
           {/* </Link> */}
@@ -56,7 +56,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="flex px-10 py-8 gap-10 items-center justify-start">
+      <div className="page flex my-8 flex gap-10 items-center justify-start">
         <Image 
           src="/images/placeholder-16x9.jpg"
           alt="Photo"
@@ -67,7 +67,7 @@ export default function Home() {
         
         <div className="w-[calc(60dvw)] text-left">
           <h2>Mentoring</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <p className="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
           
           <div className="flex gap-2">
             <Link href="/mentoring">
@@ -81,10 +81,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex px-10 py-8 gap-10 items-center justify-end">
+      <div className="page flex my-8 flex gap-10 items-center justify-end">
         <div className="w-[calc(60dvw)] text-right">
           <h2>Journal Club</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <p className="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
           {/* <Link href="/mentoring"> */}
             <button>Learn More</button>
           {/* </Link> */}
@@ -99,7 +99,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="flex px-10 py-8 gap-10 items-center justify-start">
+      <div className="page flex my-8 flex gap-10 items-center justify-start">
         <Image 
           src="/images/placeholder-16x9.jpg"
           alt="Photo"
@@ -110,7 +110,7 @@ export default function Home() {
         
         <div className="w-[calc(60dvw)] text-left">
           <h2>Synbio Blog</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <p className="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
           
           <div className="flex gap-2">
             {/* <Link href="/mentoring"> */}
