@@ -1,4 +1,4 @@
-// import Link from 'next/link';
+import Link from 'next/link';
 import React from 'react';
 import Image from "next/image";
 
@@ -29,12 +29,12 @@ export default function Home() {
             </p>
 
             <div className="flex gap-2 mt-2">
-              {/* <Link href="/"> */}
+              {/* <Link href="/mentoring/explore"> */}
                 <button>Explore Mentor</button>
               {/* </Link> */}
-              {/* <Link href="/"> */}
-                <button>Program Documentation</button>
-              {/* </Link> */}
+              <Link href="/mentoring/documentation">
+                <button>Documentation</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function Home() {
         <div>
           <h2>Mentor Categories</h2>
           <div className="flex flex-wrap gap-2 mt-4">
-            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--light-green)' }}>
+            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--lighter-green)' }}>
               <Image 
                 src="/images/icon/school-green.png"
                 alt="school"
@@ -70,7 +70,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--light-green)' }}>
+            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--lighter-green)' }}>
               <Image 
                 src="/images/icon/company-green.png"
                 alt="school"
@@ -84,7 +84,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--light-green)' }}>
+            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--lighter-green)' }}>
               <Image 
                 src="/images/icon/startup-green.png"
                 alt="school"
@@ -98,7 +98,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--light-green)' }}>
+            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--lighter-green)' }}>
               <Image 
                 src="/images/icon/bank-green.png"
                 alt="school"
@@ -112,7 +112,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--light-green)' }}>
+            <div className="flex-1 items-center gap-5 p-4 rounded-lg min-w-72" style={{ background: 'var(--lighter-green)' }}>
               <Image 
                 src="/images/icon/school-green.png"
                 alt="school"
@@ -131,7 +131,7 @@ export default function Home() {
         <div>
           <h2 className="text-center">Testimony from Previous Batch</h2>
           <div className="flex flex-wrap gap-4 mt-4">
-            <div className="box">
+            <div className="box flex-1 min-w-64">
               <p className="text-justify">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>
@@ -147,7 +147,7 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="box">
+            <div className="box flex-1 min-w-64">
               <p className="text-justify">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>
@@ -163,7 +163,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="box">
+            <div className="box flex-1 min-w-64">
               <p className="text-justify">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>

@@ -97,9 +97,8 @@ header {
   left: 0;
   width: 100%;
   z-index: 50;
-  backdrop-filter: blur(10px); /* This creates the blur effect */
-  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white background */
-  border-bottom: 1px solid var(--light-green); /* Border color equivalent to Tailwind's border-gray-200 */
+  background-color: white; 
+  border-bottom: 1px solid var(--light-green); 
 }
 
 .navbar-item {
@@ -169,7 +168,7 @@ header {
 }
 
 .box {
-  border: 1px solid var(--synbio-green) ;
+  border: 1px solid var(--synbio-green);
   border-radius: 10px;
   padding: 10px 15px;
 }
