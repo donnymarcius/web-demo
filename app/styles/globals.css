@@ -5,7 +5,7 @@
 
 :root {
   --white: #ffffff;
-  --black: #1a1a1a;
+  --black: #101720;
   --synbio-green: #20544a;
   --natural-green: #4f8b69;
   --light-green: #cae9e2;
@@ -23,8 +23,8 @@
 } */
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--black);
+  background: var(--white);
   font-family: 'Gordita';
 }
 
@@ -157,6 +157,7 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 48px;
 }
 
 .box {

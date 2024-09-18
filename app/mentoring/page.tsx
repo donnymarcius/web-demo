@@ -5,26 +5,27 @@ export default function Home() {
     <div>
       <section className="banner">
         <h1 className="font-bold">Mentoring Program</h1>
-        <p>Gathering mentors and mentees across Indonesia to explore life science</p>
+        <p className="text-lg italic">Gathering mentors and mentees across Indonesia to explore life science</p>
       </section>
 
       <div className="p-4 flex flex-col gap-6">
-        <div className="flex gap-2 h-[calc(3/5*100dvh)]">
-          <div className="h-full w-full relative">
-            <Image 
-              src="/images/mentoring/mascot.png"
-              alt="Mascot"
-              layout="fill"
-              objectFit="cover"
-              className="h-full w-full"
-            />
+        <div className="flex gap-2 items-center">
+          <Image 
+            src="/images/mentoring/mascot.png"
+            alt="Mascot"
+            width={1007}
+            height={1149}
+            className="w-auto h-40"
+          />
+          <div className="max-w-[675px]">
+            <h2>What is Synbio ID's Mentoring Program?</h2>
+            <p>
+              Synbio.ID&apos;s Mentoring Program seeks and matches experts 
+              from various life science backgrounds to share their 
+              knowledge and insights with 1-3 mentees to help them 
+              pursue their careers and passions.
+            </p>
           </div>
-          <p>
-            Synbio.ID&apos;s Mentoring Program seeks and matches experts 
-            from various life science backgrounds to share their 
-            knowledge and insights with 1-3 mentees to help them 
-            pursue their careers and passions.
-          </p>
         </div>
 
         <div className="flex items-center">

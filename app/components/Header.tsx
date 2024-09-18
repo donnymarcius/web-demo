@@ -23,9 +23,42 @@ const Header = () => {
         <li className="navbar-item dropdown">
           <Link href="/mentoring">Mentoring</Link>
           <ul className="dropdown-menu">
-            <li><Link href="/mentoring">Home</Link></li>
-            <li><Link href="/">Explore Mentors</Link></li>
-            <li><Link href="/">Documentation</Link></li>
+            <li><Link href="/mentoring">
+              <div className="flex gap-2 items-center">
+                <Image 
+                  src="/images/logo/home-green.png"
+                  alt="Home"
+                  width={10}
+                  height={10}
+                  className="h-full w-auto"
+                />
+                Home
+              </div>
+            </Link></li>
+            <li><Link href="/">
+              <div className="flex gap-2 items-center">
+                <Image 
+                  src="/images/logo/people-green.png"
+                  alt="Explore Mentor"
+                  width={10}
+                  height={10}
+                  className="h-full w-auto"
+                />
+                Explore Mentor
+              </div>
+            </Link></li>
+            <li><Link href="/">
+              <div className="flex gap-2 items-center">
+                <Image 
+                  src="/images/logo/library-green.png"
+                  alt="Documentation"
+                  width={10}
+                  height={10}
+                  className="h-full w-auto"
+                />
+                Documentation
+              </div>
+            </Link></li>
           </ul>
         </li>
         
