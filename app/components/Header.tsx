@@ -17,14 +17,23 @@ const Header = () => {
         </Link>
       </div>
 
-      <nav className="flex h-full">
-        <div className="dropdown"><Link href="/">Competition</Link></div>
-        <div className="dropdown"><Link href="/mentoring">Mentoring</Link></div>
-        {/* <div className="dropdown"><Link href="/">Journal Club</Link></div> */}
-        {/* <div className="dropdown"><Link href="/">Blog</Link></div> */}
-        <div className="dropdown"><Link href="/about">About</Link></div>
-        <div className="dropdown"><Link href="/contact">Contact</Link></div>
-      </nav>
+      <ul className="navbar flex h-full">
+        <li className="navbar-item"><Link href="/">Competition</Link></li>
+        
+        <li className="navbar-item dropdown">
+          <Link href="/mentoring">Mentoring</Link>
+          <ul className="dropdown-menu">
+            <li><Link href="/mentoring">Home</Link></li>
+            <li><Link href="/">Explore Mentors</Link></li>
+            <li><Link href="/">Documentation</Link></li>
+          </ul>
+        </li>
+        
+        {/* <li className="navbar-item"><Link href="/">Journal Club</Link></li> */}
+        {/* <li className="navbar-item"><Link href="/">Blog</Link></li> */}
+        <li className="navbar-item"><Link href="/about">About</Link></li>
+        <li className="navbar-item"><Link href="/contact">Contact</Link></li>
+      </ul>
     </header>
     
   );

@@ -5,7 +5,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer>
-      <div className="px-20 py-8" style={{ backgroundColor: 'var(--synbio-green)' }}>
+      <div className="px-10 py-8" style={{ background: "linear-gradient(to right, var(--synbio-green), var(--natural-green), transparent), url('/images/images.jpg')" }}>
         <div className="w-32 pb-4">
           <Link href="/">
             <Image 
@@ -18,7 +18,7 @@ const Footer = () => {
           </Link>
         </div>
 
-        <div className="text-white flex gap-24">
+        <div className="text-white flex gap-16">
           <div className="flex flex-col gap-1">
             <h6>Synbio ID Program</h6>
             <p className="flex flex-col gap-1 ml-2 font-light">
@@ -41,7 +41,9 @@ const Footer = () => {
                   className="object-cover"
                 />
               </div>
-              <p className="font-light">Instagram</p>
+              <a href="https://www.instagram.com/synbio.id/" target="_blank" rel="noopener noreferrer">
+                <p className="font-light">Instagram</p>
+              </a>
             </div>
             
             <div className="flex gap-2 items-center ml-2">
@@ -54,7 +56,9 @@ const Footer = () => {
                   className="object-cover"
                 />
               </div>
-              <p className="font-light">LinkedIn</p>
+              <a href="https://www.linkedin.com/company/synbio-indonesia/" target="_blank" rel="noopener noreferrer">
+                <p className="font-light">LinkedIn</p>
+              </a>
             </div>
           </div>
         </div>

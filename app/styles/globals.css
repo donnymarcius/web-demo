@@ -9,6 +9,7 @@
   --synbio-green: #20544a;
   --natural-green: #4f8b69;
   --light-green: #cae9e2;
+  --lighter-green: #e0f0ec;
   --dark-blue: #344d6b;
   --gray-blue: #667e9e;
   --text-selection: #cae9e2;
@@ -34,7 +35,7 @@ body {
 }
 
 * {
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 *::selection {
@@ -64,7 +65,7 @@ button {
   background-color: var(--synbio-green);
   color: var(--light-green);
   border-radius: 10px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
   button.white {
@@ -75,6 +76,7 @@ button {
   button:hover {
     background-color: var(--natural-green);
     color: var(--light-green);
+    font-weight: 500;
     scale: 110%;
   }
 
@@ -90,7 +92,7 @@ header {
   border-bottom: 1px solid var(--light-green); /* Border color equivalent to Tailwind's border-gray-200 */
 }
 
-.dropdown {
+.navbar-item {
   height: 100%;
   display: flex;
   align-items: center;
@@ -98,11 +100,53 @@ header {
   border-bottom: 2px solid transparent;
 }
 
-.dropdown:hover {
-  background-color: var(--light-green);
-  cursor: pointer;
-  border-bottom: 2px solid var(--synbio-green);
+  .navbar-item:has(> .dropdown-menu)::after {
+    content: "";
+    width: 5px;
+    aspect-ratio: 1/1;
+    display: inline-block;
+    margin-left: 10px;
+    border-right: 1px solid var(--synbio-green);
+    border-bottom: 1px solid var(--synbio-green);
+    transform: rotate(45deg);
+  }
+
+  .navbar-item:hover {
+    background-color: var(--light-green);
+    cursor: pointer;
+    border-bottom: 2px solid var(--synbio-green);
+  }
+
+.dropdown {
+  position: relative;
 }
+
+.dropdown-menu {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  background-color: var(--lighter-green);
+  width: 180px;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+  .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0px);
+    pointer-events: auto;
+  }
+
+  .dropdown-menu li {
+    padding: 10px 20px;
+    border-bottom: 1px solid transparent;
+  }
+  
+    .dropdown-menu li:hover {
+      cursor: pointer;
+      border-bottom: 1px solid var(--synbio-green);
+    }
 
 .banner {
   width: 100%;
