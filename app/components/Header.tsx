@@ -8,8 +8,8 @@ const Header = () => {
       <div className="flex">
         <Link href="/">
           <Image 
-            src="/images/logo/synbio.png"
-            alt="Synbio ID Logo"
+            src="/images/icon/synbio.png"
+            alt="Synbio ID Icon"
             width={100}
             height={591}
             className="h-full w-auto p-2"
@@ -26,7 +26,7 @@ const Header = () => {
             <li><Link href="/mentoring">
               <div className="flex gap-2 items-center">
                 <Image 
-                  src="/images/logo/home-green.png"
+                  src="/images/icon/home-green.png"
                   alt="Home"
                   width={10}
                   height={10}
@@ -38,7 +38,7 @@ const Header = () => {
             <li><Link href="/">
               <div className="flex gap-2 items-center">
                 <Image 
-                  src="/images/logo/people-green.png"
+                  src="/images/icon/people-green.png"
                   alt="Explore Mentor"
                   width={10}
                   height={10}
@@ -50,7 +50,7 @@ const Header = () => {
             <li><Link href="/">
               <div className="flex gap-2 items-center">
                 <Image 
-                  src="/images/logo/library-green.png"
+                  src="/images/icon/library-green.png"
                   alt="Documentation"
                   width={10}
                   height={10}

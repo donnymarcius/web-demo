@@ -34,8 +34,8 @@ const Footer = () => {
             <div className="flex gap-2 items-center ml-2">
               <div className="w-6 h-6 flex items-center justify-center">
                 <Image
-                  src="/images/logo/ig-white.png"
-                  alt="Instagram Logo"
+                  src="/images/icon/ig-white.png"
+                  alt="Instagram Icon"
                   width={20}
                   height={20} 
                   className="object-cover"
@@ -49,8 +49,8 @@ const Footer = () => {
             <div className="flex gap-2 items-center ml-2">
               <div className="w-6 h-6 flex items-center justify-center">
                 <Image
-                  src="/images/logo/linkedin-white.png"
-                  alt="LinkedIn Logo"
+                  src="/images/icon/linkedin-white.png"
+                  alt="LinkedIn Icon"
                   width={20}
                   height={20} 
                   className="object-cover"
