@@ -1,17 +1,41 @@
-// import Link from 'next/link';
+import Link from 'next/link';
 import React from 'react';
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <section className="banner">
         <h1 className="font-bold">Previous Batches</h1>
         <p className="text-lg italic">Gathering mentors and mentees across Indonesia to explore life science</p>
       </section>
 
-      <div className="page my-8 flex flex-col gap-10">
-        <div className="-mx-40 p-40 py-6" style={{ background: 'var(--lighter-green)' }}>
+      <div className="px-10 py-4 flex justify-between items-center">
+        <div className="flex gap-2">
+          <Link href="/mentoring">
+            <p>Mentoring Home</p>
+          </Link>
+          <p>&gt;</p>
+          {/* <Link href="/"> */}
+            <p>Documentation</p>
+          {/* </Link> */}
+        </div>
+
+        <div className="flex justify-end items-center gap-4">
+          <Link href="/mentoring/join">
+            <p className="font-medium hover:scale-110" style={{ color: 'var(--synbio-green)' }}>
+              Join as Mentor✨
+            </p>
+          </Link>
+
+          <Link href="/login">
+            <button className="login">Login</button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="page my-8 flex flex-col gap-4">
+        <div className="-mx-40 px-40 py-6" style={{ background: 'var(--lighter-green)' }}>
           <div className="flex justify-between gap-10">
             <div className="flex-1">
               <h2>First Batch</h2>
@@ -84,7 +108,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="-mx-40 p-40 py-6" style={{ background: 'var(--lighter-green)' }}>
+        <div className="-mx-40 px-40 py-6 mt-10" style={{ background: 'var(--lighter-green)' }}>
           <div className="flex justify-between gap-10">
             <div className="flex-1">
               <h2>Second Batch</h2>

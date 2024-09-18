@@ -90,6 +90,21 @@ button {
     scale: 110%;
   }
 
+button.login {
+  padding: 0.2rem 0.8rem;
+  border: 1px solid var(--synbio-green);
+  background-color: var(--white);
+  color: var(--synbio-green);
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+  button.login:hover {
+    background-color: var(--light-green);
+    font-weight: 500;
+    scale: 100%;
+  }
+
 header {
   color: var(--synbio-green);
   position: fixed;

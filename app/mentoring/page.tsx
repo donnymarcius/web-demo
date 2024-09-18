@@ -10,6 +10,26 @@ export default function Home() {
         <p className="text-lg italic">Gathering mentors and mentees across Indonesia to explore life science</p>
       </section>
 
+      <div className="px-10 py-4 flex justify-between items-center">
+        <div className="flex gap-2">
+          {/* <Link href="/mentoring"> */}
+            <p>Mentoring Home</p>
+          {/* </Link> */}
+        </div>
+
+        <div className="flex justify-end items-center gap-4">
+          <Link href="/mentoring/join">
+            <p className="font-medium hover:scale-110" style={{ color: 'var(--synbio-green)' }}>
+              Join as Mentor✨
+            </p>
+          </Link>
+
+          <Link href="/login">
+            <button className="login">Login</button>
+          </Link>
+        </div>
+      </div>
+
       <div className="page my-10 flex flex-col gap-10">
         <div className="flex gap-2 items-center justify-center">
           <Image 
@@ -29,9 +49,9 @@ export default function Home() {
             </p>
 
             <div className="flex gap-2 mt-2">
-              {/* <Link href="/mentoring/explore"> */}
+              <Link href="/mentoring/explore">
                 <button>Explore Mentor</button>
-              {/* </Link> */}
+              </Link>
               <Link href="/mentoring/documentation">
                 <button>Documentation</button>
               </Link>
@@ -40,7 +60,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="page my-8 flex flex-col gap-10">
+      <div className="page my-8 flex flex-col gap-10 overflow-x-hidden">
         <div className="-mx-40 p-40 py-4" style={{ background: 'var(--light-green)' }}>
           <h2 className="text-center">Program Objective</h2>
           <div className="flex items-center justify-center gap-4 mt-4 text-center">
