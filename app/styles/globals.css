@@ -64,6 +64,11 @@ h2 {
   color: var(--synbio-green);
 }
 
+h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
 h6 {
   font-size: 1.5rem;
   font-weight: 500;
@@ -196,3 +201,24 @@ header {
   background-color: white;
   border-radius: 100%;
 }
+
+.side-menu-item {
+  display: flex;
+  flex: 1 1 0%;
+  font-size: large;
+  font-weight: 500;
+  color: var(--synbio-green);
+  height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  min-width: 240px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+  .side-menu-item:hover {
+    border-top: 1px solid var(--synbio-green);
+    border-bottom: 1px solid var(--synbio-green);
+    background-color: var(--lighter-green);
+  }

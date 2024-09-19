@@ -17,7 +17,7 @@ export default function Home() {
           </Link>
           <p>&gt;</p>
           {/* <Link href="/"> */}
-            <p>Login</p>
+            <p>Guidebook</p>
           {/* </Link> */}
         </div>
         <div className="flex justify-end items-center gap-4">
@@ -27,30 +27,14 @@ export default function Home() {
             </p>
           </Link>
 
-          {/* <Link href="/mentoring/login">
+          <Link href="/mentoring/login">
             <button className="login" type="button">Login</button>
-          </Link> */}
+          </Link>
         </div>
       </div>
 
-      <div className="page flex flex-col gap-4">
-        <div className="flex flex-col gap-4">
-          <div className="border border-green-800 rounded-md px-2 py-1 w-64 text-gray-300 mx-auto">
-            Username or email
-          </div>
-          <div className="border border-green-800 rounded-md px-2 py-1 w-64 text-gray-300 mx-auto">
-            Password
-          </div>
-        </div>
-
-        <div className="flex gap-2 mx-auto">
-          <Link href="/mentoring/dashboard/mentor/profile">
-            <button type="button">Login as Mentor</button>
-          </Link>
-          <Link href="/mentoring/dashboard/mentee/profile">
-            <button type="button">Login as Mentee</button>
-          </Link>
-        </div>
+      <div className="page flex flex-col gap-8">
+        
       </div>
 
       <div className="p-20"></div>
