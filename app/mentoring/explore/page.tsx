@@ -41,13 +41,13 @@ export default function Home() {
 
         // Loop through the rows and extract the data
         const rowsData = jsonData.map((row: any) => ({
-          category: row[0],
-          name: row[1],
-          role: row[2],
-          affiliation: row[3],
-          linkedin: row[4],
-          field1: row[5],
-          field2: row[6]
+          category: row[0] as string,
+          name: row[1] as string,
+          role: row[2] as string,
+          affiliation: row[3] as string,
+          linkedin: row[4] as string,
+          field1: row[5] as string,
+          field2: row[6] as string
         }));
 
         setRows(rowsData);
