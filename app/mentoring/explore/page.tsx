@@ -22,6 +22,7 @@ export default function Home() {
   useEffect(() => {
     const fetchExcelFile = async () => {
       try {
+        console.log('Fetching Excel file...');
         // Fetch the file from the public folder
         const response = await fetch('/data/past-mentors.xlsx');
         if (!response.ok) {
