@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
+
 interface RowData  {
   category: string;
   name: string;
@@ -16,7 +17,6 @@ interface RowData  {
 }
 
 export default function Home() {
-  
   const [rows, setRows] = useState<RowData[]>([]);
 
   useEffect(() => {
@@ -36,11 +36,10 @@ export default function Home() {
         const worksheet = workbook.Sheets[sheetName];
 
         // Convert the sheet data to JSON
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        console.log('Parsed Data:', jsonData);
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as (string | number | undefined)[];
 
         // Loop through the rows and extract the data
-        const rowsData = jsonData.map((row: any) => ({
+        const rowsData: RowData[] = jsonData.map((row) => ({
           category: row[0] as string,
           name: row[1] as string,
           role: row[2] as string,
@@ -118,7 +117,7 @@ export default function Home() {
                 {row.category}
               </div>
               
-              <div className="flex gap-2 justify-center">
+              <div className="flex gap-2 justify-center items-center">
                 <div className="block px-2 py-1 rounded-full text-xs font-medium" style={{ border: '1px solid var(--synbio-green)' }}>
                   {row.field1}
                 </div>
