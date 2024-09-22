@@ -51,6 +51,8 @@ export default function Home() {
             <button type="button">Login as Mentee</button>
           </Link>
         </div>
+
+        <p className="text-center">Not have an account? Register <u>here</u></p>
       </div>
 
       <div className="p-20"></div>
