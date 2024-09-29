@@ -63,7 +63,7 @@ export default function Home() {
       <div className="page my-8 flex flex-col gap-10 overflow-x-hidden">
         <div className="-mx-40 p-40 py-4" style={{ background: 'var(--light-green)' }}>
           <h2 className="text-center">Program Objective</h2>
-          <div className="flex items-center justify-center gap-4 mt-4 text-center">
+          <div className="flex flex-col items-center justify-center gap-4 mt-4 text-center">
             <p className="flex-1 basis-1/2 rounded-lg py-3 px-4"  style={{ background: 'var(--lighter-green)' }}>
               Motivate mentees to develop and chase their potential in their desired area in a life science-related field.
             </p>
