@@ -32,8 +32,8 @@ export default function Home() {
         }}
       >
         <div className="w-[60vw] py-6">
-          <h2>Synbio ID Community</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <h2 style={{ color: 'var(--light-green)' }}>Synbio ID Community</h2>
+          <p className="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
           <button className="white" type="button">Learn More</button>
         </div>
       </div>
