@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link';
 import React from 'react';
-// import Image from "next/image";
+import Image from "next/image";
 
 import { useEffect, useState } from 'react';
 
@@ -57,13 +57,35 @@ export default function Explore() {
           Type mentor name
         </div>
         
-        <div className="flex flex-wrap gap-6 justify-center items-stretch">
+        <div className="flex flex-wrap gap-4 justify-center items-stretch">
           {people.map((person, index) => (
-            <div key={index} className="p-4 bg-gray-100 rounded-lg shadow-lg">
-              <h2 className="text-lg font-semibold">{person.name}</h2>
-              <h3 className="text-sm text-gray-500">{person.role}</h3>
-              <p className="text-xs text-gray-400">{person.affiliation}</p>
-            </div>
+            <Link href="\">
+              <div
+                key={index} 
+                className="card"
+              >
+                <Image 
+                  src={person.photo}
+                  width={400}
+                  height={400}
+                  className="w-28 h-auto rounded-full my-2 mx-auto"
+                />
+
+                <h2 className="text-lg font-semibold">{person.name}</h2>
+                <h3 className="text-sm text-gray-500">{person.role}</h3>
+                <p className="text-xs text-gray-400">{person.affiliation}</p>
+
+                <div className="inline-block py-1 px-3 my-2 text-sm text-white font-medium rounded-full" style={{ background: 'var(--synbio-green)' }}>
+                  {person.category}
+                </div>
+
+                <div className="flex flex-wrap gap-2 text-xs items-center justify-center">
+                  <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{person.subcat1}</p>
+                  {person.subcat2 && <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{person.subcat2}</p>}
+                  {person.subcat3 && <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{person.subcat3}</p>}
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
