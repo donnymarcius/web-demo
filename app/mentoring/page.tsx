@@ -49,8 +49,8 @@ export default function Home() {
             </p>
 
             <div className="flex gap-2 mt-2">
-              <Link href="/mentoring/explore">
-                <button type="button">Explore Mentor</button>
+              <Link href="/mentoring/book">
+                <button type="button">Book Mentor</button>
               </Link>
               <Link href="/mentoring/documentation">
                 <button type="button">Documentation</button>

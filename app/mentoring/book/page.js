@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { useEffect, useState } from 'react';
 
-export default function Explore() {
+export default function Book() {
   const [people, setPeople] = useState([]);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Explore() {
           </Link>
           <p>&gt;</p>
           {/* <Link href="/"> */}
-            <p>Explore</p>
+            <p>Book</p>
           {/* </Link> */}
         </div>
         <div className="flex justify-end items-center gap-4">

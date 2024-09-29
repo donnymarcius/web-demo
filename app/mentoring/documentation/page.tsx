@@ -39,6 +39,7 @@ export default function Home() {
           <div className="flex justify-between gap-10">
             <div className="flex-1">
               <h2>First Batch</h2>
+              <p className="font-medium mb-4">December 2023 - January 2024</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
 
@@ -112,6 +113,7 @@ export default function Home() {
           <div className="flex justify-between gap-10">
             <div className="flex-1">
               <h2>Second Batch</h2>
+              <p className="font-medium mb-4">December 2023 - January 2024</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
 

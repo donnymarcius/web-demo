@@ -229,14 +229,14 @@ header {
     background-color: var(--lighter-green);
   }
 
-/* explore mentors menu */
+/* book mentors menu */
 .card {
   width: 240px;
   height: 100%;
   padding: 16px;
   text-align: center;
   border: 1px solid var(--lighter-green);
-  border-radius: 10px;
+  border-radius: 5px;
   
 }
 

@@ -35,16 +35,16 @@ const Header = () => {
                 Home
               </div>
             </Link></li>
-            <li><Link href="/mentoring/explore">
+            <li><Link href="/mentoring/book">
               <div className="flex gap-2 items-center">
                 <Image 
                   src="/images/icon/people-green.png"
-                  alt="Explore Mentor"
+                  alt="Book Mentor"
                   width={10}
                   height={10}
                   className="h-full w-auto"
                 />
-                Explore Mentor
+                Book Mentor
               </div>
             </Link></li>
             <li><Link href="/mentoring/guidebook">
