@@ -68,6 +68,7 @@ export default function Explore() {
                   src={person.photo}
                   width={400}
                   height={400}
+                  alt="mentor photo"
                   className="w-28 h-auto rounded-full my-2 mx-auto"
                 />
 
