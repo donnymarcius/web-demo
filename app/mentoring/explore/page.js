@@ -59,9 +59,8 @@ export default function Explore() {
         
         <div className="flex flex-wrap gap-4 justify-center items-stretch">
           {people.map((person, index) => (
-            <Link href="\">
-              <div
-                key={index} 
+            // <Link href="\">
+              <div key={index} 
                 className="card"
               >
                 <Image 
@@ -86,7 +85,7 @@ export default function Explore() {
                   {person.subcat3 && <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{person.subcat3}</p>}
                 </div>
               </div>
-            </Link>
+            // </Link>
           ))}
         </div>
       </div>
