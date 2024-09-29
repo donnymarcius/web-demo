@@ -3,7 +3,25 @@ import Link from 'next/link';
 import React from 'react';
 // import Image from "next/image";
 
-export default function Home() {
+import { useEffect, useState } from 'react';
+
+export default function Explore() {
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('/api/sheet');
+        const data = await response.json();
+        setPeople(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="overflow-x-hidden">
       <section className="banner">
@@ -40,7 +58,13 @@ export default function Home() {
         </div>
         
         <div className="flex flex-wrap gap-6 justify-center items-stretch">
-          
+          {people.map((person, index) => (
+            <div key={index} className="p-4 bg-gray-100 rounded-lg shadow-lg">
+              <h2 className="text-lg font-semibold">{person.name}</h2>
+              <h3 className="text-sm text-gray-500">{person.role}</h3>
+              <p className="text-xs text-gray-400">{person.affiliation}</p>
+            </div>
+          ))}
         </div>
       </div>
 
