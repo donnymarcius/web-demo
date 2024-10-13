@@ -43,7 +43,6 @@ export default function Home() {
               <button className="white font-medium text-xl mt-6" type="button">Click Here to Register as Mentor</button>
             {/* </a> */}
           </div>
-          
         </div>
 
         <div className="flex gap-4 justify-center items-center">

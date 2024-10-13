@@ -43,7 +43,7 @@ export default function Home() {
             <p>
               <b>Welcome to SynBio ID&apos;s Mentoring Program! </b> 
               where the future of life sciences takes shape. Whether 
-              you're a student, researcher, or professional, our platform 
+              you&apos;re a student, researcher, or professional, our platform 
               connects you with experts across the synthetic biology field.
             </p>
 
@@ -79,7 +79,7 @@ export default function Home() {
           <p className="mt-4">
             Meet our most anticipated program: Synbio ID&apos;s Mentoring—where 
             life science enthusiasts and professionals can connect with experts from 
-            around the world. Whether you're navigating your academic journey, exploring 
+            around the world. Whether you&apos;re navigating your academic journey, exploring 
             synthetic biology, or looking to advance your career, our platform makes it 
             easy to book one-on-one mentoring sessions with leading experts in the field.
           </p>
@@ -218,7 +218,7 @@ export default function Home() {
 
             <div className="box flex-1 min-w-96">
               <p className="text-justify">
-                Saya mendapat banyak insight yang sangat helpful utamanya dalam menentukan arah karir saya. Pembicaraan selama mentoring berjalan dengan lancar dan sesuai dengan yang saya harapkan. Pengalaman dan cerita kakak mentor sangat inspiratif dan berhasil seperti "membangunkan" diri saya. Saya juga menerima saran dan masukan serta rekomendasi hal-hal yang perlu lebih saya perhatikan dalam mencapai karir impian saya.
+                Saya mendapat banyak insight yang sangat helpful utamanya dalam menentukan arah karir saya. Pembicaraan selama mentoring berjalan dengan lancar dan sesuai dengan yang saya harapkan. Pengalaman dan cerita kakak mentor sangat inspiratif dan berhasil seperti &quot;membangunkan&quot; diri saya. Saya juga menerima saran dan masukan serta rekomendasi hal-hal yang perlu lebih saya perhatikan dalam mencapai karir impian saya.
               </p>
               <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
                 <p>Sylvia Fathin</p>
