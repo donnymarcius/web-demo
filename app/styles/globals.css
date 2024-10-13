@@ -81,6 +81,11 @@ h6 {
   color: var(--light-green);
 }
 
+b {
+  color: var(--synbio-green);
+  font-size: 1.25rem;
+}
+
 button {
   padding: 0.2rem 0.8rem;
   background-color: var(--synbio-green);

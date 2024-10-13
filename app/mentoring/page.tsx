@@ -40,12 +40,11 @@ export default function Home() {
             className="w-auto h-40"
           />
           <div className="max-w-[675px]">
-            <h2>What is Synbio ID&apos;s Mentoring Program?</h2>
             <p>
-              Synbio.ID&apos;s Mentoring Program seeks and matches experts 
-              from various life science backgrounds to share their 
-              knowledge and insights with 1-3 mentees to help them 
-              pursue their careers and passions.
+              <b>Welcome to SynBio ID&apos;s Mentoring Program! </b> 
+              where the future of life sciences takes shape. Whether 
+              you're a student, researcher, or professional, our platform 
+              connects you with experts across the synthetic biology field.
             </p>
 
             <div className="flex gap-2 mt-2">
@@ -62,15 +61,33 @@ export default function Home() {
 
       <div className="page my-8 flex flex-col gap-10 overflow-x-hidden">
         <div className="-mx-40 p-40 py-4" style={{ background: 'var(--light-green)' }}>
-          <h2 className="text-center">Program Objective</h2>
-          <div className="flex flex-col items-center justify-center gap-4 mt-4 text-center">
-            <p className="flex-1 basis-1/2 rounded-lg py-3 px-4"  style={{ background: 'var(--lighter-green)' }}>
-              Motivate mentees to develop and chase their potential in their desired area in a life science-related field.
-            </p>
-            <p className="flex-1 basis-1/3 rounded-lg py-3 px-4"  style={{ background: 'var(--lighter-green)' }}>
-              Building valuable networks among mentors and mentees.
-            </p>
-          </div>
+          <p className="text-left mr-36">
+            <b>Book a mentoring session</b> with top scientists and industry leaders to accelerate your learning 
+            and career.
+            With <b>personalized guidance</b> and opportunities to network, 
+            you&apos;ll have the support to navigate complex concepts and innovations in life sciences.
+          </p>
+
+          <p className="text-right ml-50 mt-4">
+            <b>Start your journey today</b>—connect with mentors, gain insights, and 
+            unlock new possibilities in synthetic biology!
+          </p>
+        </div>
+
+        <div>
+          <h2>Unlock the Future of Life Sciences with Personalized Mentoring</h2>
+          <p className="mt-4">
+            Meet our most anticipated program: Synbio ID&apos;s Mentoring—where 
+            life science enthusiasts and professionals can connect with experts from 
+            around the world. Whether you're navigating your academic journey, exploring 
+            synthetic biology, or looking to advance your career, our platform makes it 
+            easy to book one-on-one mentoring sessions with leading experts in the field.
+          </p>
+          <p className="mt-4">
+            Explore diverse perspectives, gain valuable insights, and accelerate your 
+            growth with tailored guidance. Start your journey by booking a session today, 
+            and take your next step towards innovation and discovery in life sciences.
+          </p>
         </div>
 
         <div>
@@ -151,12 +168,12 @@ export default function Home() {
         <div>
           <h2 className="text-center">Testimony from Previous Batch</h2>
           <div className="flex flex-wrap gap-4 mt-4">
-            <div className="box flex-1 min-w-64">
+            <div className="box flex-1 min-w-96">
               <p className="text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Terima kasih atas bimbingan dan sarannya yang sangat membangun. Saran-saran yang diberikan juga di luar dari apa yang saya pikirkan. Terima kasih juga telah bersedia memberikan networking yang memungkinkan untuk menunjang karir saya kedepannya. Saya sangat berharap bisa mendapat semacam rekomendasi dari mentor untuk bisa mencoba workshop atau intern di perusahaan tertentu pada posisi yang diminati untuk mendapatkan skill yang lebih praktis.
               </p>
               <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
-                <p>Mentee Name</p>
+                <p>Michael Nathanael D.</p>
                 <Image 
                   src="/images/icon/person-green.png"
                   alt="person"
@@ -167,12 +184,12 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="box flex-1 min-w-64">
+            <div className="box flex-1 min-w-96">
               <p className="text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Her insights into the company and its inner workings have been invaluable, giving me a clearer understanding of the industry. The information she shared about opportunities to learn drug discovery abroad has opened my eyes to new possibilities and has been truly inspiring. Her guidance and support have significantly shaped my professional aspirations, and I am deeply appreciative of the time and effort she has invested in helping me grow.
               </p>
               <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
-                <p>Mentee Name</p>
+                <p>Prettish Kishore R.</p>
                 <Image 
                   src="/images/icon/person-green.png"
                   alt="person"
@@ -183,12 +200,44 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="box flex-1 min-w-64">
+            <div className="box flex-1 min-w-96">
               <p className="text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Kegiatan ini sudah sangat baik, mulai dari pencocokan Mentee-tutor yang tepat. Tutor juga dapat lebih memahami kebutuhan dan minat mentee, sehingga tutor dapat memberikan saran dalam pengembangan keterampilan teknis dan non teknis yang dibutuhkan oleh mentee Struktur program yg jelas dan disediakan evaluasi dan umpan balik setiap sesinya. Terimakasih juga kepada Synbio yang sudah memfasilitasi kegiatan ini. (Saya tidak memiliki saran☺). Semoga kegiatan seperti ini terus berlanjut, dan kami di daerah bisa berkesempatan ikut kegiatan Synbio ID selanjutnya.
               </p>
               <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
-                <p>Mentee Name</p>
+                <p>Suwarny</p>
+                <Image 
+                  src="/images/icon/person-green.png"
+                  alt="person"
+                  width={40}
+                  height={40}
+                  className="w-8 h-8"
+                />
+              </div>
+            </div>
+
+            <div className="box flex-1 min-w-96">
+              <p className="text-justify">
+                Saya mendapat banyak insight yang sangat helpful utamanya dalam menentukan arah karir saya. Pembicaraan selama mentoring berjalan dengan lancar dan sesuai dengan yang saya harapkan. Pengalaman dan cerita kakak mentor sangat inspiratif dan berhasil seperti "membangunkan" diri saya. Saya juga menerima saran dan masukan serta rekomendasi hal-hal yang perlu lebih saya perhatikan dalam mencapai karir impian saya.
+              </p>
+              <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
+                <p>Sylvia Fathin</p>
+                <Image 
+                  src="/images/icon/person-green.png"
+                  alt="person"
+                  width={40}
+                  height={40}
+                  className="w-8 h-8"
+                />
+              </div>
+            </div>
+
+            <div className="box flex-1 min-w-96">
+              <p className="text-justify">
+                Pengalaman mentoring saya sangat menyenangkan dan insightful. Saya mendapatkan banyak insight baru mengenai karir di life sciences, mendapatkan saran dan semangat mengenai rencana & tujuan saya, dan membantu merencanakan langkah nyata untuk mencapai tujuan.
+              </p>
+              <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
+                <p>Kanaya Salsabilla</p>
                 <Image 
                   src="/images/icon/person-green.png"
                   alt="person"

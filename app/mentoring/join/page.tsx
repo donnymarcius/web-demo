@@ -85,12 +85,12 @@ export default function Home() {
         <div>
           <h2 className="text-center">Testimony from Other Mentors</h2>
           <div className="flex flex-wrap gap-4 mt-4">
-            <div className="box flex-1 min-w-64">
+            <div className="box flex-1 min-w-96">
               <p className="text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Ide Program ini sangat diperlukan dan sangat bermanfaat untuk banyak orang.
               </p>
               <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
-                <p>Mentee Name</p>
+                <p>Aisyah Nur</p>
                 <Image 
                   src="/images/icon/person-green.png"
                   alt="person"
@@ -101,12 +101,12 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="box flex-1 min-w-64">
+            <div className="box flex-1 min-w-96">
               <p className="text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Clear guidelines and procedures, assigned person to assist mentor in making the meeting happen.
               </p>
               <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
-                <p>Mentee Name</p>
+                <p>Immaculata Titis Winiati</p>
                 <Image 
                   src="/images/icon/person-green.png"
                   alt="person"
@@ -117,12 +117,12 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="box flex-1 min-w-64">
+            <div className="box flex-1 min-w-96">
               <p className="text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              The strongest attribute of Synbio’s mentoring program is its ability to foster innovation and hands-on learning through personalized guidance. Mentors in synthetic biology often come with deep expertise in multidisciplinary fields, enabling mentees to explore complex concepts like gene editing, bioengineering, and systems biology in a more practical and applicable way. This one-on-one mentoring structure helps participants to not only learn cutting-edge techniques but also think critically about how to apply these skills in solving real-world biological challenges, accelerating their growth as researchers and innovators.
               </p>
               <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
-                <p>Mentee Name</p>
+                <p>Leon Martin</p>
                 <Image 
                   src="/images/icon/person-green.png"
                   alt="person"

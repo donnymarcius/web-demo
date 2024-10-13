@@ -8,19 +8,38 @@ import { useEffect, useState } from 'react';
 export default function Book() {
   const [people, setPeople] = useState([]);
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await fetch('/api/sheet');
+  //       const data = await response.json();
+  //       setPeople(data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch('/api/sheet');
         const data = await response.json();
-        setPeople(data);
+        if (Array.isArray(data)) {
+          setPeople(data);
+        } else {
+          console.error('Data is not an array:', data);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-
     fetchData();
   }, []);
+
+  console.log(people)
 
   return (
     <div className="overflow-x-hidden">
@@ -58,6 +77,7 @@ export default function Book() {
         </div>
         
         <div className="flex flex-wrap gap-4 justify-center items-stretch">
+          
           {people.map((person, index) => (
             // <Link href="\">
               <div key={index} 
