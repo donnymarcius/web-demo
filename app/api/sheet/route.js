@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
 
-export async function GET(req) {
+export async function GET() {
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
