@@ -1,45 +1,13 @@
-'use client'
+// app/page.js
+import { getSheetData } from '../../api/sheet/route.js';
+
 import Link from 'next/link';
 import React from 'react';
 import Image from "next/image";
 
-import { useEffect, useState } from 'react';
+export default async function Book() {
 
-export default function Book() {
-  const [people, setPeople] = useState([]);
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await fetch('/api/sheet');
-  //       const data = await response.json();
-  //       setPeople(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch('/api/sheet');
-        const data = await response.json();
-        if (Array.isArray(data)) {
-          setPeople(data);
-        } else {
-          console.error('Data is not an array:', data);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-    fetchData();
-  }, []);
-
-  console.log(people)
+  const sheetData = await getSheetData();
 
   return (
     <div className="overflow-x-hidden">
@@ -78,31 +46,31 @@ export default function Book() {
         
         <div className="flex flex-wrap gap-4 justify-center items-stretch">
           
-          {people.map((person, index) => (
+          {sheetData.map((row, index) => (
             // <Link href="\">
               <div key={index} 
                 className="card"
               >
                 <Image 
-                  src={person.photo}
+                  src={row.Photo}
                   width={400}
                   height={400}
                   alt="mentor photo"
                   className="w-28 h-auto rounded-full my-2 mx-auto"
                 />
 
-                <h2 className="text-lg font-semibold">{person.name}</h2>
-                <h3 className="text-sm text-gray-500">{person.role}</h3>
-                <p className="text-xs text-gray-400">{person.affiliation}</p>
+                <h2 className="text-lg font-semibold">{row.Name}</h2>
+                <h3 className="text-sm text-gray-500">{row.Role}</h3>
+                <p className="text-xs text-gray-400">{row.Affiliation}</p>
 
                 <div className="inline-block py-1 px-3 my-2 text-sm text-white font-medium rounded-full" style={{ background: 'var(--synbio-green)' }}>
-                  {person.category}
+                  {row.Category}
                 </div>
 
                 <div className="flex flex-wrap gap-2 text-xs items-center justify-center">
-                  <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{person.subcat1}</p>
-                  {person.subcat2 && <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{person.subcat2}</p>}
-                  {person.subcat3 && <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{person.subcat3}</p>}
+                  <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{row.SubCat1}</p>
+                  {row.SubCat2 && <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{row.SubCat2}</p>}
+                  {row.SubCat3 && <p className="px-2 py-1 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>{row.SubCat3}</p>}
                 </div>
               </div>
             // </Link>
