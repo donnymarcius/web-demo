@@ -1,13 +1,44 @@
-// app/page.js
-import { getSheetData } from '../../api/sheet/route.js';
-
+'use client';
 import Link from 'next/link';
 import React from 'react';
 import Image from "next/image";
 
-export default async function Book() {
+import { useEffect, useState } from 'react';
 
-  const sheetData = await getSheetData();
+export default function Book() {
+
+  const [sheetData, setSheetData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchSheetData = async () => {
+      try {
+        const res = await fetch('/api/sheet');
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch data: ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        setSheetData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSheetData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="overflow-x-hidden">

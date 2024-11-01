@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
 
-export async function getSheetData() {
+export async function GET(req) {
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
@@ -10,7 +10,7 @@ export async function getSheetData() {
   });
 
   const sheets = google.sheets({ version: 'v4', auth });
-  const range = 'Sheet1!A2:I'; // Adjust if your sheet has a different name or range
+  const range = 'Sheet1!A2:I'; // Adjust this based on your sheet's actual range
 
   try {
     const response = await sheets.spreadsheets.values.get({
@@ -20,10 +20,11 @@ export async function getSheetData() {
 
     const rows = response.data.values;
     if (!rows || rows.length === 0) {
-      return [];
+      return new Response(JSON.stringify([]), { status: 200 }); // Return empty array if no data
     }
 
-    return rows.map((row) => ({
+    // Map the rows to an array of objects
+    const data = rows.map((row) => ({
       Category: row[0],
       Photo: row[1],
       Name: row[2],
@@ -34,8 +35,15 @@ export async function getSheetData() {
       SubCat2: row[7],
       SubCat3: row[8],
     }));
+
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   } catch (error) {
     console.error('Error fetching data from Google Sheets:', error);
-    throw new Error('Failed to fetch data');
+    return new Response('Failed to fetch data', { status: 500 });
   }
 }
