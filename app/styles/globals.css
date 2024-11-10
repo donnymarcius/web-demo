@@ -249,3 +249,8 @@ header {
     border: 1px solid var(--synbio-green);
     box-shadow: 5px 5px 10px var(--light-green);
   }
+
+label {
+  color: var(--synbio-green);
+  font-weight: 500;
+}
