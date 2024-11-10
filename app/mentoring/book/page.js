@@ -14,7 +14,11 @@ export default function Book() {
   useEffect(() => {
     const fetchSheetData = async () => {
       try {
-        const res = await fetch('/api/sheet');
+        const res = await fetch('/api/sheet', {
+          headers: {
+            'Cache-Control': 'no-store', // Ensure no caching
+          },
+        });
 
         if (!res.ok) {
           throw new Error(`Failed to fetch data: ${res.statusText}`);
