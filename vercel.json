@@ -1,0 +1,5 @@
+{
+    "rewrites": [
+      { "source": "/book", "destination": "/book", "headers": { "cache-control": "no-cache" } }
+    ]
+  }
