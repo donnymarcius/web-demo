@@ -1,5 +1,13 @@
 {
-    "rewrites": [
-        { "source": "/book", "destination": "/book" }
+    "headers": [
+      {
+        "source": "/book",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-store"
+          }
+        ]
+      }
     ]
 }
