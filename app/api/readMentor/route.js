@@ -40,6 +40,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',  // Ensure that this is always fresh
       },
     });
   } catch (error) {
