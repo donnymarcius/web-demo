@@ -17,7 +17,7 @@ export async function POST(req) {
   const range = 'account!A2:C'; // Adjust this based on your sheet's actual range
 
   try {
-    const response = await sheets.spreadsheets.values.append({
+    await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
       range,
       valueInputOption: 'RAW', // You can use 'RAW' or 'USER_ENTERED' for the input type

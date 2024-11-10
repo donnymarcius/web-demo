@@ -137,8 +137,12 @@ export default function Registration() {
             className="text-white px-4 py-2 mt-4 rounded-md"
             style={{ backgroundcolor: 'var(--synbio-green)' }}
           >
-            Register
+            {loading ? 'Registering...' : 'Register'}
           </button>
+
+          {error && <p className="text-red-500">{error}</p>}
+          {success && <p className="text-green-500">{success}</p>}
+          
         </form>
 
         <p className="text-center">
