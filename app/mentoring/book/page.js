@@ -16,6 +16,7 @@ export default function Book() {
       const res = await fetch('/api/readMentor', {
         headers: {
           'Cache-Control': 'no-store', // Prevent caching at the request level
+          'Surrogate-Control': 'no-store',  // Prevent Vercel's edge cache
         },
       });
 
