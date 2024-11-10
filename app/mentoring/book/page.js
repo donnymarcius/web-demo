@@ -11,31 +11,39 @@ export default function Book() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchSheetData = async () => {
-      try {
-        const res = await fetch('/api/readMentor', {
-          headers: {
-            'Cache-Control': 'no-cache', // Prevent caching at the request level
-          },
-          next: { revalidate: 60 }, // Revalidate the data every 60 seconds
-        });
+  const fetchSheetData = async () => {
+    try {
+      const res = await fetch('/api/readMentor', {
+        headers: {
+          'Cache-Control': 'no-cache', // Prevent caching at the request level
+        },
+      });
 
-        if (!res.ok) {
-          throw new Error(`Failed to fetch data: ${res.statusText}`);
-        }
-
-        const data = await res.json();
-        setSheetData(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch data: ${res.statusText}`);
       }
-    };
 
+      const data = await res.json();
+      setSheetData(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Initial data fetch
     fetchSheetData();
-  }, []);
+
+    // Poll every 60 seconds to fetch fresh data
+    const intervalId = setInterval(() => {
+      fetchSheetData();
+    }, 60000); // 60 seconds
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []); // Empty dependency array means this effect runs once on mount
 
   if (loading) {
     return <div>Loading...</div>;
