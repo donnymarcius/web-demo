@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
 
-export const revalidate = 1; //revalidate api every 1 second
+export const revalidate = 0; //revalidate api every 1 second
 export async function GET() {
   const auth = new google.auth.GoogleAuth({
     credentials: {
