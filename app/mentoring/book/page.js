@@ -16,8 +16,9 @@ export default function Book() {
       try {
         const res = await fetch('/api/sheet', {
           headers: {
-            'Cache-Control': 'no-store', // Ensure no caching
+            'Cache-Control': 'no-store', // Prevent caching at the request level
           },
+          next: { revalidate: 60 }, // Revalidate the data every 60 seconds
         });
 
         if (!res.ok) {
