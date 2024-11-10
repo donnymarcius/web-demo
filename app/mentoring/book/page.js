@@ -14,7 +14,7 @@ export default function Book() {
   useEffect(() => {
     const fetchSheetData = async () => {
       try {
-        const res = await fetch('/api/sheet', {
+        const res = await fetch('/api/readMentor', {
           headers: {
             'Cache-Control': 'no-store', // Prevent caching at the request level
           },

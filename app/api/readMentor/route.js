@@ -10,7 +10,7 @@ export async function GET() {
   });
 
   const sheets = google.sheets({ version: 'v4', auth });
-  const range = 'Sheet1!A2:I'; // Adjust this based on your sheet's actual range
+  const range = 'mentors!A2:I'; // Adjust this based on your sheet's actual range
 
   try {
     const response = await sheets.spreadsheets.values.get({
