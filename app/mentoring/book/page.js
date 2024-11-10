@@ -15,7 +15,7 @@ export default function Book() {
     try {
       const res = await fetch('/api/readMentor', {
         headers: {
-          'Cache-Control': 'no-cache', // Prevent caching at the request level
+          'Cache-Control': 'no-store', // Prevent caching at the request level
         },
       });
 
