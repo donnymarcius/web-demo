@@ -40,8 +40,9 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-store',  // Ensure that this is always fresh
-        'Surrogate-Control': 'no-store',  // Prevent Vercel's edge cache
+        'Cache-Control': 'public, s-maxage=1',
+        'CDN-Cache-Control': 'public, s-maxage=60',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
       },
     });
   } catch (error) {
