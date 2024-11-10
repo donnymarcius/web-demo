@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 
+export const revalidate = 1; //revalidate api every 1 second
 export async function GET() {
   const auth = new google.auth.GoogleAuth({
     credentials: {
@@ -40,9 +41,9 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, s-maxage=1',
-        'CDN-Cache-Control': 'public, s-maxage=60',
-        'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
+        // 'Cache-Control': 'public, s-maxage=1',
+        // 'CDN-Cache-Control': 'public, s-maxage=60',
+        // 'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
       },
     });
   } catch (error) {
