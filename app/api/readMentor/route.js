@@ -41,6 +41,7 @@ export async function GET() {
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-store',  // Ensure that this is always fresh
+        'Surrogate-Control': 'no-store',  // Prevent Vercel's edge cache
       },
     });
   } catch (error) {
