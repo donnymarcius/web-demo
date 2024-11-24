@@ -5,31 +5,38 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="overflow-x-hidden">
-      <section className="banner">
-        <h1 className="font-bold">Join as Mentor</h1>
-        <p className="text-lg italic text-center">Gathering mentors and mentees across Indonesia to explore life science</p>
-      </section>
+      <div className="relative h-[30vh]">
+        <Image
+          src="/images/mentoring/bg.png"
+          alt="Background"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          className="absolute inset-0"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+    
+        <div className="absolute inset-0 px-10 flex justify-between items-end pb-4">
+          <div className="flex gap-2 text-white">
+            <Link href="/mentoring">
+              <p>Mentoring Home</p>
+            </Link>
+            <p>&gt;</p>
+            {/* <Link href="/"> */}
+              <p>Join as Mentor</p>
+            {/* </Link> */}
+          </div>
+          <div className="flex justify-end items-center gap-4">
+            {/* <Link href="/mentoring/join">
+              <p className="font-medium hover:scale-110 text-white">
+                Join as Mentor✨
+              </p>
+            </Link> */}
 
-      <div className="px-10 py-4 flex justify-between items-center">
-        <div className="flex gap-2">
-          <Link href="/mentoring">
-            <p>Mentoring Home</p>
-          </Link>
-          <p>&gt;</p>
-          {/* <Link href="/"> */}
-            <p>Join as Mentor</p>
-          {/* </Link> */}
-        </div>
-        <div className="flex justify-end items-center gap-4">
-          {/* <Link href="/mentoring/join">
-            <p className="font-medium hover:scale-110" style={{ color: 'var(--synbio-green)' }}>
-              Join as Mentor✨
-            </p>
-          </Link> */}
-
-          <Link href="/mentoring/login">
-            <button className="login" type="button">Login</button>
-          </Link>
+            <Link href="/mentoring/login">
+              <button className="transparent text-base" type="button">Login</button>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -39,9 +46,9 @@ export default function Home() {
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           
           <div className="flex justify-center">
-            {/* <a href="/" target="_blank" rel="noopener noreferrer"> */}
-              <button className="white font-medium text-xl mt-6" type="button">Click Here to Register as Mentor</button>
-            {/* </a> */}
+            <a href="https://www.bit.ly/MentorSTFRecruitment" target="_blank" rel="noopener noreferrer">
+              <button className="button-white font-medium text-xl mt-6" type="button">Click Here to Register as Mentor</button>
+            </a>
           </div>
         </div>
 

@@ -44,13 +44,7 @@ body {
 }
 
 .page {
-  padding: 0 160px;
-}
-
-@media only screen and (max-width: 1029px) {
-  .page {
-    padding: 0 40px;
-  }
+  padding: 20px 40px;
 }
 
 h1 {
@@ -81,9 +75,8 @@ h6 {
   color: var(--light-green);
 }
 
-b {
+b.green {
   color: var(--synbio-green);
-  font-size: 1.25rem;
 }
 
 button {
@@ -94,19 +87,18 @@ button {
   font-weight: 400;
 }
 
-  button.white {
-    background-color: var(--light-green);
-    color: var(--synbio-green);
+  button.transparent {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    /* font-size: large; */
   }
 
-  button:hover {
-    background-color: var(--natural-green);
-    color: var(--light-green);
-    font-weight: 500;
-    scale: 110%;
+  button.transparent:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
-button.login {
+button.button-white {
   padding: 0.2rem 0.8rem;
   border: 1px solid var(--synbio-green);
   background-color: var(--white);
@@ -115,24 +107,40 @@ button.login {
   font-weight: 500;
 }
 
-  button.login:hover {
-    background-color: var(--light-green);
+  button.button-white:hover {
+    background-color: var(--lighter-green);
+    font-weight: 500;
+    scale: 100%;
+  }
+
+button.button-lgreen {
+  padding: 0.2rem 0.8rem;
+  border: 1px solid var(--synbio-green);
+  background-color: var(--light-green);
+  color: var(--synbio-green);
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+  button.button-lgreen:hover {
+    background-color: #BDDCD5;
     font-weight: 500;
     scale: 100%;
   }
 
 header {
-  color: var(--synbio-green);
+  color: white;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 50;
-  background-color: white; 
-  border-bottom: 1px solid var(--light-green); 
+  background-color: var(--synbio-green);
+  border-bottom: 1px solid transparent; 
 }
 
 .navbar-item {
+  background-color: var(--synbio-green);
   height: 100%;
   display: flex;
   align-items: center;
@@ -140,20 +148,19 @@ header {
   border-bottom: 2px solid transparent;
 }
 
+  .navbar-item:hover {
+    background-color: #073B31 ;
+  }
+
   .navbar-item:has(> .dropdown-menu)::after {
-    content: "";
+    content: '';
     width: 5px;
     aspect-ratio: 1/1;
     display: inline-block;
     margin-left: 10px;
-    border-right: 1px solid var(--synbio-green);
-    border-bottom: 1px solid var(--synbio-green);
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
     transform: rotate(45deg);
-  }
-
-  .navbar-item:hover {
-    background-color: var(--light-green);
-    cursor: pointer;
   }
 
 .dropdown {
@@ -162,9 +169,10 @@ header {
 
 .dropdown-menu {
   position: absolute;
-  top: 105%;
+  top: 108%;
   left: 0;
-  background-color: var(--lighter-green);
+  background-color: var(--light-green);
+  color: var(--synbio-green);
   width: 180px;
   opacity: 0;
   transform: translateY(-10px);
@@ -178,39 +186,33 @@ header {
   }
 
   .dropdown-menu li {
-    padding: 10px 20px;
+    position: relative;
+    padding: 8px 15px;
+  }
+
+  .dropdown-menu li:hover {
+    background-color: #BDDCD5;
+  }
+
+  .dropdown-menu li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
   }
   
-    .dropdown-menu li:hover {
-      cursor: pointer;
-      background-color: var(--light-green);
-    }
-
-.banner {
-  width: 100%;
-  height: calc(100dvh / 4);
-  background-color: #20544a;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 48px;
-  padding: 0 24px;
-}
+  .dropdown-menu li:hover::after {
+    background-color: var(--synbio-green);
+  }
 
 .box {
   border: 1px solid var(--synbio-green);
   border-radius: 10px;
   padding: 10px 15px;
-}
-
-.icon {
-  width: 60px;
-  height: 60px;
-  padding: 8px;
-  background-color: white;
-  border-radius: 100%;
 }
 
 .side-menu-item {
@@ -234,7 +236,7 @@ header {
     background-color: var(--lighter-green);
   }
 
-/* book mentors menu */
+/* Make Session menu */
 .card {
   width: 240px;
   height: 100%;

@@ -4,15 +4,15 @@ import Image from "next/image";
 
 const Header = () => {
   return (
-    <header className="flex justify-between items-center h-12">
+    <header className="flex justify-between items-center h-10">
       <div className="flex">
         <Link href="/">
           <Image 
-            src="/images/logo/synbio.png"
+            src="/images/logo/synbio-white.png"
             alt="Synbio ID logo"
-            width={100}
-            height={591}
-            className="h-full w-auto p-2"
+            width={1000}
+            height={5910}
+            className="h-10 w-auto p-2"
           />
         </Link>
       </div>
@@ -23,28 +23,16 @@ const Header = () => {
         <li className="navbar-item dropdown">
           <Link href="/mentoring">Mentoring</Link>
           <ul className="dropdown-menu">
-            <li><Link href="/mentoring">
-              <div className="flex gap-2 items-center">
-                <Image 
-                  src="/images/icon/home-green.png"
-                  alt="Home"
-                  width={10}
-                  height={10}
-                  className="h-full w-auto"
-                />
-                Home
-              </div>
-            </Link></li>
-            <li><Link href="/mentoring/book">
+            <li><Link href="/mentoring/make-session">
               <div className="flex gap-2 items-center">
                 <Image 
                   src="/images/icon/people-green.png"
-                  alt="Book Mentor"
+                  alt="Make Session"
                   width={10}
                   height={10}
                   className="h-full w-auto"
                 />
-                Book Mentor
+                  Make Session
               </div>
             </Link></li>
             <li><Link href="/mentoring/join">

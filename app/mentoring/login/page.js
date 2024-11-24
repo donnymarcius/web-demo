@@ -2,20 +2,14 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Image from "next/image";
-import { useRouter } from 'next/navigation'; // Use next/navigation instead of next/router
+import { useRouter } from 'next/navigation';
 
-export default function Registration() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmpassword: '',
-  });
-
+export default function Login() {
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const router = useRouter(); // Use next/navigation's useRouter
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,54 +26,27 @@ export default function Registration() {
     setSuccess('');
 
     try {
-      // Step 1: Check if the email already exists
-      const emailCheckResponse = await fetch('/api/checkEmail', {
+      // Step 1: Send login request to the API
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.email }),
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
       });
 
-      const emailCheckResult = await emailCheckResponse.json();
+      const result = await response.json();
 
-      if (emailCheckResponse.ok && emailCheckResult.exists) {
-        // Redirect to login if email exists
-        setError(
-          <span className="text-black">
-            This email is already registered. Please{' '}
-            <a href="/login" className="underline">
-              log in
-            </a>.
-          </span>
-        );
+      if (response.ok) {
+        setSuccess('Login successful!');
+        // Redirect to the dashboard or home page
+        router.push('/mentoring/dashboard');
       } else {
-        // Step 2: Proceed with registration
-        if (formData.password !== formData.confirmpassword) {
-          setError('Passwords do not match.');
-          return;
-        }
-
-        const response = await fetch('/api/addAccount', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-          }),
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          setSuccess(result.message);
-        } else {
-          setError(result.message);
-        }
+        setError(result.message || 'Invalid email or password.');
       }
     } catch (err) {
-      setError('An error occurred while registering.');
+      setError('An error occurred while logging in.');
     } finally {
       setLoading(false);
     }
@@ -122,21 +89,8 @@ export default function Registration() {
         </div>
       </div>
 
-      <div className="page flex flex-col gap-2 mt-4">
+      <div className="page flex flex-col gap-2 mt-8">
         <form onSubmit={handleSubmit} className="flex flex-col gap-1 mx-auto w-full max-w-sm">
-          <div>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              className="w-full mt-1 p-2 border border-green-800 rounded-md"
-              required
-            />
-          </div>
-
           <div>
             <label htmlFor="email">Email</label>
             <input
@@ -163,30 +117,26 @@ export default function Registration() {
             />
           </div>
 
-          <div>
-            <label htmlFor="confirmpassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmpassword"
-              name="confirmpassword"
-              value={formData.confirmpassword}
-              onChange={handleInputChange}
-              className="w-full mt-1 p-2 border border-green-800 rounded-md"
-              required
-            />
-          </div>
-
           <button
             type="submit"
             className="text-white px-4 py-2 mt-4 rounded-md"
             style={{ backgroundColor: 'var(--synbio-green)' }}
           >
-            {loading ? 'Registering...' : 'Register'}
+            {loading ? 'Logging in...' : 'Log In'}
           </button>
 
-          {error && <p className="text-red-500">{error}</p>}
-          {success && <p className="text-green-500">{success}</p>}
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {success && <p className="text-green-500 mt-2">{success}</p>}
         </form>
+
+        <div className="flex justify-center mt-4">
+          <p>
+            Don’t have an account?{' '}
+            <Link href="/mentoring/register" className="underline">
+              Register here
+            </Link>
+          </p>
+        </div>
       </div>
 
       <div className="p-20"></div>

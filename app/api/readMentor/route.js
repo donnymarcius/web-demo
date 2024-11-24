@@ -29,12 +29,13 @@ export async function GET() {
       Category: row[0],
       Photo: row[1],
       Name: row[2],
-      Role: row[3],
-      Affiliation: row[4],
-      Linkedin: row[5],
-      SubCat1: row[6],
-      SubCat2: row[7],
-      SubCat3: row[8],
+      Gender: row[3],
+      Role: row[4],
+      Affiliation: row[5],
+      Linkedin: row[6],
+      SubCat1: row[7],
+      SubCat2: row[8],
+      SubCat3: row[9],
     }));
 
     return new Response(JSON.stringify(data), {
