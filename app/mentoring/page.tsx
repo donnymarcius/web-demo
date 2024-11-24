@@ -42,7 +42,7 @@ export default function Home() {
           </h1>
           <p className='text-xl'>
             Meet our most anticipated program: Synbio ID&apos;s Mentoring—where <b className="text-white">life science enthusiasts 
-            and professionals can connect with experts</b> from around the world. Whether you're navigating your 
+            and professionals can connect with experts</b> from around the world. Whether you&apos;re navigating your 
             academic journey, exploring synthetic biology, or looking to advance your career, our platform 
             makes it easy to book <b className="text-white">one-on-one mentoring sessions</b> with leading experts in the field.
           </p>
@@ -108,7 +108,7 @@ export default function Home() {
 
           <div className="flex flex-col gap-2">
             <h2>Calling for Mentors!</h2>
-            <p>If you're an expert in biotechnology, synthetic biology, or other life science fields, this is your chance to share your knowledge and guide the next generation of scientists.</p>
+            <p>If you&apos;re an expert in biotechnology, synthetic biology, or other life science fields, this is your chance to share your knowledge and guide the next generation of scientists.</p>
             
             <Link href="/mentoring/join">
               <button className="button-lgreen" type="button">Join as Mentor Now✨</button>

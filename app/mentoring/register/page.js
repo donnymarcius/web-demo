@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Image from "next/image";
-import { useRouter } from 'next/navigation'; // Use next/navigation instead of next/router
+// import { useRouter } from 'next/navigation'; // Use next/navigation instead of next/router
 
 export default function Registration() {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ export default function Registration() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const router = useRouter(); // Use next/navigation's useRouter
+  // const router = useRouter(); // Use next/navigation's useRouter
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
