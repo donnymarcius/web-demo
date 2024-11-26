@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
-import { verifyToken } from '../../../lib/tokenManager';  // Assuming this is your token verification function
 
 // Set up Google Sheets API client
 const sheets = google.sheets('v4');

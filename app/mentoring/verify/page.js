@@ -45,7 +45,7 @@ export default function Verify() {
 
       verifyToken();
     }
-  }, [token]);
+  }, [token, router]);
 
   return (
     <div className="overflow-x-hidden">
