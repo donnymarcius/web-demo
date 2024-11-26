@@ -27,36 +27,42 @@ export async function POST(req) {
     const tokenExpiration = new Date();
     tokenExpiration.setHours(tokenExpiration.getHours() + 24); // Token valid for 24 hours
 
-    // Step 3: Fetch existing user IDs from column A
+    // Step 3: Fetch all user data from the sheet
     const getResponse = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: 'mentee-account!A2:A',
+      range: 'mentee-account!A2:A',  // Ensure you're fetching all rows for consistency
     });
 
     const rows = getResponse.data.values || [];
-    const lastId = rows.length > 1 ? parseInt(rows[rows.length - 1][0], 10) : 0;
-    const newUserId = lastId + 1;
+    const lastRow = rows.length > 0 ? rows[rows.length - 1] : null;
+    let newUserId = 1;
 
-    // Step 4: Append the new user row to the sheet
+    // Step 4: If there are existing users, increment the last ID
+    if (lastRow) {
+      const lastId = parseInt(lastRow[0], 10); // Parse the last ID to ensure it's treated as a number
+      newUserId = lastId + 1;
+    }
+
+    // Step 5: Append the new user row to the sheet
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: 'mentee-account!A2:G',
+      range: 'mentee-account!A2:G',  // Ensure it starts at row 2 to avoid header rows
       valueInputOption: 'RAW',
       requestBody: {
         values: [[
-          newUserId, 
-          username, 
-          email, 
-          hashedPassword, 
-          verificationToken, 
-          tokenExpiration.toISOString(), 
+          newUserId,  // New ID (incremented)
+          username,
+          email,
+          hashedPassword,
+          verificationToken,
+          tokenExpiration.toISOString(),
           'Pending' // Verification status
         ]],
       },
     });
 
-    // Step 5: Send a verification email with the generated token
-    const verificationLink = `${process.env.FRONTEND_URL}/verify?token=${verificationToken}`;
+    // Step 6: Send a verification email with the generated token
+    const verificationLink = `${process.env.FRONTEND_URL}/mentoring/verify?token=${verificationToken}`;
     console.log("Verification Link:", verificationLink); // Log the link being sent
     await sendVerificationEmail(email, verificationToken); // Pass token here
 
