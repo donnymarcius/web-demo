@@ -31,6 +31,20 @@ export default function Registration() {
     setError('');
     setSuccess('');
 
+    // Validate required fields
+    if (!formData.username || !formData.email || !formData.password) {
+      setError('All fields are required.');
+      setLoading(false);
+      return;
+    }
+
+    // Check if passwords match
+    if (formData.password !== formData.confirmpassword) {
+      setError('Passwords do not match.');
+      setLoading(false);
+      return;
+    }
+
     try {
       // Step 1: Check if the email already exists
       const emailCheckResponse = await fetch('/api/checkEmail', {
@@ -44,7 +58,7 @@ export default function Registration() {
       if (emailCheckResponse.ok && emailCheckResult.exists) {
         // Redirect to login if email exists
         setError(
-          <span className="text-black">
+          <span>
             This email is already registered. Please{' '}
             <a href="/login" className="underline">
               log in

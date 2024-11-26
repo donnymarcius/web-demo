@@ -121,6 +121,10 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="px-20">
+        {/* <h2>Our Partners</h2> */}
+      </div>
+
       <div className="p-20"></div>
     </div>
   );
