@@ -35,7 +35,7 @@ const EditableField = ({ label, value, onEdit, isDescription = false }) => {
         alt="Edit Icon"
         width={400}
         height={400}
-        className="h-8 w-8 rounded-lg p-1"
+        className="h-8 w-8 rounded-lg p-1 hover:cursor-pointer"
         style={{ background: 'var(--synbio-green)' }}
         onClick={handleEdit}
       />
@@ -203,7 +203,7 @@ export default function MentorProfile() {
               alt="Edit Icon"
               width={400}
               height={400}
-              className="h-8 w-8 rounded-lg p-1"
+              className="h-8 w-8 rounded-lg p-1 hover:cursor-pointer"
               style={{ background: 'var(--synbio-green)' }}
               onClick={() => console.log('Edit profile picture functionality')}
             />
@@ -239,7 +239,7 @@ export default function MentorProfile() {
                 alt="Edit Icon"
                 width={400}
                 height={400}
-                className="h-8 w-8 rounded-lg p-1"
+                className="h-8 w-8 rounded-lg p-1 hover:cursor-pointer"
                 style={{ background: 'var(--synbio-green)' }}
                 onClick={handleDescriptionEdit}
               />
