@@ -49,9 +49,19 @@ export async function GET(req) {
     // Step 4: Fetch mentor data
     const mentorData = rows[mentorIndex];
     const fullName = mentorData[11];  // Column L: full_name (adjust column if needed)
+    const gender = mentorData[12];
+    const wa_number = mentorData[13];
+    const role = mentorData[14];
+    const affiliation = mentorData[15];
+    const almamater = mentorData[16];
+    const category = mentorData[17];
+    const field_of_interest = mentorData[18];
+    const description = mentorData[19];
+    const linkedin_url = mentorData[20];
+    const profile_picture = mentorData[21];
 
-    // Return the mentor data (only the full name for now)
-    return NextResponse.json({ fullName }, { status: 200 });
+    // Return the mentor data
+    return NextResponse.json({ fullName, gender, wa_number, role, affiliation, almamater, category, field_of_interest, description, linkedin_url, profile_picture }, { status: 200 });
 
   } catch (error) {
     console.error('Error fetching mentor data:', error);

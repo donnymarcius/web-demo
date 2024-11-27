@@ -42,13 +42,13 @@ export const authOptions = {
           const user = rows.find((row) => row[1] === email); // Email column
 
           if (!user) {
-            return null; // Invalid email
+            throw new Error('User not found');
           }
 
           const passwordMatch = await bcrypt.compare(password, user[2]); // Password column
 
           if (!passwordMatch) {
-            return null; // Invalid password
+            throw new Error('Invalid password');
           }
 
           return {
@@ -58,16 +58,34 @@ export const authOptions = {
           };
         } catch (error) {
           console.error('Authentication error:', error);
-          return null;
+          throw new Error('Failed to authenticate');
         }
       },
     }),
   ],
+  session: {
+    strategy: 'jwt', // Use JWT strategy
+    maxAge: 30 * 24 * 60 * 60, // 30 days (adjust as needed)
+    updateAge: 24 * 60 * 60,   // Refresh session every 24 hours
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      // Add user data to the JWT token
+      if (user) {
+        token.fullName = user.fullName;
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Add JWT token data to the session
+      session.user.fullName = token.fullName;
+      session.user.role = token.role;
+      return session;
+    },
+  },
   pages: {
     signIn: '/auth/signin', // Customize the sign-in page
-  },
-  session: {
-    strategy: 'jwt', // You can use either 'jwt' or 'database' strategy
   },
 };
 

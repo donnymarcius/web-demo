@@ -5,10 +5,52 @@ import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import { useSession } from 'next-auth/react'; // Import useSession to access user session data
 
+// Reusable EditableField Component
+const EditableField = ({ label, value, onEdit, isDescription = false }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newValue, setNewValue] = useState(value);
+
+  const handleEdit = () => {
+    if (isEditing) {
+      onEdit(newValue); // Save new value
+    }
+    setIsEditing(!isEditing); // Toggle editing state
+  };
+
+  return (
+    <div className={`pl-4 py-2 flex gap-4 items-center ${isDescription ? 'flex-col' : 'flex-row'}`}>
+      <h3 className="w-56">{label}</h3>
+      {isEditing ? (
+        <input
+          type="text"
+          className="border border-green-800 rounded-md px-2 py-1 w-full text-sm"
+          value={newValue}
+          onChange={(e) => setNewValue(e.target.value)}
+        />
+      ) : (
+        <div className="border border-green-800 rounded-md px-2 py-1 w-full text-sm">{value}</div> // Smaller text
+      )}
+      <Image 
+        src="/images/icon/edit.png"
+        alt="Edit Icon"
+        width={400}
+        height={400}
+        className="h-8 w-8 rounded-lg p-1"
+        style={{ background: 'var(--synbio-green)' }}
+        onClick={handleEdit}
+      />
+    </div>
+  );
+};
+
 export default function MentorProfile() {
   const { data: session, status } = useSession(); // Get session data
   const [mentorData, setMentorData] = useState(null); // To store mentor data
   const [loading, setLoading] = useState(true);
+
+  // Manage the editing state for "Self Description"
+  const [isDescriptionEditing, setIsDescriptionEditing] = useState(false);
+  const [descriptionValue, setDescriptionValue] = useState('');
 
   useEffect(() => {
     if (!session) return; // If no session, don't fetch data
@@ -20,6 +62,7 @@ export default function MentorProfile() {
 
         if (response.ok) {
           setMentorData(data);
+          setDescriptionValue(data.description); // Initialize the description value
         } else {
           console.error('Failed to fetch mentor data:', data.message);
         }
@@ -50,7 +93,32 @@ export default function MentorProfile() {
     return <p>Error loading mentor data. Please try again.</p>;
   }
 
-  const { fullName } = mentorData; // Assuming API returns mentor data including 'fullName'
+  const { fullName, gender, wa_number, role, affiliation, almamater, category, field_of_interest, linkedin_url, profile_picture } = mentorData;
+
+  const handleFieldUpdate = async (field, newValue) => {
+    try {
+      // Update the Google Sheet here
+      const response = await fetch(`/api/updateMentorField`, {
+        method: 'POST',
+        body: JSON.stringify({ email: session.user.email, field, value: newValue }),
+      });
+      if (response.ok) {
+        setMentorData((prevData) => ({ ...prevData, [field]: newValue }));
+      } else {
+        console.error('Failed to update mentor data');
+      }
+    } catch (error) {
+      console.error('Error updating mentor data:', error);
+    }
+  };
+
+  const handleDescriptionEdit = () => {
+    if (isDescriptionEditing) {
+      // Save the new value for description
+      handleFieldUpdate('description', descriptionValue);
+    }
+    setIsDescriptionEditing(!isDescriptionEditing);
+  };
 
   return (
     <div className="overflow-x-hidden">
@@ -64,17 +132,16 @@ export default function MentorProfile() {
           className="absolute inset-0"
         />
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-    
         <div className="absolute inset-0 px-10 flex justify-between items-end pb-4">
           <div className="flex gap-2 text-white">
             <Link href="/mentoring">
               <p>Mentoring Home</p>
             </Link>
             <p>&gt;</p>
-            <p>Profile</p>
+            <p>Dashboard</p>
           </div>
           <div className="flex justify-end items-center gap-4">
-            <p className="text-white text-base">Hi, {fullName}</p>
+            <p className="text-white font-bold">Hi, {fullName}!</p>
           </div>
         </div>
       </div>
@@ -91,7 +158,6 @@ export default function MentorProfile() {
             />
             <p>Profile</p>
           </div>
-
           <Link href="/mentoring/dashboard/mentor/schedule">
             <div className="side-menu-item">
               <Image 
@@ -125,7 +191,7 @@ export default function MentorProfile() {
           <div className="pl-4 py-2 flex gap-2 items-center">
             <h3 className="w-56">Profile Picture</h3>
             <Image 
-              src="/images/placeholder_person.png"
+              src={profile_picture || "/images/placeholder_person.png"}
               alt="Profile Picture"
               width={400}
               height={400}
@@ -139,29 +205,46 @@ export default function MentorProfile() {
               height={400}
               className="h-8 w-8 rounded-lg p-1"
               style={{ background: 'var(--synbio-green)' }}
+              onClick={() => console.log('Edit profile picture functionality')}
             />
           </div>
 
-          <div className="pl-4 py-2 flex gap-2 items-center">
-            <h3 className="w-56">Full Name</h3>
-            <div className="border border-green-800 rounded-md px-2 py-1 w-96 text-gray-300">{fullName}</div>
-            <Image 
-              src="/images/icon/edit.png"
-              alt="Edit Icon"
-              width={400}
-              height={400}
-              className="h-8 w-8 rounded-lg p-1"
-              style={{ background: 'var(--synbio-green)' }}
-            />
-          </div>
+          {/* Editable fields */}
+          <EditableField label="Full Name" value={fullName} onEdit={(newValue) => handleFieldUpdate('fullName', newValue)} />
+          <EditableField label="Gender" value={gender} onEdit={(newValue) => handleFieldUpdate('gender', newValue)} />
+          <EditableField label="Active WA Number" value={wa_number} onEdit={(newValue) => handleFieldUpdate('wa_number', newValue)} />
+          <EditableField label="Role" value={role} onEdit={(newValue) => handleFieldUpdate('role', newValue)} />
+          <EditableField label="Affiliation" value={affiliation} onEdit={(newValue) => handleFieldUpdate('affiliation', newValue)} />
+          <EditableField label="Alma mater" value={almamater} onEdit={(newValue) => handleFieldUpdate('almamater', newValue)} />
+          <EditableField label="Category" value={category} onEdit={(newValue) => handleFieldUpdate('category', newValue)} />
+          <EditableField label="Field of Interest" value={field_of_interest} onEdit={(newValue) => handleFieldUpdate('field_of_interest', newValue)} />
+          <EditableField label="Linkedin URL" value={linkedin_url} onEdit={(newValue) => handleFieldUpdate('linkedin_url', newValue)} />
 
-          {/* Display the email address */}
-          <div className="pl-4 py-2 flex gap-2 items-center">
-            <h3 className="w-56">Email</h3>
-            <div className="border border-green-800 rounded-md px-2 py-1 w-96 text-gray-300">{session.user.email}</div>
-          </div>
+          {/* Self Description Section */}
+          <div className="pl-4 py-2 flex gap-2 items-left flex-col">
+            <h3 className="w-56">Self Description</h3>
 
-          {/* Other Profile Fields */}
+            <div className="flex gap-2">
+              {isDescriptionEditing ? (
+                <textarea
+                  className="border border-green-800 rounded-md px-2 py-1 w-full h-32 resize-none text-sm"
+                  value={descriptionValue}
+                  onChange={(e) => setDescriptionValue(e.target.value)}
+                />
+              ) : (
+                <div className="border border-green-800 rounded-md px-2 py-1 w-full text-justify text-sm">{descriptionValue}</div>
+              )}
+              <Image 
+                src="/images/icon/edit.png"
+                alt="Edit Icon"
+                width={400}
+                height={400}
+                className="h-8 w-8 rounded-lg p-1"
+                style={{ background: 'var(--synbio-green)' }}
+                onClick={handleDescriptionEdit}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
