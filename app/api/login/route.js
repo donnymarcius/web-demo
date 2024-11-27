@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { getServerSession } from 'next-auth'; // Import getServerSession from next-auth
 
 // Assume the NextAuth configuration is stored in the 'auth/[...nextauth].js' file
-import { authOptions } from '../auth/[...nextauth]/route.js';
+import { authOptions } from '../auth/[...nextauth]';
 
 export async function POST(req) {
   const { email, password } = await req.json();
