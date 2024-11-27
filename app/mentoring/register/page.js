@@ -6,7 +6,6 @@ import Image from "next/image";
 
 export default function Registration() {
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
     confirmpassword: '',
@@ -32,7 +31,7 @@ export default function Registration() {
     setSuccess('');
 
     // Validate required fields
-    if (!formData.username || !formData.email || !formData.password) {
+    if (!formData.email || !formData.password) {
       setError('All fields are required.');
       setLoading(false);
       return;
@@ -78,7 +77,6 @@ export default function Registration() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            username: formData.username,
             email: formData.email,
             password: formData.password,
           }),
@@ -138,19 +136,6 @@ export default function Registration() {
 
       <div className="page flex flex-col gap-2 mt-4">
         <form onSubmit={handleSubmit} className="flex flex-col gap-1 mx-auto w-full max-w-sm">
-          <div>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              className="w-full mt-1 p-2 border border-green-800 rounded-md"
-              required
-            />
-          </div>
-
           <div>
             <label htmlFor="email">Email</label>
             <input

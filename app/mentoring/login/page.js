@@ -1,54 +1,39 @@
 'use client';
+
 import Link from 'next/link';
-import React, { useState } from 'react';
 import Image from "next/image";
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-export default function Login() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+export default function LoginForm() {
   const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('mentor'); // Default to 'mentor'
+  const [loading] = useState(false);
+  const [error, setError] = useState('');
+  const [success] = useState('');
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    setSuccess('');
+    // Reset error state before submitting
+    setError(null);
 
-    try {
-      // Step 1: Send login request to the API
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+    // Call signIn from next-auth to authenticate user
+    const res = await signIn('credentials', {
+      email,
+      password,
+      role,
+      redirect: false, // We handle redirect manually
+    });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        setSuccess('Login successful!');
-        // Redirect to the dashboard or home page
-        router.push('/mentoring/dashboard');
-      } else {
-        setError(result.message || 'Invalid email or password.');
-      }
-    } catch (err) {
-      setError('An error occurred while logging in.');
-    } finally {
-      setLoading(false);
+    if (res?.error) {
+      setError('Invalid email or password.');
+    } else {
+      // Redirect user to their dashboard or another page after successful login
+      router.push('/mentoring/dashboard/mentor/profile'); // Or use '/mentoring/dashboard/mentor/profile' for a more specific redirect
     }
   };
 
@@ -71,9 +56,7 @@ export default function Login() {
               <p>Mentoring Home</p>
             </Link>
             <p>&gt;</p>
-            {/* <Link href="/"> */}
-              <p>Register as Mentee</p>
-            {/* </Link> */}
+            <p>Login</p>
           </div>
           <div className="flex justify-end items-center gap-4">
             <Link href="/mentoring/join">
@@ -81,24 +64,20 @@ export default function Login() {
                 Join as Mentor✨
               </p>
             </Link>
-
-            <Link href="/mentoring/login">
-              <button className="transparent text-base" type="button">Login</button>
-            </Link>
           </div>
         </div>
       </div>
 
       <div className="page flex flex-col gap-2 mt-8">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-1 mx-auto w-full max-w-sm">
+        <form className="flex flex-col gap-1 mx-auto w-full max-w-sm" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
-              value={formData.email}
-              onChange={handleInputChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full mt-1 p-2 border border-green-800 rounded-md"
               required
             />
@@ -110,11 +89,39 @@ export default function Login() {
               type="password"
               id="password"
               name="password"
-              value={formData.password}
-              onChange={handleInputChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full mt-1 p-2 border border-green-800 rounded-md"
               required
             />
+          </div>
+
+          <div className="mt-2">
+            <div className="flex justify-center gap-4 mt-2">
+              <label className="flex items-center">Login as: </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="role"
+                  value="mentee"
+                  checked={role === 'mentee'}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="mr-2"
+                />
+                Mentee
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="role"
+                  value="mentor"
+                  checked={role === 'mentor'}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="mr-2"
+                />
+                Mentor
+              </label>
+            </div>
           </div>
 
           <button

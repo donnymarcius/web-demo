@@ -59,16 +59,16 @@ const Header = () => {
                 Guidebook
               </div>
             </Link></li>
-            <li><Link href="/mentoring/documentation">
+            <li><Link href="/mentoring/login">
               <div className="flex gap-2 items-center">
                 <Image 
                   src="/images/icon/library-green.png"
-                  alt="Documentation"
+                  alt="login"
                   width={10}
                   height={10}
                   className="h-full w-auto"
                 />
-                Documentation
+                Login
               </div>
             </Link></li>
           </ul>
