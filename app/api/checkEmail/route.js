@@ -23,7 +23,7 @@ export async function POST(req) {
     const sheets = google.sheets({ version: 'v4', auth });
 
     // Specify the range where emails are stored
-    const range = 'mentee-account!C2:C'; // Assuming emails are in column B
+    const range = 'mentee-account!B2:B'; // Assuming emails are in column B
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
 
     const response = await sheets.spreadsheets.values.get({
