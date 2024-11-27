@@ -79,6 +79,9 @@ export async function POST(req) {
       },
     });
 
+    // Optional: Log the response for debugging or logging purposes
+    console.log('Update Response:', updateResponse);
+
     return NextResponse.json({ message: 'Field updated successfully' }, { status: 200 });
 
   } catch (error) {
