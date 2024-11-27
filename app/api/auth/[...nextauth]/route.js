@@ -89,5 +89,8 @@ export const authOptions = {
   },
 };
 
-// Define the default export as the NextAuth handler
-export default (req, res) => NextAuth(req, res, authOptions);
+// Define the handler function for NextAuth
+const handler = NextAuth(authOptions);
+
+// Export the handler as a named export
+export { handler as GET, handler as POST };
