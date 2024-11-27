@@ -89,11 +89,11 @@ export const authOptions = {
   },
 };
 
-// Named exports for HTTP methods
-export async function POST(req, res) {
-  return NextAuth(authOptions)(req, res);
+// Handle GET and POST requests
+export async function GET(req, res) {
+  return NextAuth(req, res, authOptions);
 }
 
-export async function GET(req, res) {
-  return NextAuth(authOptions)(req, res);
+export async function POST(req, res) {
+  return NextAuth(req, res, authOptions);
 }
