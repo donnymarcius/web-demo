@@ -37,7 +37,7 @@
     "app/mentoring/register/page.js",
     "app/mentoring/login/page.js",
     "app/mentoring/dashboard/mentor/profile/page.js"
-  ],
+, "app/mentoring/dashboard/mentee/profile/page.js"  ],
   "exclude": [
     "node_modules"
   ]

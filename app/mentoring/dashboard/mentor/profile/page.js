@@ -3,66 +3,69 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
-import { useSession } from 'next-auth/react'; // Import useSession to access user session data
+import { useSession } from 'next-auth/react';
 
 // Reusable EditableField Component
-const EditableField = ({ label, value, onEdit, isDescription = false }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [newValue, setNewValue] = useState(value);
-
-  const handleEdit = () => {
-    if (isEditing) {
-      onEdit(newValue); // Save new value
-    }
-    setIsEditing(!isEditing); // Toggle editing state
+const EditableField = ({ label, value, onChange, isDropdown = false, options = [], disabled, isTextArea = false, customTextColor = '' }) => {
+  const handleInputChange = (e) => {
+    e.target.style.height = 'auto'; // Reset height to auto
+    e.target.style.height = `${e.target.scrollHeight}px`; // Set height to the scrollHeight to expand automatically
+    onChange(e.target.value); // Call the onChange handler passed as prop
   };
 
   return (
-    <div className={`pl-4 py-2 flex gap-4 items-center ${isDescription ? 'flex-col' : 'flex-row'}`}>
+    <div className="pl-4 py-2 flex gap-4 items-center">
       <h3 className="w-56">{label}</h3>
-      {isEditing ? (
-        <input
-          type="text"
-          className="border border-green-800 rounded-md px-2 py-1 w-full text-sm"
-          value={newValue}
-          onChange={(e) => setNewValue(e.target.value)}
+      {isDropdown ? (
+        <select
+          className={`border border-green-800 rounded-md px-2 py-1 w-full text-sm ${disabled ? 'bg-gray-200' : 'text-black'} peer`}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          disabled={disabled}
+        >
+          {options.map((option) => (
+            <option key={option} value={option} className='text-black'>
+              {option}
+            </option>
+          ))}
+        </select>
+      ) : isTextArea ? (
+        <textarea
+          className={`border border-green-800 rounded-md px-2 py-1 w-full text-sm resize-none ${disabled ? 'bg-gray-200' : ''}`}
+          value={value}
+          onChange={handleInputChange}
+          onInput={handleInputChange} // Dynamically adjust the height on input
+          disabled={disabled}
+          style={{ height: 'auto', minHeight: '3rem' }} // Ensure a minimum height of 3rem but expand as needed
         />
       ) : (
-        <div className="border border-green-800 rounded-md px-2 py-1 w-full text-sm">{value}</div> // Smaller text
+        <input
+          type="text"
+          className={`border border-green-800 rounded-md px-2 py-1 w-full text-sm ${disabled ? 'bg-gray-200' : ''} ${customTextColor}`}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          disabled={disabled}
+        />
       )}
-      <Image 
-        src="/images/icon/edit.png"
-        alt="Edit Icon"
-        width={400}
-        height={400}
-        className="h-8 w-8 rounded-lg p-1 hover:cursor-pointer"
-        style={{ background: 'var(--synbio-green)' }}
-        onClick={handleEdit}
-      />
     </div>
   );
 };
 
 export default function MentorProfile() {
-  const { data: session, status } = useSession(); // Get session data
-  const [mentorData, setMentorData] = useState(null); // To store mentor data
+  const { data: session, status } = useSession();
+  const [mentorData, setMentorData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  // Manage the editing state for "Self Description"
-  const [isDescriptionEditing, setIsDescriptionEditing] = useState(false);
-  const [descriptionValue, setDescriptionValue] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    if (!session) return; // If no session, don't fetch data
+    if (!session) return;
     const fetchMentorData = async () => {
       try {
-        // Use the email from the session to fetch mentor data
         const response = await fetch(`/api/userMentor?email=${session.user.email}`);
         const data = await response.json();
 
         if (response.ok) {
           setMentorData(data);
-          setDescriptionValue(data.description); // Initialize the description value
         } else {
           console.error('Failed to fetch mentor data:', data.message);
         }
@@ -74,14 +77,13 @@ export default function MentorProfile() {
     };
 
     fetchMentorData();
-  }, [session]); // Re-run the effect if session changes
+  }, [session]);
 
   if (status === 'loading') {
     return <p>Loading...</p>;
   }
 
   if (!session) {
-    // If no session, redirect to login page
     return <p>Please log in to view your profile.</p>;
   }
 
@@ -93,32 +95,53 @@ export default function MentorProfile() {
     return <p>Error loading mentor data. Please try again.</p>;
   }
 
-  const { fullName, gender, wa_number, role, affiliation, almamater, category, field_of_interest, linkedin_url, profile_picture } = mentorData;
+  const handleFieldChange = (field, value) => {
+    setMentorData((prevData) => ({ ...prevData, [field]: value }));
+  };
 
-  const handleFieldUpdate = async (field, newValue) => {
+  const handleSave = async () => {
     try {
-      // Update the Google Sheet here
-      const response = await fetch(`/api/updateMentorField`, {
-        method: 'POST',
-        body: JSON.stringify({ email: session.user.email, field, value: newValue }),
-      });
-      if (response.ok) {
-        setMentorData((prevData) => ({ ...prevData, [field]: newValue }));
-      } else {
-        console.error('Failed to update mentor data');
+      const updates = Object.entries(mentorData);
+      for (const [field, value] of updates) {
+        const response = await fetch(`/api/updateMentorField`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: session.user.email,
+            field,
+            value,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error(`Failed to update ${field}:`, errorData.message);
+          alert(`Error updating ${field}: ${errorData.message}`);
+          return;
+        }
       }
+
+      console.log('All fields updated successfully.');
+      alert('Data saved successfully!');
     } catch (error) {
-      console.error('Error updating mentor data:', error);
+      console.error('Error saving data:', error.message);
+      alert('An unexpected error occurred. Please try again.');
     }
+
+    setIsEditing(false);
   };
 
-  const handleDescriptionEdit = () => {
-    if (isDescriptionEditing) {
-      // Save the new value for description
-      handleFieldUpdate('description', descriptionValue);
+  const toggleEditing = () => {
+    if (isEditing) {
+      handleSave();
     }
-    setIsDescriptionEditing(!isDescriptionEditing);
+    setIsEditing(!isEditing);
   };
+
+  const { fullName, gender, wa_number, role, affiliation, almamater, category, field_of_interest, description, linkedin_username, profile_picture } =
+    mentorData;
 
   return (
     <div className="overflow-x-hidden">
@@ -149,7 +172,7 @@ export default function MentorProfile() {
       <div className="px-10 flex flex-wrap gap-8 mt-6">
         <div className="side-menu">
           <div className="side-menu-item">
-            <Image 
+            <Image
               src="/images/icon/person-green.png"
               alt="Profile Icon"
               width={400}
@@ -160,9 +183,9 @@ export default function MentorProfile() {
           </div>
           <Link href="/mentoring/dashboard/mentor/schedule">
             <div className="side-menu-item">
-              <Image 
+              <Image
                 src="/images/icon/calendar-green.png"
-                alt="Profile Icon"
+                alt="Schedule Icon"
                 width={400}
                 height={400}
                 className="h-full w-auto"
@@ -173,9 +196,9 @@ export default function MentorProfile() {
 
           <Link href="/mentoring/dashboard/mentor/setting">
             <div className="side-menu-item">
-              <Image 
+              <Image
                 src="/images/icon/setting-green.png"
-                alt="Profile Icon"
+                alt="Setting Icon"
                 width={400}
                 height={400}
                 className="h-full w-auto"
@@ -186,11 +209,19 @@ export default function MentorProfile() {
         </div>
 
         <div className="flex-1 min-w-96">
-          <h2>Profile</h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2>Profile</h2>
+            <button
+              onClick={toggleEditing}
+              className="bg-green-800 text-white px-4 py-2 rounded-md"
+            >
+              {isEditing ? 'Save' : 'Edit'}
+            </button>
+          </div>
 
           <div className="pl-4 py-2 flex gap-2 items-center">
             <h3 className="w-56">Profile Picture</h3>
-            <Image 
+            <Image
               src={profile_picture || "/images/placeholder_person.png"}
               alt="Profile Picture"
               width={400}
@@ -198,53 +229,72 @@ export default function MentorProfile() {
               className="h-24 w-24 rounded-full"
               style={{ border: '2px solid var(--synbio-green)' }}
             />
-            <Image 
-              src="/images/icon/edit.png"
-              alt="Edit Icon"
-              width={400}
-              height={400}
-              className="h-8 w-8 rounded-lg p-1 hover:cursor-pointer"
-              style={{ background: 'var(--synbio-green)' }}
-              onClick={() => console.log('Edit profile picture functionality')}
-            />
           </div>
 
-          {/* Editable fields */}
-          <EditableField label="Full Name" value={fullName} onEdit={(newValue) => handleFieldUpdate('fullName', newValue)} />
-          <EditableField label="Gender" value={gender} onEdit={(newValue) => handleFieldUpdate('gender', newValue)} />
-          <EditableField label="Active WA Number" value={wa_number} onEdit={(newValue) => handleFieldUpdate('wa_number', newValue)} />
-          <EditableField label="Role" value={role} onEdit={(newValue) => handleFieldUpdate('role', newValue)} />
-          <EditableField label="Affiliation" value={affiliation} onEdit={(newValue) => handleFieldUpdate('affiliation', newValue)} />
-          <EditableField label="Alma mater" value={almamater} onEdit={(newValue) => handleFieldUpdate('almamater', newValue)} />
-          <EditableField label="Category" value={category} onEdit={(newValue) => handleFieldUpdate('category', newValue)} />
-          <EditableField label="Field of Interest" value={field_of_interest} onEdit={(newValue) => handleFieldUpdate('field_of_interest', newValue)} />
-          <EditableField label="Linkedin URL" value={linkedin_url} onEdit={(newValue) => handleFieldUpdate('linkedin_url', newValue)} />
-
-          {/* Self Description Section */}
-          <div className="pl-4 py-2 flex gap-2 items-left flex-col">
-            <h3 className="w-56">Self Description</h3>
-
-            <div className="flex gap-2">
-              {isDescriptionEditing ? (
-                <textarea
-                  className="border border-green-800 rounded-md px-2 py-1 w-full h-32 resize-none text-sm"
-                  value={descriptionValue}
-                  onChange={(e) => setDescriptionValue(e.target.value)}
-                />
-              ) : (
-                <div className="border border-green-800 rounded-md px-2 py-1 w-full text-justify text-sm">{descriptionValue}</div>
-              )}
-              <Image 
-                src="/images/icon/edit.png"
-                alt="Edit Icon"
-                width={400}
-                height={400}
-                className="h-8 w-8 rounded-lg p-1 hover:cursor-pointer"
-                style={{ background: 'var(--synbio-green)' }}
-                onClick={handleDescriptionEdit}
-              />
-            </div>
-          </div>
+          <EditableField
+            label="Full Name"
+            value={fullName}
+            onChange={(value) => handleFieldChange('fullName', value)}
+            disabled={!isEditing}
+          />
+          <EditableField
+            label="Gender"
+            value={gender}
+            onChange={(value) => handleFieldChange('gender', value)}
+            isDropdown={true}
+            options={['Male', 'Female']}
+            disabled={!isEditing}
+          />
+          <EditableField
+            label="Active WA Number"
+            value={wa_number}
+            onChange={(value) => handleFieldChange('wa_number', value)}
+            disabled={!isEditing}
+          />
+          <EditableField
+            label="Role"
+            value={role}
+            onChange={(value) => handleFieldChange('role', value)}
+            disabled={!isEditing}
+          />
+          <EditableField
+            label="Affiliation"
+            value={affiliation}
+            onChange={(value) => handleFieldChange('affiliation', value)}
+            disabled={!isEditing}
+          />
+          <EditableField
+            label="Alma mater"
+            value={almamater}
+            onChange={(value) => handleFieldChange('almamater', value)}
+            disabled={!isEditing}
+            isTextArea={true} // Allow multi-line input
+          />
+          <EditableField
+            label="Category"
+            value={category}
+            onChange={(value) => handleFieldChange('category', value)}
+            disabled={!isEditing}
+          />
+          <EditableField
+            label="Field of Interest"
+            value={field_of_interest}
+            onChange={(value) => handleFieldChange('field_of_interest', value)}
+            disabled={!isEditing}
+          />
+          <EditableField
+            label="Linkedin Username"
+            value={linkedin_username}
+            onChange={(value) => handleFieldChange('linkedin_username', value)}
+            disabled={!isEditing}
+          />
+          <EditableField
+            label="Self Description"
+            value={description}
+            onChange={(value) => handleFieldChange('description', value)}
+            disabled={!isEditing}
+            isTextArea={true} // Allow multi-line input
+          />
         </div>
       </div>
 

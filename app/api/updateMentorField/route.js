@@ -18,69 +18,74 @@ const authenticateGoogleSheets = async () => {
   return auth.getClient();
 };
 
-// Named export for POST
 export async function POST(req) {
-  const { email, field, value } = await req.json(); // Read the request body
+  const { email, field, value } = await req.json();
+
+  if (!email || !field || value === undefined) {
+    return NextResponse.json({ message: 'Invalid request payload' }, { status: 400 });
+  }
 
   try {
-    // Authenticate with Google Sheets
     const authClient = await authenticateGoogleSheets();
 
-    // Step 1: Fetch the mentor data to find the row index
+    // Fetch mentor data
     const getResponse = await sheets.spreadsheets.values.get({
       auth: authClient,
       spreadsheetId,
-      range: 'mentor-account!A2:V',  // Assuming data is in columns A to V
+      range: 'mentor-account!A2:V',
     });
 
     const rows = getResponse.data.values || [];
-    let mentorIndex = -1;
 
-    // Find the row of the mentor based on email (assuming email is in column B)
+    // Find mentor by email
+    let mentorIndex = -1;
     rows.forEach((row, index) => {
-      if (row[1] === email) {  // Column B: email
+      if (row[1]?.toLowerCase().trim() === email.toLowerCase().trim()) {
         mentorIndex = index;
       }
     });
 
     if (mentorIndex === -1) {
+      console.error(`Mentor with email ${email} not found.`);
       return NextResponse.json({ message: 'Mentor not found' }, { status: 404 });
     }
 
-    // Step 2: Map field names to Google Sheets columns
+    // Field-to-column mapping
     const fieldToColumn = {
-      fullName: 11,  // Column L for fullName
-      gender: 12,    // Column M for gender
-      wa_number: 13, // Column N for wa_number
-      role: 14,      // Column O for role
-      affiliation: 15, // Column P for affiliation
-      almamater: 16,  // Column Q for almamater
-      category: 17,   // Column R for category
-      field_of_interest: 18, // Column S for field_of_interest
-      description: 19, // Column T for description
-      linkedin_url: 20, // Column U for linkedin_url
-      profile_picture: 21, // Column V for profile_picture
+      fullName: 11,
+      gender: 12,
+      wa_number: 13,
+      role: 14,
+      affiliation: 15,
+      almamater: 16,
+      category: 17,
+      field_of_interest: 18,
+      description: 19,
+      linkedin_username: 20,
+      profile_picture: 21,
     };
 
     const columnIndex = fieldToColumn[field];
-
     if (columnIndex === undefined) {
+      console.error(`Invalid field: ${field}`);
       return NextResponse.json({ message: 'Invalid field name' }, { status: 400 });
     }
 
-    // Step 3: Update the specified field in the mentor's row
+    // Update field
+    const range = `mentor-account!${String.fromCharCode(65 + columnIndex)}${mentorIndex + 2}`;
+    console.log(`Updating field: ${field}, Range: ${range}, Value: ${value}`);
+
     const updateResponse = await sheets.spreadsheets.values.update({
       auth: authClient,
       spreadsheetId,
-      range: `mentor-account!${String.fromCharCode(65 + columnIndex)}${mentorIndex + 2}`, // Adjust for row and column
+      range,
       valueInputOption: 'RAW',
       requestBody: {
-        values: [[value]], // The value to update in the specified field
+        values: [[value]],
       },
     });
 
-    // Optional: Log the response for debugging or logging purposes
-    console.log('Update Response:', updateResponse);
+    console.log('Update successful:', updateResponse.data);
 
     return NextResponse.json({ message: 'Field updated successfully' }, { status: 200 });
 

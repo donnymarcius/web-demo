@@ -57,11 +57,11 @@ export async function GET(req) {
     const category = mentorData[17];
     const field_of_interest = mentorData[18];
     const description = mentorData[19];
-    const linkedin_url = mentorData[20];
+    const linkedin_username = mentorData[20];
     const profile_picture = mentorData[21];
 
     // Return the mentor data
-    return NextResponse.json({ fullName, gender, wa_number, role, affiliation, almamater, category, field_of_interest, description, linkedin_url, profile_picture }, { status: 200 });
+    return NextResponse.json({ fullName, gender, wa_number, role, affiliation, almamater, category, field_of_interest, description, linkedin_username, profile_picture }, { status: 200 });
 
   } catch (error) {
     console.error('Error fetching mentor data:', error);

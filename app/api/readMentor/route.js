@@ -11,7 +11,7 @@ export async function GET() {
   });
 
   const sheets = google.sheets({ version: 'v4', auth });
-  const range = 'mentors!A2:I'; // Adjust this based on your sheet's actual range
+  const range = 'mentor-account!A2:W'; // Adjust this based on your sheet's actual range
 
   try {
     const response = await sheets.spreadsheets.values.get({
@@ -26,16 +26,19 @@ export async function GET() {
 
     // Map the rows to an array of objects
     const data = rows.map((row) => ({
-      Category: row[0],
-      Photo: row[1],
-      Name: row[2],
-      Gender: row[3],
-      Role: row[4],
-      Affiliation: row[5],
-      Linkedin: row[6],
-      SubCat1: row[7],
-      SubCat2: row[8],
-      SubCat3: row[9],
+      profile_updated_at: row[10],
+      full_name: row[11],
+      gender: row[12],
+      wa_number: row[13],
+      role: row[14],
+      affiliation: row[15],
+      almamater: row[16],
+      category: row[17],
+      field_of_interest: row[18],
+      description: row[19],
+      linkedin_username: row[20],
+      profile_picture: row[21],
+      username: row[22],
     }));
 
     return new Response(JSON.stringify(data), {

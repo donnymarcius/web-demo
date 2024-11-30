@@ -37,11 +37,23 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
 
-        <div className="absolute inset-0 flex flex-col justify-center text-white pl-20 pr-48">
+        <div className="absolute inset-0 flex flex-col justify-start text-white mx-20 mt-16">
+          <div className="flex justify-end items-center gap-4 pb-10">
+            <Link href="/mentoring/join">
+              <p className="font-medium hover:scale-110 text-white">
+                Join as Mentor✨
+              </p>
+            </Link>
+
+            <Link href="/mentoring/login">
+              <button className="transparent text-base" type="button">Login</button>
+            </Link>
+          </div>
+
           <h1 className="text-7xl font-bold my-6">
             Welcome to SynBio ID&apos;s Mentoring Program!
           </h1>
-          <p className='text-xl'>
+          <p className='text-xl pr-40'>
             Meet our most anticipated program: Synbio ID&apos;s Mentoring—where <b className="text-white">life science enthusiasts 
             and professionals can connect with experts</b> from around the world. Whether you&apos;re navigating your 
             academic journey, exploring synthetic biology, or looking to advance your career, our platform 
@@ -52,8 +64,8 @@ export default function Home() {
             <Link href="/mentoring/make-session">
               <button type="button" className="transparent text-lg">Make Session</button>
             </Link>
-            <Link href="/mentoring/documentation">
-              <button type="button" className="transparent text-lg">Documentation</button>
+            <Link href="/mentoring/guidebook">
+              <button type="button" className="transparent text-lg">Guidebook</button>
             </Link>
           </div>
         </div>
