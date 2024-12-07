@@ -50,7 +50,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <h1 className="text-7xl font-bold my-6">
+          <h1 className="text-7xl font-bold my-6 text-white">
             Welcome to SynBio ID&apos;s Mentoring Program!
           </h1>
           <p className='text-xl pr-40'>
@@ -128,7 +128,7 @@ export default function Home() {
             </Link>
 
             <p style={{ color: 'var(--synbio-green)' }}>
-              <b>Recruitment Period</b>: Nov 29th, 2024 - Feb 28th, 2024
+              <b>Mentoring Period</b>: Jan 1st, 2025 - Mar 31st, 2025
             </p>
           </div>
         </div>

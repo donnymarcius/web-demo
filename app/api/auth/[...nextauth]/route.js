@@ -3,8 +3,10 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 import { google } from 'googleapis';
 
+export const runtime = 'nodejs'; // Explicitly set Node.js runtime
+
 // Authentication options
-export const authOptions = {
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -89,11 +91,6 @@ export const authOptions = {
   },
 };
 
-// Named exports for HTTP methods
-export async function POST(req, res) {
-  return NextAuth(authOptions)(req, res);
-}
+const handler = NextAuth(authOptions);
 
-export async function GET(req, res) {
-  return NextAuth(authOptions)(req, res);
-}
+export const { GET, POST } = handler;

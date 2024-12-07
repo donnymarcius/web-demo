@@ -10,7 +10,7 @@ export default function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('mentor'); // Default to 'mentor'
+  const [role, setRole] = useState('mentee'); // Default to 'mentor'
   const [loading] = useState(false);
   const [error, setError] = useState('');
   const [success] = useState('');
@@ -33,7 +33,7 @@ export default function LoginForm() {
       setError('Invalid email or password.');
     } else {
       // Redirect user to their dashboard or another page after successful login
-      router.push('/mentoring/dashboard/mentor/profile'); // Or use '/mentoring/dashboard/mentor/profile' for a more specific redirect
+      router.push('/mentoring/dashboard/mentee/profile'); // Or use '/mentoring/dashboard/mentor/profile' for a more specific redirect
     }
   };
 

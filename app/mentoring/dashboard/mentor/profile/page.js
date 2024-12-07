@@ -219,7 +219,7 @@ export default function MentorProfile() {
             </button>
           </div>
 
-          <div className="pl-4 py-2 flex gap-2 items-center">
+          <div className="pl-4 py-2 flex items-center">
             <h3 className="w-56">Profile Picture</h3>
             <Image
               src={profile_picture || "/images/placeholder_person.png"}

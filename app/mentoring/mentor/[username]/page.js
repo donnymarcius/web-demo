@@ -126,7 +126,7 @@ export default function MentorProfile({ params }) {
 
       <div className="page pt-4 flex flex-col gap-8">
         <div className="flex items-center gap-4">
-          <img src={mentor.profile_picture} alt={`${mentor.full_name}'s profile`} width={150} height={150} />
+          <img src={mentor.profile_picture} alt={`${mentor.full_name}'s profile`} width={150} height={150} className="w-40 h-40 object-cover rounded-full"/>
 
           <div className="flex flex-col items-start"> {/* Use items-start to prevent stretching */}
             <div
@@ -174,7 +174,7 @@ export default function MentorProfile({ params }) {
           </div>
 
           <div className="w-1/2">
-            <fieldset className="profile-column px-4 pb-2">
+            <fieldset className="profile-column px-4 pb-4">
               <legend>
                 <div className="flex gap-1 items-start px-2">
                   <img src="/images/icon/schedule-green.png" alt="schedule icon" width={100} height={100} className="w-10 h-auto" />
@@ -182,6 +182,30 @@ export default function MentorProfile({ params }) {
                 </div>
               </legend>
 
+              {/* <p className="text-xl font-medium pb-2">January 6th, 2025</p>
+              <div className="flex gap-2">
+                <p className="profile-column py-1 px-2">09:00 WIB</p>
+                <p className="profile-column py-1 px-2">12:00 WIB</p>
+              </div>
+              <hr className="my-4 border-t border-gray-200" />
+              <p className="text-xl font-medium pb-2">January 8th, 2025</p>
+              <div className="flex gap-2">
+                <p className="profile-column py-1 px-2">13:00 WIB</p>
+                <p className="profile-column py-1 px-2">14:00 WIB</p>
+                <p className="profile-column py-1 px-2">16:00 WIB</p>
+              </div>
+              <hr className="my-4 border-t border-gray-200" /> */}
+
+              <div className="flex justify-center">
+                <div
+                  className="inline-block py-1 px-3 text-xl text-white font-medium rounded-lg mt-4 cursor-pointer"
+                  style={{
+                    background: 'var(--synbio-green)',
+                  }}
+                >
+                  Make a Mentoring Session
+                </div>
+              </div>
               
             </fieldset>
           </div>

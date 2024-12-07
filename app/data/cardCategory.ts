@@ -36,8 +36,8 @@ export const CategoryData: CategoryProps[] = [
     {
         src: "/images/icon/school-green.png",
         alt: "student abroad",
-        title: "Indonesian Student Abroad",
+        title: "Scholarship Awardee",
         description:
-        "The mentor is an Indonesian student majoring in life sciences who is currently or has ever studied abroad.",
+        "The mentor is an Indonesian student majoring in life sciences who is currently or has ever become scholarship awardee.",
     },
   ];

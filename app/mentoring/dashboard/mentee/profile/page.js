@@ -53,7 +53,18 @@ const EditableField = ({ label, value, onChange, isDropdown = false, options = [
 
 export default function MenteeProfile() {
   const { data: session, status } = useSession();
-  const [menteeData, setMenteeData] = useState(null);
+  const [menteeData, setMenteeData] = useState({
+    fullName: '',
+    gender: '',
+    wa_number: '',
+    role: '',
+    affiliation: '',
+    almamater: '',
+    field_of_interest: '',
+    description: '',
+    linkedin_username: '',
+    profile_picture: '', // or a default placeholder URL
+  });
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -164,7 +175,7 @@ export default function MenteeProfile() {
             <p>Dashboard</p>
           </div>
           <div className="flex justify-end items-center gap-4">
-            <p className="text-white font-bold">Hi, {fullName}!</p>
+            {/* <p className="text-white font-bold">Hi, {fullName}!</p> */}
           </div>
         </div>
       </div>
@@ -219,7 +230,7 @@ export default function MenteeProfile() {
             </button>
           </div>
 
-          <div className="pl-4 py-2 flex gap-2 items-center">
+          {/* <div className="pl-4 py-2 flex gap-2 items-center">
             <h3 className="w-56">Profile Picture</h3>
             <Image
               src={profile_picture || "/images/placeholder_person.png"}
@@ -229,7 +240,7 @@ export default function MenteeProfile() {
               className="h-24 w-24 rounded-full"
               style={{ border: '2px solid var(--synbio-green)' }}
             />
-          </div>
+          </div> */}
 
           <EditableField
             label="Full Name"
@@ -270,12 +281,12 @@ export default function MenteeProfile() {
             disabled={!isEditing}
             isTextArea={true} // Allow multi-line input
           />
-          <EditableField
+          {/* <EditableField
             label="Category"
             value={category}
             onChange={(value) => handleFieldChange('category', value)}
             disabled={!isEditing}
-          />
+          /> */}
           <EditableField
             label="Field of Interest"
             value={field_of_interest}
