@@ -63,7 +63,6 @@ export default function MenteeProfile() {
     field_of_interest: '',
     description: '',
     linkedin_username: '',
-    profile_picture: '', // or a default placeholder URL
   });
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -151,7 +150,7 @@ export default function MenteeProfile() {
     setIsEditing(!isEditing);
   };
 
-  const { fullName, gender, wa_number, role, affiliation, almamater, category, field_of_interest, description, linkedin_username, profile_picture } =
+  const { fullName, gender, wa_number, role, affiliation, almamater, field_of_interest, description, linkedin_username } =
     menteeData;
 
   return (

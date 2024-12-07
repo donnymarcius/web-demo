@@ -6,7 +6,7 @@ import { google } from 'googleapis';
 export const runtime = 'nodejs'; // Explicitly set Node.js runtime
 
 // Authentication options
-const authOptions = {
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
