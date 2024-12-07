@@ -93,4 +93,11 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
-export const { GET, POST } = handler;
+// Separate route handlers for GET and POST
+export function GET(request) {
+  return handler(request);
+}
+
+export function POST(request) {
+  return handler(request);
+}
