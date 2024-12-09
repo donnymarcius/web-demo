@@ -91,7 +91,7 @@ export default function Registration() {
         }
       }
     } catch (err) {
-      setError('An error occurred while registering.');
+      setError('An error occurred while registering: ${err.message}');
     } finally {
       setLoading(false);
     }
