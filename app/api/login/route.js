@@ -2,9 +2,6 @@ import { google } from 'googleapis';
 import bcrypt from 'bcrypt';
 import { getServerSession } from 'next-auth'; // Import getServerSession from next-auth
 
-// Assume the NextAuth configuration is stored in the 'auth/[...nextauth].js' file
-import { authOptions } from '../auth/[...nextauth]/route.js';
-
 export async function POST(req) {
   const { email, password } = await req.json();
   const { searchParams } = new URL(req.url);
@@ -64,7 +61,7 @@ export async function POST(req) {
     }
 
     // After successful login, create a session
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
 
     // Set session data (this part would depend on your session provider configuration)
     // You can customize this according to your app's needs (e.g., store user info)
