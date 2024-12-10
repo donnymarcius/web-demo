@@ -29,6 +29,8 @@ export default function LoginForm() {
       redirect: false, // We handle redirect manually
     });
 
+    console.log(res); // Debug the response to see what's happening
+
     if (res?.error) {
       setError('Invalid email or password.');
     } else {
