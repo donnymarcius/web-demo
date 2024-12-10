@@ -58,7 +58,7 @@ const handler = NextAuth({
                 role,
             };
             } catch (error) {
-            console.error('Authentication error:', error);
+            console.error('Authentication error:', error.message, error.stack);
             throw new Error('Failed to authenticate');
             }
         },
