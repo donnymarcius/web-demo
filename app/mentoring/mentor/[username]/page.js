@@ -13,7 +13,7 @@ const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => 
     <fieldset className="profile-column px-4 pb-2">
       <legend>
         <div className="flex gap-1 items-start px-2">
-          <img src={`/images/icon/${icon}-green.png`} alt={`${icon}`} width={100} height={100} className="w-10 h-auto" />
+          <Image src={`/images/icon/${icon}-green.png`} alt={`${icon}`} width={100} height={100} className="w-10 h-auto" />
           <h2>{label}</h2>
         </div>
       </legend>
@@ -126,7 +126,7 @@ export default function MentorProfile({ params }) {
 
       <div className="page pt-4 flex flex-col gap-8">
         <div className="flex items-center gap-4">
-          <img src={mentor.profile_picture} alt={`${mentor.full_name}'s profile`} width={150} height={150} className="w-40 h-40 object-cover rounded-full"/>
+          <Image src={mentor.profile_picture} alt={`${mentor.full_name}'s profile`} width={150} height={150} className="w-40 h-40 object-cover rounded-full"/>
 
           <div className="flex flex-col items-start"> {/* Use items-start to prevent stretching */}
             <div
@@ -140,9 +140,9 @@ export default function MentorProfile({ params }) {
 
             <div className="flex gap-2 items-center">
               <h1>{mentor.full_name}</h1>
-              <img src={`/images/icon/gender-${mentor.gender}.png`} alt="gender" width={100} height={200} className="w-auto h-8 mb-8" />
+              <Image src={`/images/icon/gender-${mentor.gender}.png`} alt="gender" width={100} height={200} className="w-auto h-8 mb-8" />
               <Link href={`https://www.linkedin.com/in/${mentor.linkedin_username}`} target="_blank" rel="noopener noreferrer">
-                <img src="/images/icon/linkedin.png" alt="linkedin" width={100} height={100} className="w-10 ml-4" />
+                <Image src="/images/icon/linkedin.png" alt="linkedin" width={100} height={100} className="w-10 ml-4" />
               </Link>
             </div>
             
@@ -177,7 +177,7 @@ export default function MentorProfile({ params }) {
             <fieldset className="profile-column px-4 pb-4">
               <legend>
                 <div className="flex gap-1 items-start px-2">
-                  <img src="/images/icon/schedule-green.png" alt="schedule icon" width={100} height={100} className="w-10 h-auto" />
+                  <Image src="/images/icon/schedule-green.png" alt="schedule icon" width={100} height={100} className="w-10 h-auto" />
                   <h2>Available Sessions</h2>
                 </div>
               </legend>
