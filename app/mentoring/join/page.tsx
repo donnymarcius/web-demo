@@ -63,7 +63,7 @@ export default function Home() {
 
           <div className="flex flex-col gap-2 mb-4">
             <p><b>Program period</b> 📅: 29 November 2024 - 28 February 2025</p>
-            <p>Mentoring sessions will be scheduled flexibly based on the mentor and mentee's availability, making it easy to fit into your schedule.</p>
+            <p>Mentoring sessions will be scheduled flexibly based on the mentor and mentee&apos;s availability, making it easy to fit into your schedule.</p>
             <p>Let&apos;s work together to shape the future of life sciences by mentoring the talented young individuals of tomorrow. 💡🌍</p>
           </div>
           
@@ -108,7 +108,7 @@ export default function Home() {
 
             <div className="box flex-1 min-w-96">
                 <p className="text-justify">
-                The strongest attribute of Synbio’s mentoring program is its ability to foster innovation and hands-on learning through personalized guidance. Mentors in synthetic biology often come with deep expertise in multidisciplinary fields, enabling mentees to explore complex concepts like gene editing, bioengineering, and systems biology in a more practical and applicable way. This one-on-one mentoring structure helps participants to not only learn cutting-edge techniques but also think critically about how to apply these skills in solving real-world biological challenges, accelerating their growth as researchers and innovators.
+                The strongest attribute of Synbio&apos;s mentoring program is its ability to foster innovation and hands-on learning through personalized guidance. Mentors in synthetic biology often come with deep expertise in multidisciplinary fields, enabling mentees to explore complex concepts like gene editing, bioengineering, and systems biology in a more practical and applicable way. This one-on-one mentoring structure helps participants to not only learn cutting-edge techniques but also think critically about how to apply these skills in solving real-world biological challenges, accelerating their growth as researchers and innovators.
                 </p>
                 <div className="flex justify-end items-center gap-2 font-bold text-lg mt-2" style={{ color: 'var(--synbio-green)' }}>
                   <p>Leon Martin</p>
