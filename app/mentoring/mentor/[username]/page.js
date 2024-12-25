@@ -1,6 +1,4 @@
-// app/mentoring/mentor/[username]/page.js
-
-'use client'; // Mark as client-side rendered if necessary
+'use client';
 
 import { useEffect, useState } from 'react';
 import { use } from 'react';
@@ -47,10 +45,10 @@ const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => 
 };
 
 export default function MentorProfile({ params }) {
-  // Unwrap the params object using `use()` to access the username
   const username = use(params).username;
 
   const [mentor, setMentor] = useState(null);
+  const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -60,7 +58,6 @@ export default function MentorProfile({ params }) {
         const res = await fetch('/api/readMentor');
         const data = await res.json();
 
-        // Find the mentor based on the 'username'
         const foundMentor = data.find((mentor) => mentor.username === username);
         if (foundMentor) {
           setMentor(foundMentor);
@@ -69,6 +66,17 @@ export default function MentorProfile({ params }) {
         }
       } catch (err) {
         setError('Error fetching mentor data');
+      }
+    };
+
+    const fetchSessions = async () => {
+      try {
+        const response = await fetch('/api/getMentorSessions');
+        const data = await response.json();
+        setSessions(data.sessions); // Assuming the response contains sessions under `sessions` key
+      } catch (err) {
+        console.error('Error fetching mentor sessions:', err);
+        setError('Error fetching mentor sessions');
       } finally {
         setLoading(false);
       }
@@ -76,8 +84,9 @@ export default function MentorProfile({ params }) {
 
     if (username) {
       fetchMentorData();
+      fetchSessions(); // Fetch sessions when mentor data is available
     }
-  }, [username]); // Dependency on 'username', so it will re-run when the username changes
+  }, [username]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -95,7 +104,7 @@ export default function MentorProfile({ params }) {
           className="absolute inset-0"
         />
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-    
+
         <div className="absolute inset-0 px-10 flex justify-between items-end pb-4">
           <div className="flex gap-2 text-white">
             <Link href="/mentoring">
@@ -106,9 +115,7 @@ export default function MentorProfile({ params }) {
               <p>Make Session</p>
             </Link>
             <p>&gt;</p>
-            {/* <Link href="/"> */}
-              <p>Mentor Profile</p>
-            {/* </Link> */}
+            <p>Mentor Profile</p>
           </div>
           <div className="flex justify-end items-center gap-4">
             <Link href="/mentoring/join">
@@ -145,13 +152,13 @@ export default function MentorProfile({ params }) {
                 <Image src="/images/icon/linkedin.png" alt="linkedin" width={100} height={100} className="w-10 ml-4" />
               </Link>
             </div>
-            
+
             <p className="text-2xl font-medium" style={{ color: 'var(--synbio-green)' }}>
               {mentor.role} at {mentor.affiliation}
             </p>
           </div>
         </div>
-        
+
         <div className="flex gap-4">
           <div className="flex flex-col gap-6 w-1/2">
             <EditableField
@@ -182,19 +189,24 @@ export default function MentorProfile({ params }) {
                 </div>
               </legend>
 
-              {/* <p className="text-xl font-medium pb-2">January 6th, 2025</p>
-              <div className="flex gap-2">
-                <p className="profile-column py-1 px-2">09:00 WIB</p>
-                <p className="profile-column py-1 px-2">12:00 WIB</p>
+              {/* Display Existing Sessions */}
+              <div className="w-full my-4">
+                {sessions.length === 0 ? (
+                  <p>No available sessions yet</p>
+                ) : (
+                  <ul className="flex flex-wrap gap-2">
+                    {sessions.map((session, index) => (
+                      <li key={index} className="flex justify-between items-center gap-x-4 space-y-2">
+                        <div className="bg-green-100 rounded-full px-4 py-1">
+                          {`${new Date(session.session_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' })} | 
+                            ${new Date(`1970-01-01T${session.start_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - 
+                            ${new Date(`1970-01-01T${session.end_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (UTC+7)`}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              <hr className="my-4 border-t border-gray-200" />
-              <p className="text-xl font-medium pb-2">January 8th, 2025</p>
-              <div className="flex gap-2">
-                <p className="profile-column py-1 px-2">13:00 WIB</p>
-                <p className="profile-column py-1 px-2">14:00 WIB</p>
-                <p className="profile-column py-1 px-2">16:00 WIB</p>
-              </div>
-              <hr className="my-4 border-t border-gray-200" /> */}
 
               <div className="flex justify-center">
                 <div
@@ -206,7 +218,6 @@ export default function MentorProfile({ params }) {
                   Make a Mentoring Session
                 </div>
               </div>
-              
             </fieldset>
           </div>
         </div>

@@ -34,8 +34,12 @@ export default function LoginForm() {
     if (res?.error) {
       setError('Invalid email or password.');
     } else {
-      // Redirect user to their dashboard or another page after successful login
-      router.push('/mentoring/dashboard/mentee/profile'); // Or use '/mentoring/dashboard/mentor/profile' for a more specific redirect
+       // Redirect user to their role-specific dashboard
+      if (role === 'mentor') {
+        router.push('/mentoring/dashboard/mentor/profile');
+      } else {
+        router.push('/mentoring/dashboard/mentee/profile');
+      }
     }
   };
 

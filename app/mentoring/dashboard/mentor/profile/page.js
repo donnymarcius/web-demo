@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
 import Image from "next/image";
+import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 // Reusable EditableField Component
@@ -171,16 +171,32 @@ export default function MentorProfile() {
 
       <div className="px-10 flex flex-wrap gap-8 mt-6">
         <div className="side-menu">
-          <div className="side-menu-item">
-            <Image
-              src="/images/icon/person-green.png"
-              alt="Profile Icon"
-              width={400}
-              height={400}
-              className="h-full w-auto"
-            />
-            <p>Profile</p>
-          </div>
+          {/* <Link href="/mentoring/dashboard/mentor/profile"> */}
+            <div className="side-menu-item">
+              <Image
+                src="/images/icon/person-green.png"
+                alt="Profile Icon"
+                width={400}
+                height={400}
+                className="h-full w-auto"
+              />
+              <p>Profile</p>
+            </div>
+          {/* </Link> */}
+
+          <Link href="/mentoring/dashboard/mentor/available-sessions">
+            <div className="side-menu-item">
+              <Image
+                src="/images/icon/avail-green.png"
+                alt="Schedule Icon"
+                width={400}
+                height={400}
+                className="h-full w-auto"
+              />
+              <p>Availability</p>
+            </div>
+          </Link>
+
           <Link href="/mentoring/dashboard/mentor/schedule">
             <div className="side-menu-item">
               <Image

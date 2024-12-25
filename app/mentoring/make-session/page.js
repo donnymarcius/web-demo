@@ -11,8 +11,9 @@ export default function Book() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [sortOrder, setSortOrder] = useState('default'); // Sorting state
 
-  const categories = ['Academia', 'Company', 'Start-Up', 'Scholarship Awardee', 'Government']; // Predefined categories
+  const categories = ['Academia', 'Company', 'Start-Up', 'Scholarship Awardee', 'Government'];
 
   const fetchSheetData = async () => {
     try {
@@ -69,6 +70,24 @@ export default function Book() {
     setFilteredData(filtered);
   };
 
+  const handleSort = (order) => {
+    setSortOrder(order);
+    if (order === 'default') {
+      setFilteredData([...sheetData]);
+    } else {
+      const sorted = [...filteredData].sort((a, b) => {
+        const nameA = a.full_name.toLowerCase();
+        const nameB = b.full_name.toLowerCase();
+
+        if (order === 'asc') return nameA.localeCompare(nameB);
+        if (order === 'desc') return nameB.localeCompare(nameA);
+        return 0;
+      });
+
+      setFilteredData(sorted);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -109,34 +128,51 @@ export default function Book() {
       </div>
 
       <div className="page pt-4 flex flex-col gap-8">
-        {/* Search Bar */}
+        {/* Search and Filter Section */}
         <div className="flex flex-col gap-4">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleSearch}
-            placeholder="Search by name, role, or affiliation..."
-            className="border border-green-800 rounded-md px-2 py-1 mx-auto w-full"
-          />
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearch}
+              placeholder="Search by name, role, or affiliation..."
+              className="border border-green-800 rounded-md px-2 py-1 mx-auto w-full"
+            />
 
-          {/* Category Filters */}
-          <div className="flex gap-2 justify-left">
-            <h3 className="pr-1">Mentor Category:</h3>
-            <button
-              onClick={() => handleCategoryFilter('')}
-              className={`filter ${selectedCategory === '' ? 'bg-green-800 text-white' : 'bg-gray-200 text-gray-400'}`}
-            >
-              All
-            </button>
-            {categories.map((category, index) => (
-              <button
-                key={index}
-                onClick={() => handleCategoryFilter(category)}
-                className={`filter ${selectedCategory === category ? 'bg-green-800 text-white' : 'bg-gray-200 text-gray-400'}`}
+            <div className="flex items-center gap-2">
+              <select
+                id="sortOrder"
+                value={sortOrder}
+                onChange={(e) => handleSort(e.target.value)}
+                className="border border-green-800 rounded-md px-2 py-1"
               >
-                {category}
+                <option value="default">No Sort</option>
+                <option value="asc">Name A-Z</option>
+                <option value="desc">Name Z-A</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Category Filters */}
+            <div className="flex gap-2">
+              <h3 className="pr-1">Mentor Category:</h3>
+              <button
+                onClick={() => handleCategoryFilter('')}
+                className={`filter ${selectedCategory === '' ? 'bg-green-800 text-white' : 'bg-gray-200 text-gray-400'}`}
+              >
+                All
               </button>
-            ))}
+              {categories.map((category, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleCategoryFilter(category)}
+                  className={`filter ${selectedCategory === category ? 'bg-green-800 text-white' : 'bg-gray-200 text-gray-400'}`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -39,7 +39,7 @@ export default function Home() {
         <div className="side-menu">
           <Link href="/mentoring/dashboard/mentor/profile">
             <div className="side-menu-item">
-              <Image 
+              <Image
                 src="/images/icon/person-green.png"
                 alt="Profile Icon"
                 width={400}
@@ -50,11 +50,24 @@ export default function Home() {
             </div>
           </Link>
 
+          <Link href="/mentoring/dashboard/mentor/available-sessions">
+            <div className="side-menu-item">
+              <Image
+                src="/images/icon/avail-green.png"
+                alt="Schedule Icon"
+                width={400}
+                height={400}
+                className="h-full w-auto"
+              />
+              <p>Availability</p>
+            </div>
+          </Link>
+
           {/* <Link href="/mentoring/dashboard/mentor/schedule"> */}
             <div className="side-menu-item">
-              <Image 
+              <Image
                 src="/images/icon/calendar-green.png"
-                alt="Profile Icon"
+                alt="Schedule Icon"
                 width={400}
                 height={400}
                 className="h-full w-auto"
@@ -65,9 +78,9 @@ export default function Home() {
 
           <Link href="/mentoring/dashboard/mentor/setting">
             <div className="side-menu-item">
-              <Image 
+              <Image
                 src="/images/icon/setting-green.png"
-                alt="Profile Icon"
+                alt="Setting Icon"
                 width={400}
                 height={400}
                 className="h-full w-auto"
