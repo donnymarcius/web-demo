@@ -147,7 +147,6 @@ export default function MentorProfile({ params }) {
 
             <div className="flex gap-2 items-center">
               <h1>{mentor.full_name}</h1>
-              <h1>{`/images/icon/gender-${mentor.gender}.png`}</h1>
               <Image src={`/images/icon/gender-${mentor.gender}.png`} alt="gender" width={100} height={200} className="w-auto h-8 mb-8" />
               <Link href={`https://www.linkedin.com/in/${mentor.linkedin_username}`} target="_blank" rel="noopener noreferrer">
                 <Image src="/images/icon/linkedin.png" alt="linkedin" width={100} height={100} className="w-10 ml-4" />
