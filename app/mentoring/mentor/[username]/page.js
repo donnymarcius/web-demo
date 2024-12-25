@@ -45,7 +45,7 @@ const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => 
 };
 
 export default function MentorProfile({ params }) {
-  const { data: session, status } = useSession(); // Use useSession to manage session data
+  const { data: session } = useSession(); // Use useSession to manage session data
 
   const username = use(params).username;
   const [mentor, setMentor] = useState(null);
