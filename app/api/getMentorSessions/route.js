@@ -18,7 +18,7 @@ const authenticateGoogleSheets = async () => {
   return auth.getClient();
 };
 
-export async function GET(req) {
+export async function GET() {
   const authClient = await authenticateGoogleSheets();
   const session = await getServerSession(NextAuth); // Get session info
   const mentorEmail = session?.user?.email;
