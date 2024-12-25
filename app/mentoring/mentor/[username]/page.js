@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { use } from 'react';
+import { use, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react'; // Import useSession from next-auth/react
 import Link from 'next/link';
 import Image from "next/image";
 
@@ -16,7 +16,7 @@ const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => 
         </div>
       </legend>
 
-      {isFoI ?(
+      {isFoI ? (
         <div className="flex gap-4">
           {value?.split(',').map((paragraph, index) => (
             <p key={index} className="text-justify py-1 px-3 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>
@@ -45,8 +45,9 @@ const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => 
 };
 
 export default function MentorProfile({ params }) {
-  const username = use(params).username;
+  const { data: session, status } = useSession(); // Use useSession to manage session data
 
+  const username = use(params).username;
   const [mentor, setMentor] = useState(null);
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -124,8 +125,11 @@ export default function MentorProfile({ params }) {
               </p>
             </Link>
 
-            <Link href="/mentoring/login">
-              <button className="transparent text-base" type="button">Login</button>
+            {/* Check if the user is logged in, and display email or "Login" */}
+            <Link href={session ? `/profile` : `/mentoring/login`}>
+              <button className="transparent text-base" type="button">
+                {session ? session.user.email : "Login"}
+              </button>
             </Link>
           </div>
         </div>
@@ -133,9 +137,9 @@ export default function MentorProfile({ params }) {
 
       <div className="page pt-4 flex flex-col gap-8">
         <div className="flex items-center gap-4">
-          <Image src={mentor.profile_picture} alt={`${mentor.full_name}'s profile`} width={150} height={150} className="w-40 h-40 object-cover rounded-full"/>
+          <Image src={mentor.profile_picture} alt={`${mentor.full_name}'s profile`} width={150} height={150} className="w-40 h-40 object-cover rounded-full" />
 
-          <div className="flex flex-col items-start"> {/* Use items-start to prevent stretching */}
+          <div className="flex flex-col items-start">
             <div
               className="inline-block py-1 px-3 text-sm text-white font-medium rounded-full"
               style={{
@@ -210,7 +214,7 @@ export default function MentorProfile({ params }) {
 
               <div className="flex justify-center">
                 <div
-                  className="inline-block py-1 px-3 text-xl text-white font-medium rounded-lg mt-4 cursor-pointer"
+                  className="inline-block py-1 px-3 text-xl text-white font-medium rounded-lg cursor-pointer"
                   style={{
                     background: 'var(--synbio-green)',
                   }}
