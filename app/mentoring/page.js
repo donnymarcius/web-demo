@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import { CategoryData, CategoryProps } from '../data/cardCategory';
+import { CategoryData } from '../data/cardCategory';
 import { TestimonialData } from '../data/cardTestimony';
 import TestimonialCarousel from '../components/TestimonialCarousel';
 
