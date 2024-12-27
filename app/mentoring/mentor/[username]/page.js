@@ -16,9 +16,9 @@ const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => 
         </div>
       </legend>
       {isFoI ? (
-        <div className="flex gap-4">
+        <div className="flex items-baseline gap-4">
           {value?.split(',').map((paragraph, index) => (
-            <p key={index} className="text-justify py-1 px-3 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>
+            <p key={index} className="text-center py-1 px-3 rounded-full" style={{ border: '1px solid var(--synbio-green)' }}>
               {paragraph}
             </p>
           ))}
@@ -117,6 +117,27 @@ export default function MentorProfile({ params }) {
   
 
   const handleBooking = async () => {
+    if (!selectedSession) {
+      alert('No session selected!');
+      return;
+    }
+  
+    if (!session || !session.user || !session.user.email) {
+      alert('Please log in first');
+      return;
+    }
+  
+    // Log the payload before sending
+    console.log("Sending booking data:", {
+      mentor_email: mentor.email, // Ensure this exists
+      mentee_email: session.user.email, // Ensure this exists
+      session_date: selectedSession.session_date, // Ensure this exists
+      start_time: selectedSession.start_time, // Ensure this exists
+      end_time: selectedSession.end_time, // Ensure this exists
+      status: 'Pending', // This is hardcoded, ensure it's needed in the back-end
+      created_at: new Date().toISOString(), // Use the current timestamp
+    });
+  
     try {
       const response = await fetch('/api/updateSession', {
         method: 'POST',
@@ -124,27 +145,20 @@ export default function MentorProfile({ params }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          session_id: selectedSession.session_id,
+          mentor_email: mentor.email,
           mentee_email: session.user.email,
           session_date: selectedSession.session_date,
           start_time: selectedSession.start_time,
           end_time: selectedSession.end_time,
-          status: 'booked',
+          status: 'Pending',
+          created_at: new Date().toISOString(),
         }),
       });
+  
       const data = await response.json();
       if (data.message === 'Session updated successfully!') {
         alert('Session booked successfully');
         setShowModal(false);
-
-        // Update session list to reflect booking
-        setSessions((prev) =>
-          prev.map((s) =>
-            s.session_id === selectedSession.session_id
-              ? { ...s, is_booked: true }
-              : s
-          )
-        );
       } else {
         alert('Error booking the session');
       }
@@ -152,7 +166,7 @@ export default function MentorProfile({ params }) {
       console.error('Error:', error);
       alert('An error occurred while booking the session');
     }
-  };
+  };  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -164,10 +178,12 @@ export default function MentorProfile({ params }) {
         <Image
           src="/images/mentoring/bg.png"
           alt="Background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          fill
           className="absolute inset-0"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
 
