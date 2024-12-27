@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 // Reusable EditableField Component
 const EditableField = ({ label, value, onChange, isDropdown = false, options = [], disabled, isTextArea = false, customTextColor = '' }) => {
@@ -53,6 +53,17 @@ const EditableField = ({ label, value, onChange, isDropdown = false, options = [
 
 export default function MenteeProfile() {
   const { data: session, status } = useSession();
+  const role = session?.user?.role || ""; // Assumes role is set in session, default to empty string if not available
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    signOut(); // Triggers NextAuth logout functionality
+  };
+
   const [menteeData, setMenteeData] = useState({
     fullName: '',
     gender: '',
@@ -156,41 +167,69 @@ export default function MenteeProfile() {
   return (
     <div className="overflow-x-hidden">
       <div className="relative h-[30vh]">
-        <Image
-          src="/images/mentoring/bg.png"
-          alt="Background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-          className="absolute inset-0"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-        <div className="absolute inset-0 px-10 flex justify-between items-end pb-4">
-          <div className="flex gap-2 text-white">
-            <Link href="/mentoring">
-              <p>Mentoring Home</p>
-            </Link>
-            <p>&gt;</p>
-            <p>Dashboard</p>
-          </div>
-          <div className="flex justify-end items-center gap-4">
-            {/* <p className="text-white font-bold">Hi, {fullName}!</p> */}
-          </div>
+        <div className="flex justify-end items-center gap-4">
+          <Link href="/mentoring/join">
+            <p className="font-medium hover:scale-110 text-white">
+              Join as Mentor✨
+            </p>
+          </Link>
+
+          {/* Check if the user is logged in, and display email or "Login" */}
+          {session ? (
+              // Dropdown Button for Logged-In User
+              <div className="relative">
+                <button
+                  className="transparent text-base"
+                  type="button"
+                  onClick={toggleDropdown}
+                >
+                  {session.user.email}
+                </button>
+                {isDropdownOpen && (
+                  <ul className="absolute right-0 text-black pr-2 rounded shadow-md">
+                    <li>
+                      <Link href={`/mentoring/dashboard/${role}/profile`}>
+                        <button className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}>
+                          Profile
+                        </button>
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
         </div>
       </div>
 
       <div className="px-10 flex flex-wrap gap-8 mt-6">
-        <div className="side-menu">
-          <div className="side-menu-item">
-            <Image
-              src="/images/icon/person-green.png"
-              alt="Profile Icon"
-              width={400}
-              height={400}
-              className="h-full w-auto"
-            />
-            <p>Profile</p>
-          </div>
+      <div className="side-menu">
+          {/* <Link href="/mentoring/dashboard/mentee/profile"> */}
+            <div className="side-menu-item">
+              <Image
+                src="/images/icon/person-green.png"
+                alt="Profile Icon"
+                width={400}
+                height={400}
+                className="h-full w-auto"
+              />
+              <p>Profile</p>
+            </div>
+          {/* </Link> */}
+
           <Link href="/mentoring/dashboard/mentee/schedule">
             <div className="side-menu-item">
               <Image

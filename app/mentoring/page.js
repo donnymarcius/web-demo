@@ -1,9 +1,9 @@
 'use client'; // This marks the file as a Client Component
 
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { CategoryData } from '../data/cardCategory';
 import { TestimonialData } from '../data/cardTestimony';
 import TestimonialCarousel from '../components/TestimonialCarousel';
@@ -26,16 +26,28 @@ const Category = ({ src, alt, title, description }) => (
 
 export default function Home() {
   const { data: session } = useSession(); // Use useSession to manage session data
+  const role = session?.user?.role || ""; // Assumes role is set in session, default to empty string if not available
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    signOut(); // Triggers NextAuth logout functionality
+  };
+  
   return (
     <div>
       <div className="relative h-screen">
         <Image
           src="/images/mentoring/bg.png"
           alt="Background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
           className="absolute inset-0"
         />
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
@@ -50,9 +62,35 @@ export default function Home() {
 
             {/* Check if the user is logged in, and display email or "Login" */}
             {session ? (
-              <button className="transparent text-base" type="button" disabled>
-                {session.user.email}
-              </button>
+              // Dropdown Button for Logged-In User
+              <div className="relative">
+                <button
+                  className="transparent text-base"
+                  type="button"
+                  onClick={toggleDropdown}
+                >
+                  {session.user.email}
+                </button>
+                {isDropdownOpen && (
+                  <ul className="absolute right-0 text-black pr-2 rounded shadow-md">
+                    <li>
+                      <Link href={`/mentoring/dashboard/${role}/profile`}>
+                        <button className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}>
+                          Profile
+                        </button>
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
             ) : (
               <Link href="/mentoring/login">
                 <button className="transparent text-base" type="button">

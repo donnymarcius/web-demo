@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 // Reusable EditableField Component
 const EditableField = ({ label, value, onChange, isDropdown = false, options = [], disabled, isTextArea = false, customTextColor = '' }) => {
@@ -56,6 +56,16 @@ export default function MentorProfile() {
   const [mentorData, setMentorData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const role = session?.user?.role || ""; // Assumes role is set in session, default to empty string if not available
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    signOut(); // Triggers NextAuth logout functionality
+  };
 
   useEffect(() => {
     if (!session) return;
@@ -149,9 +159,11 @@ export default function MentorProfile() {
         <Image
           src="/images/mentoring/bg.png"
           alt="Background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
           className="absolute inset-0"
         />
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
@@ -164,7 +176,50 @@ export default function MentorProfile() {
             <p>Dashboard</p>
           </div>
           <div className="flex justify-end items-center gap-4">
-            <p className="text-white font-bold">Hi, {fullName}!</p>
+          <Link href="/mentoring/join">
+            <p className="font-medium hover:scale-110 text-white">
+              Join as Mentor✨
+            </p>
+          </Link>
+
+          {/* Check if the user is logged in, and display email or "Login" */}
+          {session ? (
+              // Dropdown Button for Logged-In User
+              <div className="relative">
+                <button
+                  className="transparent text-base"
+                  type="button"
+                  onClick={toggleDropdown}
+                >
+                  {session.user.email}
+                </button>
+                {isDropdownOpen && (
+                  <ul className="absolute right-0 text-black pr-2 rounded shadow-md">
+                    <li>
+                      <Link href={`/mentoring/dashboard/${role}/profile`}>
+                        <button className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}>
+                          Profile
+                        </button>
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -236,7 +291,7 @@ export default function MentorProfile() {
           </div>
 
           <div className="pl-4 py-2 flex items-center">
-            <h3 className="w-56">Profile Picture</h3>
+            <h3 className="w-48">Profile Picture</h3>
             <Image
               src={profile_picture || "/images/placeholder_person.png"}
               alt="Profile Picture"

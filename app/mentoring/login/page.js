@@ -10,7 +10,7 @@ export default function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [position, setPosition] = useState('mentee'); // Default to 'mentor'
+  const [role, setRole] = useState('mentee'); // Default to 'mentor'
   const [loading] = useState(false);
   const [error, setError] = useState('');
   const [success] = useState('');
@@ -25,7 +25,7 @@ export default function LoginForm() {
     const res = await signIn('credentials', {
       email,
       password,
-      position,
+      role,
       redirect: false, // We handle redirect manually
     });
 
@@ -34,8 +34,8 @@ export default function LoginForm() {
     if (res?.error) {
       setError('Invalid email or password.');
     } else {
-       // Redirect user to their position-specific dashboard
-      if (position === 'mentor') {
+       // Redirect user to their role-specific dashboard
+      if (role === 'mentor') {
         router.push('/mentoring/dashboard/mentor/profile');
       } else {
         router.push('/mentoring/dashboard/mentee/profile');
@@ -49,9 +49,11 @@ export default function LoginForm() {
         <Image
           src="/images/mentoring/bg.png"
           alt="Background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
           className="absolute inset-0"
         />
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
@@ -108,10 +110,10 @@ export default function LoginForm() {
               <label className="flex items-center">
                 <input
                   type="radio"
-                  name="position"
+                  name="role"
                   value="mentee"
-                  checked={position === 'mentee'}
-                  onChange={(e) => setPosition(e.target.value)}
+                  checked={role === 'mentee'}
+                  onChange={(e) => setRole(e.target.value)}
                   className="mr-2"
                 />
                 Mentee
@@ -119,10 +121,10 @@ export default function LoginForm() {
               <label className="flex items-center">
                 <input
                   type="radio"
-                  name="position"
+                  name="role"
                   value="mentor"
-                  checked={position === 'mentor'}
-                  onChange={(e) => setPosition(e.target.value)}
+                  checked={role === 'mentor'}
+                  onChange={(e) => setRole(e.target.value)}
                   className="mr-2"
                 />
                 Mentor

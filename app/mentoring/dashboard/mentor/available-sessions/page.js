@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import Image from "next/image";
-import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import React, { useState, useEffect } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -35,6 +35,17 @@ export default function AvailableSessions() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [setSuccessMessage] = useState('');
+  const role = session?.user?.role || ""; // Assumes role is set in session, default to empty string if not available
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    signOut(); // Triggers NextAuth logout functionality
+  };
+  
 
   const fetchSessions = async () => {
     setLoading(true);
@@ -176,34 +187,83 @@ export default function AvailableSessions() {
             <p>Dashboard</p>
           </div>
           <div className="flex justify-end items-center gap-4">
-            <p className="text-white font-bold">Hi, {session?.user?.name}!</p>
+          <Link href="/mentoring/join">
+            <p className="font-medium hover:scale-110 text-white">
+              Join as Mentor✨
+            </p>
+          </Link>
+
+          {/* Check if the user is logged in, and display email or "Login" */}
+          {session ? (
+              // Dropdown Button for Logged-In User
+              <div className="relative">
+                <button
+                  className="transparent text-base"
+                  type="button"
+                  onClick={toggleDropdown}
+                >
+                  {session.user.email}
+                </button>
+                {isDropdownOpen && (
+                  <ul className="absolute right-0 text-black pr-2 rounded shadow-md">
+                    <li>
+                      <Link href={`/mentoring/dashboard/${role}/profile`}>
+                        <button className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}>
+                          Profile
+                        </button>
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
 
       {/* Side Menu & Main Content */}
       <div className="px-10 flex flex-wrap gap-8 mt-6">
-        <div className="side-menu">
-          <div className="side-menu-item">
-            <Image
-              src="/images/icon/person-green.png"
-              alt="Profile Icon"
-              width={400}
-              height={400}
-              className="h-full w-auto"
-            />
-            <p>Profile</p>
-          </div>
-          <div className="side-menu-item">
-            <Image
-              src="/images/icon/avail-green.png"
-              alt="Schedule Icon"
-              width={400}
-              height={400}
-              className="h-full w-auto"
-            />
-            <p>Availability</p>
-          </div>
+      <div className="side-menu">
+          <Link href="/mentoring/dashboard/mentor/profile">
+            <div className="side-menu-item">
+              <Image
+                src="/images/icon/person-green.png"
+                alt="Profile Icon"
+                width={400}
+                height={400}
+                className="h-full w-auto"
+              />
+              <p>Profile</p>
+            </div>
+          </Link>
+
+          {/* <Link href="/mentoring/dashboard/mentor/available-sessions"> */}
+            <div className="side-menu-item">
+              <Image
+                src="/images/icon/avail-green.png"
+                alt="Schedule Icon"
+                width={400}
+                height={400}
+                className="h-full w-auto"
+              />
+              <p>Availability</p>
+            </div>
+          {/* </Link> */}
+
           <Link href="/mentoring/dashboard/mentor/schedule">
             <div className="side-menu-item">
               <Image

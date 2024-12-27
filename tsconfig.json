@@ -37,7 +37,7 @@
     "app/mentoring/register/page.js",
     "app/mentoring/login/page.js",
     "app/mentoring/dashboard/mentor/profile/page.js"
-, "app/mentoring/dashboard/mentee/profile/page.js", "lib/auth.js", "app/mentoring/page.js", "app/mentoring/join/page.js", "app/mentoring/guidebook/page.js", "app/mentoring/dashboard/mentor/schedule/page.js", "app/mentoring/documentation/page.js"  ],
+, "app/mentoring/dashboard/mentee/profile/page.js", "lib/auth.js", "app/mentoring/page.js", "app/mentoring/join/page.js", "app/mentoring/guidebook/page.js", "app/mentoring/dashboard/mentor/schedule/page.js", "app/mentoring/documentation/page.js", "app/components/Header.js", "app/mentoring/dashboard/mentee/schedule/page.js"  ],
   "exclude": [
     "node_modules"
   ]

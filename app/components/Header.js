@@ -1,8 +1,20 @@
 import Link from 'next/link';
 import React from 'react';
+import { useSession } from 'next-auth/react';
 import Image from "next/image";
 
 const Header = () => {
+  const { data: session } = useSession(); // Use useSession to manage session data
+
+  // Check if session exists and get the role
+  const isLoggedIn = !!session; // Boolean: true if logged in
+  const position = session?.user?.position || ""; // Assumes role is set in session, default to empty string if not available
+
+  // Compute account link based on login status and role
+  const accountLink = isLoggedIn
+    ? `/mentoring/dashboard/${position}/profile`
+    : "/mentoring/login"; // Default to login if not logged in
+
   return (
     <header className="flex justify-between items-center h-10">
       <div className="flex">
@@ -59,18 +71,20 @@ const Header = () => {
                 Guidebook
               </div>
             </Link></li>
-            <li><Link href="/mentoring/login">
-              <div className="flex gap-2 items-center">
-                <Image 
-                  src="/images/icon/library-green.png"
-                  alt="login"
-                  width={10}
-                  height={10}
-                  className="h-full w-auto"
-                />
-                Login
-              </div>
-            </Link></li>
+            <li>
+              <Link href={accountLink}>
+                <div className="flex gap-2 items-center">
+                  <Image 
+                    src="/images/icon/library-green.png"
+                    alt="Account Icon"
+                    width={10}
+                    height={10}
+                    className="h-full w-auto"
+                  />
+                  Account
+                </div>
+              </Link>
+            </li>
           </ul>
         </li>
         

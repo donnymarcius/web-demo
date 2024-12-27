@@ -1,7 +1,7 @@
 'use client';
 
 import { use, useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -52,6 +52,17 @@ export default function MentorProfile({ params }) {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
+
+  const role = session?.user?.role || ""; // Assumes role is set in session, default to empty string if not available
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    signOut(); // Triggers NextAuth logout functionality
+  };
 
   useEffect(() => {
     console.log('This is executed');
@@ -207,9 +218,35 @@ export default function MentorProfile({ params }) {
             </Link>
 
             {session ? (
-              <button className="transparent text-base" type="button" disabled>
-                {session.user.email}
-              </button>
+              // Dropdown Button for Logged-In User
+              <div className="relative">
+                <button
+                  className="transparent text-base"
+                  type="button"
+                  onClick={toggleDropdown}
+                >
+                  {session.user.email}
+                </button>
+                {isDropdownOpen && (
+                  <ul className="absolute right-0 text-black pr-2 rounded shadow-md">
+                    <li>
+                      <Link href={`/mentoring/dashboard/${role}/profile`}>
+                        <button className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}>
+                          Profile
+                        </button>
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
             ) : (
               <Link href="/mentoring/login">
                 <button className="transparent text-base" type="button">

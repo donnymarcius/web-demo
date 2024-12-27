@@ -1,37 +1,92 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 import Image from "next/image";
 
 export default function Home() {
+  const { data: session } = useSession();
+  const role = session?.user?.role || ""; // Assumes role is set in session, default to empty string if not available
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    signOut(); // Triggers NextAuth logout functionality
+  };
+
   return (
     <div className="overflow-x-hidden">
-      <section className="banner">
-        <h1 className="font-bold">Welcome, Name!</h1>
-        <p className="text-lg italic text-center">Gathering mentors and mentees across Indonesia to explore life science</p>
-      </section>
-
-      <div className="px-10 py-4 flex justify-between items-center">
-        <div className="flex gap-2">
-          <Link href="/mentoring">
-            <p>Mentoring Home</p>
-          </Link>
-          <p>&gt;</p>
-          {/* <Link href="/"> */}
-            <p>Mentee Dashboard</p>
-          {/* </Link> */}
-        </div>
-        <div className="flex justify-end items-center gap-4">
-          {/* <Link href="/mentoring/join">
-            <p className="font-medium hover:scale-110" style={{ color: 'var(--synbio-green)' }}>
+      {/* Background and Header */}
+      <div className="relative h-[30vh]">
+        <Image
+          src="/images/mentoring/bg.png"
+          alt="Background"
+          fill
+          className="absolute inset-0"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div className="absolute inset-0 px-10 flex justify-between items-end pb-4">
+          <div className="flex gap-2 text-white">
+            <Link href="/mentoring">
+              <p>Mentoring Home</p>
+            </Link>
+            <p>&gt;</p>
+            <p>Dashboard</p>
+          </div>
+          <div className="flex justify-end items-center gap-4">
+          <Link href="/mentoring/join">
+            <p className="font-medium hover:scale-110 text-white">
               Join as Mentor✨
             </p>
-          </Link> */}
+          </Link>
 
-          {/* <Link href="/mentoring/login">
-            <button className="login" type="button">Login</button>
-          </Link> */}
+          {/* Check if the user is logged in, and display email or "Login" */}
+          {session ? (
+              // Dropdown Button for Logged-In User
+              <div className="relative">
+                <button
+                  className="transparent text-base"
+                  type="button"
+                  onClick={toggleDropdown}
+                >
+                  {session.user.email}
+                </button>
+                {isDropdownOpen && (
+                  <ul className="absolute right-0 text-black pr-2 rounded shadow-md">
+                    <li>
+                      <Link href={`/mentoring/dashboard/${role}/profile`}>
+                        <button className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}>
+                          Profile
+                        </button>
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 
@@ -39,7 +94,7 @@ export default function Home() {
         <div className="side-menu">
           <Link href="/mentoring/dashboard/mentee/profile">
             <div className="side-menu-item">
-              <Image 
+              <Image
                 src="/images/icon/person-green.png"
                 alt="Profile Icon"
                 width={400}
@@ -52,9 +107,9 @@ export default function Home() {
 
           {/* <Link href="/mentoring/dashboard/mentee/schedule"> */}
             <div className="side-menu-item">
-              <Image 
+              <Image
                 src="/images/icon/calendar-green.png"
-                alt="Profile Icon"
+                alt="Schedule Icon"
                 width={400}
                 height={400}
                 className="h-full w-auto"
@@ -65,9 +120,9 @@ export default function Home() {
 
           <Link href="/mentoring/dashboard/mentee/setting">
             <div className="side-menu-item">
-              <Image 
+              <Image
                 src="/images/icon/setting-green.png"
-                alt="Profile Icon"
+                alt="Setting Icon"
                 width={400}
                 height={400}
                 className="h-full w-auto"
