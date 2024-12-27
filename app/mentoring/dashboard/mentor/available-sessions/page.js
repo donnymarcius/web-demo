@@ -7,24 +7,15 @@ import { useSession } from 'next-auth/react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// Utility to generate time options
-const generateTimeOptions = () => {
-  const times = [];
-  const startTime = new Date();
-  startTime.setHours(7, 0, 0, 0); // 7 AM UTC+7
-  const endTime = new Date();
-  endTime.setHours(22, 0, 0, 0); // 10 PM UTC+7
-
-  while (startTime <= endTime) {
-    times.push({
-      label: startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      value: startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    });
-    startTime.setMinutes(startTime.getMinutes() + 30);
-  }
-
-  return times;
-};
+// Static time options from 07:00 to 22:00
+const timeOptions = [
+  "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", 
+  "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", 
+  "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", 
+  "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", 
+  "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", 
+  "22:00"
+];
 
 // Utility to format the session date and time
 const formatSessionDate = (date) => {
@@ -33,20 +24,13 @@ const formatSessionDate = (date) => {
 };
 
 const formatSessionTime = (start_time, end_time) => {
-  const timeFormatter = (time) => {
-    const [hour, minute] = time.split(':');
-    const hourInt = parseInt(hour);
-    const hour12 = hourInt % 12 === 0 ? 12 : hourInt % 12;
-    return `${hour12}:${minute}`;
-  };
-
-  return `${timeFormatter(start_time)} - ${timeFormatter(end_time)} (UTC+7)`;
+  return `${start_time} - ${end_time} (GMT+7)`;
 };
 
 export default function AvailableSessions() {
   const { data: session, status } = useSession();
   const [sessions, setSessions] = useState([]); // Existing sessions
-  const [newSession, setNewSession] = useState({ session_date: null, start_time: '', end_time: '' });
+  const [newSession, setNewSession] = useState({ session_date: null, start_time: '07:00', end_time: '' });
   const [temporarySessions, setTemporarySessions] = useState([]); // Temporarily stored sessions (not saved yet)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -62,9 +46,20 @@ export default function AvailableSessions() {
     try {
       const response = await fetch('/api/getMentorSessions');
       const data = await response.json();
-      setSessions(data.sessions); // Set only the current mentor's sessions
+  
+      if (data && data.sessions) {
+        const mentorEmail = session?.user?.email;  // Get the logged-in mentor's email
+        console.log(mentorEmail);
+        if (mentorEmail) {
+          const filteredSessions = data.sessions.filter(session => session.mentorEmail === mentorEmail);
+          setSessions(filteredSessions); // Only set sessions that belong to the logged-in mentor
+        }
+      } else {
+        console.error('Error: No sessions in the response');
+        setSessions([]); // Clear sessions if there are none
+      }
     } catch (err) {
-      console.error(err);
+      console.error('Error fetching sessions:', err);
       setError('Error fetching sessions');
     } finally {
       setLoading(false);
@@ -78,7 +73,7 @@ export default function AvailableSessions() {
       return;
     }
   
-    if (!newSession.start_time || !newSession.end_time) {
+    if (!newSession.end_time) {
       setError('Please fill in start and end times');
       setSuccessMessage('');
       return;
@@ -110,7 +105,7 @@ export default function AvailableSessions() {
     setNewSession({ session_date: null, start_time: '', end_time: '' });
     setError('');
     setSuccessMessage('Session successfully added');
-  };  
+  };
 
   const handleRemoveSession = (session) => {
     // Remove the session from temporary session list
@@ -164,10 +159,12 @@ export default function AvailableSessions() {
         <Image
           src="/images/mentoring/bg.png"
           alt="Background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          fill
           className="absolute inset-0"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
         <div className="absolute inset-0 px-10 flex justify-between items-end pb-4">
@@ -289,9 +286,9 @@ export default function AvailableSessions() {
                       onChange={(e) => setNewSession({ ...newSession, start_time: e.target.value })}
                       disabled={loading}
                     >
-                      {generateTimeOptions().map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
+                      {timeOptions.map(time => (
+                        <option key={time} value={time}>
+                          {time}
                         </option>
                       ))}
                     </select>
@@ -306,9 +303,9 @@ export default function AvailableSessions() {
                       onChange={(e) => setNewSession({ ...newSession, end_time: e.target.value })}
                       disabled={loading}
                     >
-                      {generateTimeOptions().map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
+                      {timeOptions.map(time => (
+                        <option key={time} value={time}>
+                          {time}
                         </option>
                       ))}
                     </select>
@@ -318,13 +315,9 @@ export default function AvailableSessions() {
                   <button onClick={handleAddSession} disabled={loading}>
                     Add Session
                   </button>
-                  
-                  <div>
-                    {loading && <p>Loading...</p>}
-                    {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
-                  </div>
                 </div>
+
+                {error && <p style={{ color: 'red' }}>{error}</p>}
               </div>
 
               {/* List of new sessions */}

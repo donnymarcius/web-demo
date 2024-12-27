@@ -275,7 +275,7 @@ export default function MentorProfile({ params }) {
                         <div className="bg-green-100 rounded-full px-4 py-1">
                           {`${new Date(session.session_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' })} | 
                               ${new Date(`1970-01-01T${session.start_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - 
-                              ${new Date(`1970-01-01T${session.end_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (UTC+7)`}
+                              ${new Date(`1970-01-01T${session.end_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (GMT+7)`}
 
                         </div>
                         <button 
