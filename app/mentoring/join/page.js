@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from "next/image";
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
+  const { data: session } = useSession(); // Use useSession to manage session data
+
   return (
     <div className="overflow-x-hidden">
       <div className="relative h-[30vh]">
@@ -35,9 +38,18 @@ export default function Home() {
               </p>
             </Link> */}
 
-            <Link href="/mentoring/login">
-              <button className="transparent text-base" type="button">Login</button>
-            </Link>
+            {/* Check if the user is logged in, and display email or "Login" */}
+            {session ? (
+              <button className="transparent text-base" type="button" disabled>
+                {session.user.email}
+              </button>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

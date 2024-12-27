@@ -2,9 +2,12 @@
 
 import Link from 'next/link';
 import React from 'react';
+import { useSession } from 'next-auth/react';
 import Image from "next/image";
 
 export default function Home() {
+  const { data: session } = useSession(); // Use useSession to manage session data
+
   return (
     <div className="overflow-x-hidden">
       <section className="banner">
@@ -23,15 +26,24 @@ export default function Home() {
           {/* </Link> */}
         </div>
         <div className="flex justify-end items-center gap-4">
-          {/* <Link href="/mentoring/join">
+          <Link href="/mentoring/join">
             <p className="font-medium hover:scale-110" style={{ color: 'var(--synbio-green)' }}>
               Join as Mentor✨
             </p>
-          </Link> */}
+          </Link>
 
-          {/* <Link href="/mentoring/login">
-            <button className="login" type="button">Login</button>
-          </Link> */}
+          {/* Check if the user is logged in, and display email or "Login" */}
+          {session ? (
+              <button className="transparent text-base" type="button" disabled>
+                {session.user.email}
+              </button>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
         </div>
       </div>
 

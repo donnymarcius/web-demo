@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Image from "next/image";
 
 export default function Book() {
@@ -13,10 +14,13 @@ export default function Book() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [sortOrder, setSortOrder] = useState('default'); // Sorting state
 
+  const { data: session } = useSession(); // Use useSession to manage session data
+
   const categories = ['Academia', 'Company', 'Start-Up', 'Scholarship Awardee', 'Government'];
 
   const fetchSheetData = async () => {
     try {
+      console.log('This is executed');
       const res = await fetch('/api/readMentor', {
         headers: {
           'Cache-Control': 'no-store',
@@ -120,9 +124,19 @@ export default function Book() {
             <Link href="/mentoring/join">
               <p className="font-medium hover:scale-110 text-white">Join as Mentor✨</p>
             </Link>
-            <Link href="/mentoring/login">
-              <button className="transparent text-base" type="button">Login</button>
-            </Link>
+            
+            {/* Check if the user is logged in, and display email or "Login" */}
+            {session ? (
+              <button className="transparent text-base" type="button" disabled>
+                {session.user.email}
+              </button>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 'use client';
 
 import { use, useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react'; // Import useSession from next-auth/react
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import Image from "next/image";
+import Image from 'next/image';
 
 // Reusable EditableField Component
 const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => {
@@ -15,7 +15,6 @@ const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => 
           <h2>{label}</h2>
         </div>
       </legend>
-
       {isFoI ? (
         <div className="flex gap-4">
           {value?.split(',').map((paragraph, index) => (
@@ -45,23 +44,29 @@ const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => 
 };
 
 export default function MentorProfile({ params }) {
-  const { data: session } = useSession(); // Use useSession to manage session data
-
+  const { data: session } = useSession();
   const username = use(params).username;
   const [mentor, setMentor] = useState(null);
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedSession, setSelectedSession] = useState(null);
 
   useEffect(() => {
+    console.log('This is executed');
     const fetchMentorData = async () => {
       try {
         const res = await fetch('/api/readMentor');
         const data = await res.json();
-
         const foundMentor = data.find((mentor) => mentor.username === username);
         if (foundMentor) {
+          console.log('Found mentor:', foundMentor);  // Ensure mentor is found
           setMentor(foundMentor);
+          
+          // Fetch sessions only after mentor is found
+          fetchSessions(foundMentor.email);
+          console.log("Found mentor email:", foundMentor.email);
         } else {
           setError('Mentor not found');
         }
@@ -69,25 +74,85 @@ export default function MentorProfile({ params }) {
         setError('Error fetching mentor data');
       }
     };
-
-    const fetchSessions = async () => {
+  
+    const fetchSessions = async (mentorEmail) => {
+      console.log("Fetching sessions for mentor email:", mentorEmail);
       try {
         const response = await fetch('/api/getMentorSessions');
+        
+        if (!response.ok) {
+          // If response isn't OK, log the status code
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        
         const data = await response.json();
-        setSessions(data.sessions); // Assuming the response contains sessions under `sessions` key
+        console.log('Raw Sessions:', data);  // Log the raw response data
+        
+        if (!data || !data.sessions) {
+          // If there's no sessions array in the data, log a warning
+          console.error('No sessions found in response:', data);
+        }
+    
+        // Assuming data.sessions is an array, filter for sessions matching mentor's email
+        // console.log('mentor_email:', session.mentorEmail, 'mentorEmail:', mentorEmail);
+        const filteredSessions = data.sessions?.filter(
+          (session) => session.mentorEmail === mentorEmail
+        );
+        console.log('Filtered Sessions:', filteredSessions);  // Log the filtered sessions
+    
+        setSessions(filteredSessions);
       } catch (err) {
-        console.error('Error fetching mentor sessions:', err);
+        // Catch errors and log them for debugging
+        console.error('Error fetching sessions:', err);
         setError('Error fetching mentor sessions');
       } finally {
-        setLoading(false);
+        setLoading(false);  // Hide the loading spinner in either case
       }
-    };
-
+    };    
+  
     if (username) {
       fetchMentorData();
-      fetchSessions(); // Fetch sessions when mentor data is available
     }
   }, [username]);
+  
+
+  const handleBooking = async () => {
+    try {
+      const response = await fetch('/api/updateSession', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session_id: selectedSession.session_id,
+          mentee_email: session.user.email,
+          session_date: selectedSession.session_date,
+          start_time: selectedSession.start_time,
+          end_time: selectedSession.end_time,
+          status: 'booked',
+        }),
+      });
+      const data = await response.json();
+      if (data.message === 'Session updated successfully!') {
+        alert('Session booked successfully');
+        setShowModal(false);
+
+        // Update session list to reflect booking
+        setSessions((prev) =>
+          prev.map((s) =>
+            s.session_id === selectedSession.session_id
+              ? { ...s, is_booked: true }
+              : s
+          )
+        );
+      } else {
+        alert('Error booking the session');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while booking the session');
+    }
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -125,12 +190,17 @@ export default function MentorProfile({ params }) {
               </p>
             </Link>
 
-            {/* Check if the user is logged in, and display email or "Login" */}
-            <Link href={session ? `/profile` : `/mentoring/login`}>
-              <button className="transparent text-base" type="button">
-                {session ? session.user.email : "Login"}
+            {session ? (
+              <button className="transparent text-base" type="button" disabled>
+                {session.user.email}
               </button>
-            </Link>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -171,12 +241,14 @@ export default function MentorProfile({ params }) {
               value={mentor.field_of_interest}
               isFoI={true}
             />
+
             <EditableField
               label="Education"
               icon="edu"
               value={mentor.almamater}
               isEdu={true}
             />
+
             <EditableField
               label="Self Description"
               icon="note"
@@ -193,8 +265,7 @@ export default function MentorProfile({ params }) {
                 </div>
               </legend>
 
-              {/* Display Existing Sessions */}
-              <div className="w-full my-4">
+              <div className="w-full my-4 text-center">
                 {sessions.length === 0 ? (
                   <p>No available sessions yet</p>
                 ) : (
@@ -203,29 +274,51 @@ export default function MentorProfile({ params }) {
                       <li key={index} className="flex justify-between items-center gap-x-4 space-y-2">
                         <div className="bg-green-100 rounded-full px-4 py-1">
                           {`${new Date(session.session_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' })} | 
-                            ${new Date(`1970-01-01T${session.start_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - 
-                            ${new Date(`1970-01-01T${session.end_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (UTC+7)`}
+                              ${new Date(`1970-01-01T${session.start_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - 
+                              ${new Date(`1970-01-01T${session.end_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (UTC+7)`}
+
                         </div>
+                        <button 
+                          className="bg-blue-500 text-white px-4 py-2 rounded-full"
+                          onClick={() => {
+                            setSelectedSession(session); 
+                            setShowModal(true);
+                          }}
+                        >
+                          Book this session
+                        </button>
                       </li>
                     ))}
                   </ul>
                 )}
               </div>
-
-              <div className="flex justify-center">
-                <div
-                  className="inline-block py-1 px-3 text-xl text-white font-medium rounded-lg cursor-pointer"
-                  style={{
-                    background: 'var(--synbio-green)',
-                  }}
-                >
-                  Make a Mentoring Session
-                </div>
-              </div>
             </fieldset>
           </div>
         </div>
       </div>
+
+      {/* Booking Confirmation Modal */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg">
+            <p className="text-lg">Are you sure you want to book this session?</p>
+            <div className="flex gap-4 mt-4">
+              <button
+                className="bg-green-500 text-white px-4 py-2 rounded"
+                onClick={handleBooking}
+              >
+                Yes
+              </button>
+              <button
+                className="bg-gray-500 text-white px-4 py-2 rounded"
+                onClick={() => setShowModal(false)}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="p-20"></div>
     </div>

@@ -26,6 +26,16 @@ export async function GET() {
 
     // Map the rows to an array of objects
     const data = rows.map((row) => ({
+      user_id: row[0],
+      email: row[1],
+      password_hash: row[2],
+      verification_token: row[3],
+      token_expiration: row[4],
+      email_verified_status: row[5],
+      date_created: row[6],
+      password_reset_token: row[7],
+      last_password_reset_token: row[8],
+      last_login: row[9],
       profile_updated_at: row[10],
       full_name: row[11],
       gender: row[12],

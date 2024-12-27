@@ -3,12 +3,15 @@
 import Link from 'next/link';
 import Image from "next/image";
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 export default function Verify() {
   const [status, setStatus] = useState('Verifying your email...');
   const router = useRouter();
   const [token, setToken] = useState(null);
+
+  const { data: session } = useSession(); // Use useSession to manage session data
 
   // Extract the token from the URL query string
   useEffect(() => {
@@ -77,9 +80,18 @@ export default function Verify() {
               </p>
             </Link>
 
-            <Link href="/mentoring/login">
-              <button className="transparent text-base" type="button">Login</button>
-            </Link>
+            {/* Check if the user is logged in, and display email or "Login" */}
+            {session ? (
+              <button className="transparent text-base" type="button" disabled>
+                {session.user.email}
+              </button>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 'use client';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Image from "next/image";
-// import { useRouter } from 'next/navigation'; // Use next/navigation instead of next/router
 
 export default function Registration() {
   const [formData, setFormData] = useState({
@@ -14,7 +14,8 @@ export default function Registration() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  // const router = useRouter(); // Use next/navigation's useRouter
+
+  const { data: session } = useSession(); // Use useSession to manage session data
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -127,9 +128,18 @@ export default function Registration() {
               </p>
             </Link>
 
-            <Link href="/mentoring/login">
-              <button className="transparent text-base" type="button">Login</button>
-            </Link>
+            {/* Check if the user is logged in, and display email or "Login" */}
+            {session ? (
+              <button className="transparent text-base" type="button" disabled>
+                {session.user.email}
+              </button>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

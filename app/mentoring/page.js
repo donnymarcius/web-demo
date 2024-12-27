@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import { CategoryData, CategoryProps } from '../data/cardCategory';
 import { TestimonialData } from '../data/cardTestimony';
 import TestimonialCarousel from '../components/TestimonialCarousel';
 
-const Category = ({ src, alt, title, description }: CategoryProps) => (
+const Category = ({ src, alt, title, description }) => (
   <div className="flex flex-1 flex-col items-center text-center max-w-[220px]">
     <Image
       src={src}
@@ -24,6 +25,8 @@ const Category = ({ src, alt, title, description }: CategoryProps) => (
 );
 
 export default function Home() {
+  const { data: session } = useSession(); // Use useSession to manage session data
+
   return (
     <div>
       <div className="relative h-screen">
@@ -45,9 +48,18 @@ export default function Home() {
               </p>
             </Link>
 
-            <Link href="/mentoring/login">
-              <button className="transparent text-base" type="button">Login</button>
-            </Link>
+            {/* Check if the user is logged in, and display email or "Login" */}
+            {session ? (
+              <button className="transparent text-base" type="button" disabled>
+                {session.user.email}
+              </button>
+            ) : (
+              <Link href="/mentoring/login">
+                <button className="transparent text-base" type="button">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
 
           <h1 className="text-7xl font-bold my-6 text-white">
