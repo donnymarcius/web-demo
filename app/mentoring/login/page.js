@@ -10,7 +10,7 @@ export default function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('mentee'); // Default to 'mentor'
+  const [position, setPosition] = useState('mentee'); // Default to 'mentor'
   const [loading] = useState(false);
   const [error, setError] = useState('');
   const [success] = useState('');
@@ -25,7 +25,7 @@ export default function LoginForm() {
     const res = await signIn('credentials', {
       email,
       password,
-      role,
+      position,
       redirect: false, // We handle redirect manually
     });
 
@@ -34,8 +34,8 @@ export default function LoginForm() {
     if (res?.error) {
       setError('Invalid email or password.');
     } else {
-       // Redirect user to their role-specific dashboard
-      if (role === 'mentor') {
+       // Redirect user to their position-specific dashboard
+      if (position === 'mentor') {
         router.push('/mentoring/dashboard/mentor/profile');
       } else {
         router.push('/mentoring/dashboard/mentee/profile');
@@ -108,10 +108,10 @@ export default function LoginForm() {
               <label className="flex items-center">
                 <input
                   type="radio"
-                  name="role"
+                  name="position"
                   value="mentee"
-                  checked={role === 'mentee'}
-                  onChange={(e) => setRole(e.target.value)}
+                  checked={position === 'mentee'}
+                  onChange={(e) => setPosition(e.target.value)}
                   className="mr-2"
                 />
                 Mentee
@@ -119,10 +119,10 @@ export default function LoginForm() {
               <label className="flex items-center">
                 <input
                   type="radio"
-                  name="role"
+                  name="position"
                   value="mentor"
-                  checked={role === 'mentor'}
-                  onChange={(e) => setRole(e.target.value)}
+                  checked={position === 'mentor'}
+                  onChange={(e) => setPosition(e.target.value)}
                   className="mr-2"
                 />
                 Mentor

@@ -12,13 +12,13 @@ const handler = NextAuth({
         credentials: {
             email: { label: 'Email', type: 'text' },
             password: { label: 'Password', type: 'password' },
-            role: { label: 'Role', type: 'text' }, // 'mentee' or 'mentor'
+            position: { label: 'position', type: 'text' }, // 'mentee' or 'mentor'
         },
         async authorize(credentials) {
-            const { email, password, role } = credentials;
+            const { email, password, position } = credentials;
     
-            if (!email || !password || !role) {
-            throw new Error('Email, password, and role are required');
+            if (!email || !password || !position) {
+            throw new Error('Email, password, and position are required');
             }
     
             const auth = new google.auth.GoogleAuth({
@@ -31,7 +31,7 @@ const handler = NextAuth({
     
             const sheets = google.sheets({ version: 'v4', auth });
             const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-            const range = role === 'mentee' ? 'mentee-account!A2:F' : 'mentor-account!A2:F';
+            const range = position === 'mentee' ? 'mentee-account!A2:F' : 'mentor-account!A2:F';
     
             try {
             const response = await sheets.spreadsheets.values.get({
@@ -55,7 +55,7 @@ const handler = NextAuth({
             return {
                 email: user[1], // Email from sheet
                 fullName: user[0], // Full name from sheet
-                role,
+                position,
             };
             } catch (error) {
             console.error('Authentication error:', error.message, error.stack);
@@ -74,14 +74,14 @@ const handler = NextAuth({
         // Add user data to the JWT token
         if (user) {
             token.fullName = user.fullName;
-            token.role = user.role;
+            token.position = user.position;
         }
         return token;
         },
         async session({ session, token }) {
         // Add JWT token data to the session
         session.user.fullName = token.fullName;
-        session.user.role = token.role;
+        session.user.position = token.position;
         return session;
         },
     },

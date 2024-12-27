@@ -40,7 +40,7 @@ export async function GET() {
       full_name: row[11],
       gender: row[12],
       wa_number: row[13],
-      role: row[14],
+      position: row[14],
       affiliation: row[15],
       almamater: row[16],
       category: row[17],

@@ -140,7 +140,7 @@ export default function MentorProfile() {
     setIsEditing(!isEditing);
   };
 
-  const { fullName, gender, wa_number, role, affiliation, almamater, category, field_of_interest, description, linkedin_username, profile_picture } =
+  const { fullName, gender, wa_number, position, affiliation, almamater, category, field_of_interest, description, linkedin_username, profile_picture } =
     mentorData;
 
   return (
@@ -268,9 +268,9 @@ export default function MentorProfile() {
             disabled={!isEditing}
           />
           <EditableField
-            label="Role"
-            value={role}
-            onChange={(value) => handleFieldChange('role', value)}
+            label="Position"
+            value={position}
+            onChange={(value) => handleFieldChange('position', value)}
             disabled={!isEditing}
           />
           <EditableField

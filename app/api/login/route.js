@@ -5,11 +5,11 @@ import { getServerSession } from 'next-auth'; // Import getServerSession from ne
 export async function POST(req) {
   const { email, password } = await req.json();
   const { searchParams } = new URL(req.url);
-  const role = searchParams.get('role'); // 'mentee' or 'mentor'
+  const position = searchParams.get('position'); // 'mentee' or 'mentor'
 
-  if (!email || !password || !role) {
+  if (!email || !password || !position) {
     return new Response(
-      JSON.stringify({ message: 'Email, password, and role are required.' }),
+      JSON.stringify({ message: 'Email, password, and position are required.' }),
       { status: 400 }
     );
   }
@@ -24,7 +24,7 @@ export async function POST(req) {
 
   const sheets = google.sheets({ version: 'v4', auth });
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-  const range = role === 'mentee' ? 'mentee-account!A2:F' : 'mentor-account!A2:F';
+  const range = position === 'mentee' ? 'mentee-account!A2:F' : 'mentor-account!A2:F';
 
   try {
     // Fetch data from Google Sheets
@@ -68,7 +68,7 @@ export async function POST(req) {
     session.user = {
       email,
       fullName: user[0], // Assuming 'user[0]' is the full name
-      role,
+      position,
     };
 
     // Redirect to dashboard or the user's profile page

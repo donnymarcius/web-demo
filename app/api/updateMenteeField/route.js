@@ -55,7 +55,7 @@ export async function POST(req) {
       fullName: 11,
       gender: 12,
       wa_number: 13,
-      role: 14,
+      position: 14,
       affiliation: 15,
       almamater: 16,
       category: 17,

@@ -58,7 +58,7 @@ export default function Book() {
 
     const filtered = sheetData.filter((mentor) =>
       mentor.full_name.toLowerCase().includes(query) ||
-      mentor.role.toLowerCase().includes(query) ||
+      mentor.position.toLowerCase().includes(query) ||
       mentor.affiliation.toLowerCase().includes(query)
     );
 
@@ -149,7 +149,7 @@ export default function Book() {
               type="text"
               value={searchQuery}
               onChange={handleSearch}
-              placeholder="Search by name, role, or affiliation..."
+              placeholder="Search by name, position, or affiliation..."
               className="border border-green-800 rounded-md px-2 py-1 mx-auto w-full"
             />
 
@@ -210,9 +210,9 @@ export default function Book() {
                 </h2>
                 <h3
                   className="text-sm text-gray-500 truncate"
-                  title={row.role}
+                  title={row.position}
                 >
-                  {row.role}
+                  {row.position}
                 </h3>
                 <p
                   className="text-xs text-gray-400 truncate"

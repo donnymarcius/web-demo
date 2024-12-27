@@ -57,7 +57,7 @@ export default function MenteeProfile() {
     fullName: '',
     gender: '',
     wa_number: '',
-    role: '',
+    position: '',
     affiliation: '',
     almamater: '',
     field_of_interest: '',
@@ -150,7 +150,7 @@ export default function MenteeProfile() {
     setIsEditing(!isEditing);
   };
 
-  const { fullName, gender, wa_number, role, affiliation, almamater, field_of_interest, description, linkedin_username } =
+  const { fullName, gender, wa_number, position, affiliation, almamater, field_of_interest, description, linkedin_username } =
     menteeData;
 
   return (
@@ -262,9 +262,9 @@ export default function MenteeProfile() {
             disabled={!isEditing}
           />
           <EditableField
-            label="Role"
-            value={role}
-            onChange={(value) => handleFieldChange('role', value)}
+            label="Position"
+            value={position}
+            onChange={(value) => handleFieldChange('position', value)}
             disabled={!isEditing}
           />
           <EditableField

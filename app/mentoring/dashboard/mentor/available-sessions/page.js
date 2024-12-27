@@ -34,7 +34,7 @@ export default function AvailableSessions() {
   const [temporarySessions, setTemporarySessions] = useState([]); // Temporarily stored sessions (not saved yet)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [setSuccessMessage] = useState('');
 
   const fetchSessions = async () => {
     setLoading(true);
@@ -64,7 +64,7 @@ export default function AvailableSessions() {
   useEffect(() => {
     if (status === "loading") return; // wait for session to load
     fetchSessions();
-  }, [status]);
+  }, [status, fetchSessions]);
 
   const handleAddSession = () => {
     if (!newSession.session_date) {
