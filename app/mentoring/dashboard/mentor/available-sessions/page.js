@@ -34,37 +34,38 @@ export default function AvailableSessions() {
   const [temporarySessions, setTemporarySessions] = useState([]); // Temporarily stored sessions (not saved yet)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [setSuccessMessage] = useState('');
 
   useEffect(() => {
     if (status === "loading") return; // wait for session to load
+
+    const fetchSessions = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/getMentorSessions');
+        const data = await response.json();
+    
+        if (data && data.sessions) {
+          const mentorEmail = session?.user?.email;  // Get the logged-in mentor's email
+          console.log(mentorEmail);
+          if (mentorEmail) {
+            const filteredSessions = data.sessions.filter(session => session.mentorEmail === mentorEmail);
+            setSessions(filteredSessions); // Only set sessions that belong to the logged-in mentor
+          }
+        } else {
+          console.error('Error: No sessions in the response');
+          setSessions([]); // Clear sessions if there are none
+        }
+      } catch (err) {
+        console.error('Error fetching sessions:', err);
+        setError('Error fetching sessions');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchSessions();
   }, [status]);
-
-  const fetchSessions = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/getMentorSessions');
-      const data = await response.json();
-  
-      if (data && data.sessions) {
-        const mentorEmail = session?.user?.email;  // Get the logged-in mentor's email
-        console.log(mentorEmail);
-        if (mentorEmail) {
-          const filteredSessions = data.sessions.filter(session => session.mentorEmail === mentorEmail);
-          setSessions(filteredSessions); // Only set sessions that belong to the logged-in mentor
-        }
-      } else {
-        console.error('Error: No sessions in the response');
-        setSessions([]); // Clear sessions if there are none
-      }
-    } catch (err) {
-      console.error('Error fetching sessions:', err);
-      setError('Error fetching sessions');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleAddSession = () => {
     if (!newSession.session_date) {
