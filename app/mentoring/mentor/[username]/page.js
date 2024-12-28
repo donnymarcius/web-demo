@@ -321,7 +321,7 @@ export default function MentorProfile({ params }) {
                 {sessions.length === 0 ? (
                   <p>No available sessions yet</p>
                 ) : (
-                  <ul className="flex flex-wrap gap-2">
+                  <ul className="flex flex-col gap-2">
                     {sessions.map((session, index) => (
                       <li key={index} className="flex justify-between items-center gap-x-4 space-y-2">
                         <div className="bg-green-100 rounded-full px-4 py-1">

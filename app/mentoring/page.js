@@ -178,7 +178,7 @@ export default function Home() {
             </Link>
 
             <p style={{ color: 'var(--synbio-green)' }}>
-              <b>Mentoring Period</b>: Jan 1st, 2025 - Mar 31st, 2025
+              <b>Program Period</b>: Jan 1st, 2025 - Mar 31st, 2025
             </p>
           </div>
         </div>

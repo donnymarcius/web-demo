@@ -92,7 +92,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="page flex flex-col gap-8">
+      <div className="page flex flex-col gap-8 mx-20 mt-4">
         <div>
           <div className="flex flex-col gap-2 mb-4">
             <h2>Join Us as a Mentor for the Synbio Indonesia Mentoring Program!</h2>
@@ -112,7 +112,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-2 mb-4">
-            <p><b>Program period</b> 📅: 29 November 2024 - 28 February 2025</p>
+            <p><b>Program period</b> 📅: Jan 1st, 2025 - Mar 31st, 2025</p>
             <p>Mentoring sessions will be scheduled flexibly based on the mentor and mentee&apos;s availability, making it easy to fit into your schedule.</p>
             <p>Let&apos;s work together to shape the future of life sciences by mentoring the talented young individuals of tomorrow. 💡🌍</p>
           </div>

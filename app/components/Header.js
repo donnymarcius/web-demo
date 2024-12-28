@@ -30,7 +30,7 @@ const Header = () => {
       </div>
 
       <ul className="navbar flex h-full">
-        <li className="navbar-item"><Link href="/">Competition</Link></li>
+        {/* <li className="navbar-item"><Link href="/">Competition</Link></li> */}
         
         <li className="navbar-item dropdown">
           <Link href="/mentoring">Mentoring</Link>
@@ -91,7 +91,7 @@ const Header = () => {
         {/* <li className="navbar-item"><Link href="/">Journal Club</Link></li> */}
         {/* <li className="navbar-item"><Link href="/">Blog</Link></li> */}
         <li className="navbar-item"><Link href="/about">About</Link></li>
-        <li className="navbar-item"><Link href="/contact">Contact</Link></li>
+        {/* <li className="navbar-item"><Link href="/contact">Contact</Link></li> */}
       </ul>
     </header>
     
