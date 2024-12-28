@@ -22,10 +22,10 @@ const Footer = () => {
           <div className="flex flex-col gap-1">
             <h6>Synbio ID Program</h6>
             <p className="flex flex-col gap-1 ml-2 font-light">
-              <Link href="/competition">Competition</Link>
+              {/* <Link href="/competition">Competition</Link> */}
               <Link href="/mentoring">Mentoring</Link>
-              <Link href="/journalclub">Journal Club</Link>
-              <Link href="/blog">Blog</Link>
+              {/* <Link href="/journalclub">Journal Club</Link> */}
+              {/* <Link href="/blog">Blog</Link> */}
             </p>
           </div>
           
