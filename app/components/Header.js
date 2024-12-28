@@ -59,7 +59,7 @@ const Header = () => {
                 Join as Mentor
               </div>
             </Link></li>
-            <li><Link href="/mentoring/guidebook">
+            {/* <li><Link href="/mentoring/guidebook">
               <div className="flex gap-2 items-center">
                 <Image 
                   src="/images/icon/book-green.png"
@@ -70,7 +70,7 @@ const Header = () => {
                 />
                 Guidebook
               </div>
-            </Link></li>
+            </Link></li> */}
             <li>
               <Link href={accountLink}>
                 <div className="flex gap-2 items-center">
