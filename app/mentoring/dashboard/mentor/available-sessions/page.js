@@ -75,7 +75,7 @@ export default function AvailableSessions() {
   useEffect(() => {
     if (status === "loading") return; // wait for session to load
     fetchSessions();
-  }, [status, fetchSessions]);
+  }, [status]);
 
   const handleAddSession = () => {
     if (!newSession.session_date) {
