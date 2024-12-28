@@ -1,7 +1,7 @@
 'use client';
 
-// import Link from 'next/link';
-// import Image from "next/image";
+import Link from 'next/link';
+import Image from "next/image";
 import React, { useState, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import DatePicker from "react-datepicker";
