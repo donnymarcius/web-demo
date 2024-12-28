@@ -145,7 +145,7 @@ export default function Home() {
         </div>
 
         <div className="flex-1 min-w-96">
-          <h2>Scheduled Sessions</h2>
+          <h2>Manage Account</h2>
           <p>Under constructions.</p>
 
           {/* <div className="flex flex-col gap-4 mt-4">

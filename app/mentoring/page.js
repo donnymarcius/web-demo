@@ -114,9 +114,9 @@ export default function Home() {
             <Link href="/mentoring/make-session">
               <button type="button" className="transparent text-lg">Make Session</button>
             </Link>
-            <Link href="/mentoring/guidebook">
+            {/* <Link href="/mentoring/guidebook">
               <button type="button" className="transparent text-lg">Guidebook</button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

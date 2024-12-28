@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <header className="flex justify-between items-center h-10">
       <div className="flex">
-        <Link href="/">
+        <Link href="/mentoring">
           <Image 
             src="/images/logo/synbio-white.png"
             alt="Synbio ID logo"
