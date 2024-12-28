@@ -157,7 +157,7 @@ export default function AvailableSessions() {
       await fetchSessions(); // Fetch all sessions again, now including the new ones
       setSuccessMessage('All sessions saved successfully!');
     } catch (err) {
-      setError(`Error saving sessions: ${err.message}`);
+      // setError(`Error saving sessions: ${err.message}`);
     } finally {
       setLoading(false);
     }
