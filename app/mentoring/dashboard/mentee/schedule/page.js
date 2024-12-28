@@ -135,7 +135,7 @@ export default function Home() {
         <div className="flex-1 min-w-96">
           <h2>Scheduled Sessions</h2>
 
-          <div className="flex flex-col gap-4 mt-4">
+          {/* <div className="flex flex-col gap-4 mt-4">
             <div className="bg-green-100 px-4 py-2 rounded-lg">
               <div className="flex justify-between font-bold text-xl">
                 <h4>Friday, Sep 20, 2024</h4>
@@ -214,7 +214,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
