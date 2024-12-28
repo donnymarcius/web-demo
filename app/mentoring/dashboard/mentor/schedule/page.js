@@ -15,29 +15,34 @@ export default function Home() {
   };
 
   const handleLogout = () => {
-    signOut(); // Triggers NextAuth logout functionality
+    signOut({ callbackUrl: '/mentoring' }); // Triggers NextAuth logout functionality
   };
 
   return (
     <div className="overflow-x-hidden">
-      <section className="banner">
-        <h1 className="font-bold">Welcome, Name!</h1>
-        <p className="text-lg italic text-center">Gathering mentors and mentees across Indonesia to explore life science</p>
-      </section>
-
-      <div className="px-10 py-4 flex justify-between items-center">
-        <div className="flex gap-2">
-          <Link href="/mentoring">
-            <p>Mentoring Home</p>
-          </Link>
-          <p>&gt;</p>
-          {/* <Link href="/"> */}
-            <p>Mentor Dashboard</p>
-          {/* </Link> */}
-        </div>
-        <div className="flex justify-end items-center gap-4">
+      <div className="relative h-[30vh]">
+        <Image
+          src="/images/mentoring/bg.png"
+          alt="Background"
+          fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+          className="absolute inset-0"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div className="absolute inset-0 px-10 flex justify-between items-end pb-4">
+          <div className="flex gap-2 text-white">
+            <Link href="/mentoring">
+              <p>Mentoring Home</p>
+            </Link>
+            <p>&gt;</p>
+            <p>Dashboard</p>
+          </div>
+          <div className="flex justify-end items-center gap-4">
           <Link href="/mentoring/join">
-            <p className="font-medium hover:scale-110" style={{ color: 'var(--synbio-green)' }}>
+            <p className="font-medium hover:scale-110 text-white">
               Join as Mentor✨
             </p>
           </Link>
@@ -82,8 +87,9 @@ export default function Home() {
             )}
           </div>
         </div>
+      </div>
 
-      <div className="px-10 flex flex-wrap gap-8">
+      <div className="px-10 flex flex-wrap gap-8 mt-6">
       <div className="side-menu">
           <Link href="/mentoring/dashboard/mentor/profile">
             <div className="side-menu-item">

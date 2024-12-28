@@ -43,7 +43,7 @@ export default function AvailableSessions() {
   };
 
   const handleLogout = () => {
-    signOut(); // Triggers NextAuth logout functionality
+    signOut({ callbackUrl: '/mentoring' }); // Triggers NextAuth logout functionality
   };
   
 

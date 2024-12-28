@@ -61,7 +61,7 @@ export default function MenteeProfile() {
   };
 
   const handleLogout = () => {
-    signOut(); // Triggers NextAuth logout functionality
+    signOut({ callbackUrl: '/mentoring' }); // Triggers NextAuth logout functionality
   };
 
   const [menteeData, setMenteeData] = useState({
@@ -167,52 +167,72 @@ export default function MenteeProfile() {
   return (
     <div className="overflow-x-hidden">
       <div className="relative h-[30vh]">
-        <div className="flex justify-end items-center gap-4">
-          <Link href="/mentoring/join">
-            <p className="font-medium hover:scale-110 text-white">
-              Join as Mentor✨
-            </p>
-          </Link>
-
-          {/* Check if the user is logged in, and display email or "Login" */}
-          {session ? (
-              // Dropdown Button for Logged-In User
-              <div className="relative">
-                <button
-                  className="transparent text-base"
-                  type="button"
-                  onClick={toggleDropdown}
-                >
-                  {session.user.email}
-                </button>
-                {isDropdownOpen && (
-                  <ul className="absolute right-0 text-black pr-2 rounded shadow-md">
-                    <li>
-                      <Link href={`/mentoring/dashboard/${role}/profile`}>
-                        <button className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}>
-                          Profile
-                        </button>
-                      </Link>
-                    </li>
-                    <li>
-                      <button
-                        onClick={handleLogout}
-                        className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}
-                      >
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                )}
-              </div>
-            ) : (
-              <Link href="/mentoring/login">
-                <button className="transparent text-base" type="button">
-                  Login
-                </button>
+        <Image
+            src="/images/mentoring/bg.png"
+            alt="Background"
+            fill
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
+            className="absolute inset-0"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+          <div className="absolute inset-0 px-10 flex justify-between items-end pb-4">
+            <div className="flex gap-2 text-white">
+              <Link href="/mentoring">
+                <p>Mentoring Home</p>
               </Link>
-            )}
-        </div>
+              <p>&gt;</p>
+              <p>Dashboard</p>
+            </div>
+            <div className="flex justify-end items-center gap-4">
+              <Link href="/mentoring/join">
+                <p className="font-medium hover:scale-110 text-white">
+                  Join as Mentor✨
+                </p>
+              </Link>
+
+              {/* Check if the user is logged in, and display email or "Login" */}
+              {session ? (
+                  // Dropdown Button for Logged-In User
+                  <div className="relative">
+                    <button
+                      className="transparent text-base"
+                      type="button"
+                      onClick={toggleDropdown}
+                    >
+                      {session.user.email}
+                    </button>
+                    {isDropdownOpen && (
+                      <ul className="absolute right-0 text-black pr-2 rounded shadow-md">
+                        <li>
+                          <Link href={`/mentoring/dashboard/${role}/profile`}>
+                            <button className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}>
+                              Profile
+                            </button>
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            onClick={handleLogout}
+                            className="transparent block text-sm w-full text-center rounded-none" style={{ background: 'var(--synbio-green)' }}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    )}
+                  </div>
+                ) : (
+                  <Link href="/mentoring/login">
+                    <button className="transparent text-base" type="button">
+                      Login
+                    </button>
+                  </Link>
+                )}
+            </div>
+          </div>
       </div>
 
       <div className="px-10 flex flex-wrap gap-8 mt-6">
@@ -267,18 +287,6 @@ export default function MenteeProfile() {
               {isEditing ? 'Save' : 'Edit'}
             </button>
           </div>
-
-          {/* <div className="pl-4 py-2 flex gap-2 items-center">
-            <h3 className="w-56">Profile Picture</h3>
-            <Image
-              src={profile_picture || "/images/placeholder_person.png"}
-              alt="Profile Picture"
-              width={400}
-              height={400}
-              className="h-24 w-24 rounded-full"
-              style={{ border: '2px solid var(--synbio-green)' }}
-            />
-          </div> */}
 
           <EditableField
             label="Full Name"

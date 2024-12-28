@@ -23,7 +23,7 @@ export default function Book() {
   };
 
   const handleLogout = () => {
-    signOut(); // Triggers NextAuth logout functionality
+    signOut({ callbackUrl: '/mentoring' }); // Triggers NextAuth logout functionality
   };
 
   const categories = ['Academia', 'Company', 'Start-Up', 'Scholarship Awardee', 'Government'];

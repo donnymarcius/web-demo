@@ -15,7 +15,7 @@ export default function Home() {
   };
 
   const handleLogout = () => {
-    signOut(); // Triggers NextAuth logout functionality
+    signOut({ callbackUrl: '/mentoring' }); // Triggers NextAuth logout functionality
   };
 
   return (

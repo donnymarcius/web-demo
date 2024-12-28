@@ -20,7 +20,7 @@ export default function Verify() {
   };
 
   const handleLogout = () => {
-    signOut(); // Triggers NextAuth logout functionality
+    signOut({ callbackUrl: '/mentoring' }); // Triggers NextAuth logout functionality
   };
   
   // Extract the token from the URL query string

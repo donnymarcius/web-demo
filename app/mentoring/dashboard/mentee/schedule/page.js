@@ -15,7 +15,7 @@ export default function Home() {
   };
 
   const handleLogout = () => {
-    signOut(); // Triggers NextAuth logout functionality
+    signOut({ callbackUrl: '/mentoring' }); // Triggers NextAuth logout functionality
   };
 
   return (
@@ -90,7 +90,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="px-10 flex flex-wrap gap-8">
+      <div className="px-10 flex flex-wrap gap-8 mt-6">
         <div className="side-menu">
           <Link href="/mentoring/dashboard/mentee/profile">
             <div className="side-menu-item">
