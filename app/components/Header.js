@@ -8,11 +8,11 @@ const Header = () => {
 
   // Check if session exists and get the role
   const isLoggedIn = !!session; // Boolean: true if logged in
-  const position = session?.user?.position || ""; // Assumes role is set in session, default to empty string if not available
+  const role = session?.user?.role || ""; // Assumes role is set in session, default to empty string if not available
 
   // Compute account link based on login status and role
   const accountLink = isLoggedIn
-    ? `/mentoring/dashboard/${position}/profile`
+    ? `/mentoring/dashboard/${role}/profile`
     : "/mentoring/login"; // Default to login if not logged in
 
   return (
