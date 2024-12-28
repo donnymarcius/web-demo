@@ -12,13 +12,13 @@ const handler = NextAuth({
         credentials: {
             email: { label: 'Email', type: 'text' },
             password: { label: 'Password', type: 'password' },
-            position: { label: 'position', type: 'text' }, // 'mentee' or 'mentor'
+            role: { label: 'role', type: 'text' }, // 'mentee' or 'mentor'
         },
         async authorize(credentials) {
-            const { email, password, position } = credentials;
+            const { email, password, role } = credentials;
     
-            if (!email || !password || !position) {
-            throw new Error('Email, password, and position are required');
+            if (!email || !password || !role) {
+            throw new Error('Email, password, and role are required');
             }
     
             const auth = new google.auth.GoogleAuth({
@@ -31,7 +31,7 @@ const handler = NextAuth({
     
             const sheets = google.sheets({ version: 'v4', auth });
             const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-            const range = position === 'mentee' ? 'mentee-account!A2:F' : 'mentor-account!A2:F';
+            const range = role === 'mentee' ? 'mentee-account!A2:F' : 'mentor-account!A2:F';
     
             try {
             const response = await sheets.spreadsheets.values.get({
@@ -41,6 +41,7 @@ const handler = NextAuth({
     
             const rows = response.data.values || [];
             const user = rows.find((row) => row[1] === email); // Email column
+            console.log('user', user)
     
             if (!user) {
                 throw new Error('User not found');
@@ -54,8 +55,8 @@ const handler = NextAuth({
     
             return {
                 email: user[1], // Email from sheet
-                fullName: user[0], // Full name from sheet
-                position,
+                // fullName: user[11], // Full name from sheet
+                role,
             };
             } catch (error) {
             console.error('Authentication error:', error.message, error.stack);
@@ -74,14 +75,14 @@ const handler = NextAuth({
         // Add user data to the JWT token
         if (user) {
             token.fullName = user.fullName;
-            token.position = user.position;
+            token.role = user.role;
         }
         return token;
         },
         async session({ session, token }) {
         // Add JWT token data to the session
         session.user.fullName = token.fullName;
-        session.user.position = token.position;
+        session.user.role = token.role;
         return session;
         },
     },
