@@ -5,6 +5,16 @@ import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Utility to format the session date and time
+const formatSessionDate = (date) => {
+  const options = { year: 'numeric', month: 'short', day: '2-digit' };
+  return new Date(date).toLocaleDateString('en-US', options);
+};
+
+const formatSessionTime = (start_time, end_time) => {
+  return `${start_time} - ${end_time} (GMT+7)`;
+};
+
 // Reusable EditableField Component
 const EditableField = ({ label, icon, value, isFoI = false, isEdu = false }) => {
   return (
@@ -65,7 +75,6 @@ export default function MentorProfile({ params }) {
   };
 
   useEffect(() => {
-    console.log('This is executed');
     const fetchMentorData = async () => {
       try {
         const res = await fetch('/api/readMentor');
@@ -325,9 +334,7 @@ export default function MentorProfile({ params }) {
                     {sessions.map((session, index) => (
                       <li key={index} className="flex justify-between items-center gap-x-4 space-y-2">
                         <div className="bg-green-100 rounded-full px-4 py-1">
-                          {`${new Date(session.session_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' })} | 
-                              ${new Date(`1970-01-01T${session.start_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - 
-                              ${new Date(`1970-01-01T${session.end_time}:00Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (GMT+7)`}
+                          {`${formatSessionDate(session.session_date)} | ${formatSessionTime(session.start_time, session.end_time)}`}
 
                         </div>
                         <button 

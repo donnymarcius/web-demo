@@ -48,7 +48,7 @@ export async function GET(req) {
 
     // Step 4: Fetch mentee data
     const menteeData = rows[menteeIndex];
-    const fullName = menteeData[11];  // Column L: full_name (adjust column if needed)
+    const fullName = menteeData[11]; 
     const gender = menteeData[12];
     const wa_number = menteeData[13];
     const position = menteeData[14];
@@ -58,10 +58,10 @@ export async function GET(req) {
     const field_of_interest = menteeData[18];
     const description = menteeData[19];
     const linkedin_username = menteeData[20];
-    const profile_picture = menteeData[21];
+    const username = menteeData[21];
 
     // Return the mentee data
-    return NextResponse.json({ fullName, gender, wa_number, position, affiliation, almamater, category, field_of_interest, description, linkedin_username, profile_picture }, { status: 200 });
+    return NextResponse.json({ fullName, gender, wa_number, position, affiliation, almamater, category, field_of_interest, description, linkedin_username, username }, { status: 200 });
 
   } catch (error) {
     console.error('Error fetching mentee data:', error);

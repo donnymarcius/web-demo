@@ -74,6 +74,7 @@ export default function MenteeProfile() {
     field_of_interest: '',
     description: '',
     linkedin_username: '',
+    username: '',
   });
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -120,9 +121,21 @@ export default function MenteeProfile() {
     setMenteeData((prevData) => ({ ...prevData, [field]: value }));
   };
 
+  // Generate username based on fullName
+  const generateUsername = (fullName) => {
+    if (!fullName) return '';
+    // Convert to lowercase and replace spaces with hyphens
+    return fullName.toLowerCase().replace(/\s+/g, '-');
+  };
+
   const handleSave = async () => {
     try {
-      const updates = Object.entries(menteeData);
+      // Automatically generate the username based on the fullName
+      const generatedUsername = generateUsername(menteeData.fullName);
+      // Add generated username to menteeData for saving
+      const updatedMenteeData = { ...menteeData, username: generatedUsername };
+
+      const updates = Object.entries(updatedMenteeData);
       for (const [field, value] of updates) {
         const response = await fetch(`/api/updateMenteeField`, {
           method: 'POST',
@@ -161,7 +174,7 @@ export default function MenteeProfile() {
     setIsEditing(!isEditing);
   };
 
-  const { fullName, gender, wa_number, position, affiliation, almamater, field_of_interest, description, linkedin_username } =
+  const { fullName, gender, wa_number, position, affiliation, almamater, field_of_interest, description, linkedin_username, username } =
     menteeData;
 
   return (
@@ -327,12 +340,6 @@ export default function MenteeProfile() {
             disabled={!isEditing}
             isTextArea={true} // Allow multi-line input
           />
-          {/* <EditableField
-            label="Category"
-            value={category}
-            onChange={(value) => handleFieldChange('category', value)}
-            disabled={!isEditing}
-          /> */}
           <EditableField
             label="Field of Interest"
             value={field_of_interest}

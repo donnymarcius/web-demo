@@ -62,7 +62,7 @@ export async function POST(req) {
       field_of_interest: 18,
       description: 19,
       linkedin_username: 20,
-      profile_picture: 21,
+      username: 21,
     };
 
     const columnIndex = fieldToColumn[field];
