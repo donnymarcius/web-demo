@@ -174,7 +174,7 @@ export default function MenteeProfile() {
     setIsEditing(!isEditing);
   };
 
-  const { fullName, gender, wa_number, position, affiliation, almamater, field_of_interest, description, linkedin_username, username } =
+  const { fullName, gender, wa_number, position, affiliation, almamater, field_of_interest, description, linkedin_username } =
     menteeData;
 
   return (

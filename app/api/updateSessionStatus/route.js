@@ -1,6 +1,5 @@
 import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
-import { parse } from 'date-fns'; // For date handling
 
 // Function to handle the POST request
 export async function POST(req) {
@@ -12,13 +11,14 @@ export async function POST(req) {
       client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
       private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, '\n'),
     },
-    scopes: ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/calendar'],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 
   const sheets = google.sheets({ version: 'v4', auth });
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
 
   try {
+    // Parse request payload
     const { session_id, status, mentor_email, session_date, start_time, end_time } = await req.json();
     console.log('Parsed payload:', { session_id, status, mentor_email, session_date, start_time });
 
@@ -58,26 +58,11 @@ export async function POST(req) {
     rows[sessionIndex][6] = status; // Column G (index 6) holds the status
     console.log('Updated row for session_id:', rows[sessionIndex]);
 
-    // If the session is approved, check for conflicts and create Google Calendar event
+    // If the session is approved, reject other conflicting sessions
     if (status === 'Approved') {
-      const startDateTime = new Date(`${session_date}T${start_time}`);
-      const endDateTime = new Date(`${session_date}T${end_time}`);
-      
-      const calendarEvents = await getCalendarEvents(auth, startDateTime, endDateTime); // Pass auth here
-
-      if (calendarEvents.length > 0) {
-        console.log('Conflict detected with existing calendar events');
-        return NextResponse.json({ message: 'Conflict detected with existing events. Please choose another time.' }, { status: 400 });
-      }
-
-      // Create a Google Calendar event
-      const calendarEvent = await createCalendarEvent(auth, mentor_email, startDateTime, endDateTime, `Session with ${mentor_email}`, session_id); // Pass auth here
-      console.log('Google Calendar event created:', calendarEvent);
-
-      // Reject conflicting sessions in Google Sheets
       rows.forEach((row, index) => {
         if (
-          index !== sessionIndex &&
+          index !== sessionIndex && // Exclude the approved session itself
           row[1] === mentor_email && // Column B (index 1) holds the mentor_email
           row[3] === session_date && // Column D (index 3) holds the session_date
           row[4] === start_time && // Column E (index 4) holds the start_time
@@ -108,52 +93,4 @@ export async function POST(req) {
       { status: 500 }
     );
   }
-}
-
-// Helper function to get Google Calendar events within a time range
-async function getCalendarEvents(auth, startDateTime, endDateTime) {
-  const calendar = google.calendar({ version: 'v3', auth });
-
-  const res = await calendar.events.list({
-    calendarId: 'primary',
-    timeMin: startDateTime.toISOString(),
-    timeMax: endDateTime.toISOString(),
-    singleEvents: true,
-    orderBy: 'startTime',
-  });
-
-  return res.data.items || [];
-}
-
-// Helper function to create a Google Calendar event
-async function createCalendarEvent(auth, mentor_email, startDateTime, endDateTime, summary, session_id) {
-  const event = {
-    summary: summary,
-    description: `Session ID: ${session_id}`,
-    start: {
-      dateTime: startDateTime.toISOString(),
-      timeZone: 'Asia/Kolkata', // Set the timezone based on your region
-    },
-    end: {
-      dateTime: endDateTime.toISOString(),
-      timeZone: 'Asia/Kolkata',
-    },
-    attendees: [
-      { email: mentor_email },
-    ],
-    conferenceData: {
-      createRequest: {
-        requestId: session_id.toString(),
-        conferenceSolutionKey: { type: 'hangoutsMeet' },
-      },
-    },
-  };
-
-  const response = await google.calendar({ version: 'v3', auth }).events.insert({
-    calendarId: 'primary',
-    resource: event,
-    conferenceDataVersion: 1,
-  });
-
-  return response.data;
 }
