@@ -10,7 +10,7 @@ export default function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('mentee'); // Default to 'mentor'
+  const [role, setRole] = useState('mentee'); // Default to 'mentee'
   const [loading] = useState(false);
   const [error, setError] = useState('');
   const [success] = useState('');
