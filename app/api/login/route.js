@@ -25,6 +25,7 @@ export async function POST(req) {
   const sheets = google.sheets({ version: 'v4', auth });
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
   const range = position === 'mentee' ? 'mentee-account!A2:F' : 'mentor-account!A2:F';
+  console.log(sheets)
 
   try {
     // Fetch data from Google Sheets
