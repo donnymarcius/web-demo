@@ -63,7 +63,7 @@ const handler = NextAuth({
             };
             } catch (error) {
             console.error('Authentication error:', error.message, error.stack);
-            throw new Error('Failed to authenticate');
+            throw new Error('Failed to authenticate', error.message, error.stack);
             }
         },
         }),
