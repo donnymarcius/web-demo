@@ -23,6 +23,7 @@ const handler = NextAuth({
             if (!email || !password || !role) {
             throw new Error('Email, password, and role are required');
             }
+            console.log('Input OK');
     
             const auth = new google.auth.GoogleAuth({
             credentials: {
@@ -31,6 +32,7 @@ const handler = NextAuth({
             },
             scopes: ['https://www.googleapis.com/auth/spreadsheets'],
             });
+            console.log('GoogleAuth OK');
     
             const sheets = google.sheets({ version: 'v4', auth });
             const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
@@ -58,12 +60,11 @@ const handler = NextAuth({
     
             return {
                 email: user[1], // Email from sheet
-                // fullName: user[11], // Full name from sheet
                 role,
             };
             } catch (error) {
             console.error('Authentication error:', error.message, error.stack);
-            throw new Error('Failed to authenticate', error.message, error.stack);
+            throw new Error('Failed to authenticate');
             }
         },
         }),
