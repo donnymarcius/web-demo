@@ -28,7 +28,6 @@ export default function LoginForm() {
       role,
       redirect: false, // We handle redirect manually
     });
-    console.log(email, password);
     console.log(res); // Debug the response to see what's happening
 
     if (res?.error) {

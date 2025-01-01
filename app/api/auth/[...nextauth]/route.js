@@ -14,8 +14,11 @@ const handler = NextAuth({
             password: { label: 'Password', type: 'password' },
             role: { label: 'role', type: 'text' }, // 'mentee' or 'mentor'
         },
+        
         async authorize(credentials) {
+            console.log('Starting authorization process...');
             const { email, password, role } = credentials;
+            console.log('Credentials received:', { email, role });
     
             if (!email || !password || !role) {
             throw new Error('Email, password, and role are required');
