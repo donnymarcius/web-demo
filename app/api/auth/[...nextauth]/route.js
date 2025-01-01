@@ -43,6 +43,7 @@ const handler = NextAuth({
                 spreadsheetId,
                 range,
             });
+            console.log('Sheet response OK');
     
             const rows = response.data.values || [];
             const user = rows.find((row) => row[1] === email); // Email column
@@ -51,12 +52,14 @@ const handler = NextAuth({
             if (!user) {
                 throw new Error('User not found');
             }
+            console.log('Found email OK');
     
             const passwordMatch = await bcrypt.compare(password, user[2]); // Password column
     
             if (!passwordMatch) {
                 throw new Error('Invalid password');
             }
+            console.log('Password match OK');
     
             return {
                 email: user[1], // Email from sheet
