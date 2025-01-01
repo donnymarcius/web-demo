@@ -37,6 +37,7 @@ const handler = NextAuth({
             const sheets = google.sheets({ version: 'v4', auth });
             const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
             const range = role === 'mentee' ? 'mentee-account!A2:F' : 'mentor-account!A2:F';
+            console.log('Sheet ID OK');
     
             try {
             const response = await sheets.spreadsheets.values.get({
