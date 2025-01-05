@@ -57,7 +57,7 @@ export default function Registration() {
 
     try {
       // Step 1: Check if the email already exists
-      const emailCheckResponse = await fetch('/api/checkEmail', {
+      const emailCheckResponse = await fetch(`${process.env.NEXTAUTH_URL}/api/checkEmail`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: formData.email }),
