@@ -32,7 +32,7 @@ const handler = NextAuth({
             },
             scopes: ['https://www.googleapis.com/auth/spreadsheets'],
             });
-            console.log('GoogleAuth OK', process.env.GOOGLE_SHEETS_CLIENT_EMAIL, process.env.GOOGLE_SHEETS_PRIVATE_KEY);
+            console.log('GoogleAuth OK', process.env.GOOGLE_SHEETS_CLIENT_EMAIL, process.env.NEXTAUTH_URL);
     
             const sheets = google.sheets({ version: 'v4', auth });
             const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
