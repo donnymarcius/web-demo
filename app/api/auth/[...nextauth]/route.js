@@ -16,7 +16,7 @@ const handler = NextAuth({
         },
         
         async authorize(credentials) {
-            console.log('Starting authorization process...');
+            console.log('Starting authorization process');
             const { email, password, role } = credentials;
     
             if (!email || !password || !role) {
