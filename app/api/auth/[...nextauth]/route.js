@@ -18,12 +18,10 @@ const handler = NextAuth({
         async authorize(credentials) {
             console.log('Starting authorization process...');
             const { email, password, role } = credentials;
-            console.log('Credentials received:', { email, role });
     
             if (!email || !password || !role) {
             throw new Error('Email, password, and role are required');
             }
-            console.log('Input OK');
     
             const auth = new google.auth.GoogleAuth({
             credentials: {
