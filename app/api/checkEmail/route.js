@@ -5,6 +5,7 @@ export async function POST(req) {
     const { email } = await req.json();
 
     if (!email) {
+      console.error('Email is required');
       return new Response(JSON.stringify({ exists: false, error: 'Email is required.' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
@@ -22,18 +23,22 @@ export async function POST(req) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // Specify the range where emails are stored
-    const range = 'mentee-account!B2:B'; // Assuming emails are in column B
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+    const range = 'mentee-account!B2:B';
+
+    console.log(`Spreadsheet ID: ${spreadsheetId}`);
+    console.log(`Google Auth Client Email: ${process.env.GOOGLE_SHEETS_CLIENT_EMAIL}`);
+    console.log('Range being accessed:', range);
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
       range,
     });
 
+    console.log('Google Sheets API response:', response.data);
+
     const emails = response.data.values ? response.data.values.flat() : [];
 
-    // Check if the email exists
     const exists = emails.includes(email);
 
     return new Response(JSON.stringify({ exists }), {
@@ -41,7 +46,8 @@ export async function POST(req) {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Error checking email:', error);
+    console.error('Error in checkEmail API route:', error.message, error.stack);
+
     return new Response(
       JSON.stringify({ exists: false, error: 'Failed to check email.' }),
       {
