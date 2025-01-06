@@ -28,7 +28,7 @@ export async function POST(req) {
 
     console.log(`Spreadsheet ID: ${spreadsheetId}`);
     console.log(`Google Auth Client Email: ${process.env.GOOGLE_SHEETS_CLIENT_EMAIL}`);
-    console.log('Range being accessed:', range);
+    console.log('Range accessed:', range);
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
